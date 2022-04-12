@@ -2,13 +2,13 @@
 
 This repo represents the coursework for CS 5010, the Spring 2022 Edition!
 
-**Name:** Kaushik Komanduri
+**Name:** Kaushik Komanduri,
           Sanjana Kandunoori
 
-**Email:** komanduri.k@northeastern.edu 
+**Email:** komanduri.k@northeastern.edu,
            kandunoori.s@northeastern.edu
 
-**Preferred Name:** Kaushik
+**Preferred Name:** Kaushik,
                     Sanjana
 
 
