@@ -1,0 +1,314 @@
+Welcome to my World !
+Add a player
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+comp1
+Enter a space to enter
+Root Cellar
+Enter item capacity (should be a number)
+2
+Player comp1 has been added into the space - Root Cellar
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+9
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+comp2
+Enter a space to enter
+pantry
+Enter item capacity (should be a number)
+4
+Player comp2 has been added into the space - pantry
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+2
+Turn of comp1, Current Room: Root Cellar
+Executed Move: comp1 has moved to Nursery
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining: 199
+
+Turn of comp2, Current Room: Pantry
+LookAround (Name: Pantry;
+ Items: No items available;
+ Players: comp2;
+ Neighbours: Dining Room, Garden, Library, Parlor)
+
+
+Neighbours: 
+(Name: Dining Room; Items: Glass cutter, Trowel; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Parlor; Items: Silken Cord; Players: No players available)
+Target Character Current Room: Garden
+Turn Executed! Turns remaining: 198
+
+Turn of comp1, Current Room: Nursery
+LookAround (Name: Nursery;
+ Items: No items available;
+ Players: comp1;
+ Neighbours: Library, Keeping Room, Root Cellar)
+
+
+Neighbours: 
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining: 197
+
+Turn of comp2, Current Room: Pantry
+Executed Move: comp2 has moved to Dining Room
+Target Character Current Room: Sunroom
+Turn Executed! Turns remaining: 196
+
+Turn of comp1, Current Room: Nursery
+Executed Move Pet: Pet has been moved to Dining Room
+Target Character Current Room: Living Room
+Turn Executed! Turns remaining: 195
+
+Turn of comp2, Current Room: Dining Room
+Executed Move Pet: Pet has been moved to Playzone
+Target Character Current Room: Dining Room
+Turn Executed! Turns remaining: 194
+
+Turn of comp1, Current Room: Nursery
+LookAround (Name: Nursery;
+ Items: No items available;
+ Players: comp1;
+ Neighbours: Library, Keeping Room, Root Cellar)
+
+
+Neighbours: 
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+Target Character Current Room: Pantry
+Turn Executed! Turns remaining: 193
+
+Turn of comp2, Current Room: Dining Room
+LookAround (Name: Dining Room;
+ Items: Glass cutter, Trowel;
+ Players: comp2;
+ Neighbours: Drawing Room, Kitchen, Garden, Pantry)
+
+
+Neighbours: 
+(Name: Drawing Room; Items: Divider; Players: No players available)
+(Name: Kitchen; Items: Bad Cream; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Pantry; Items: No items available; Players: No players available)
+Target Character Current Room: Attic
+Turn Executed! Turns remaining: 192
+
+Turn of comp1, Current Room: Nursery
+Executed Move Pet: Pet has been moved to Wine Cellar
+Target Character Current Room: Parlor
+Turn Executed! Turns remaining: 191
+
+Turn of comp2, Current Room: Dining Room
+LookAround (Name: Dining Room;
+ Items: Glass cutter, Trowel;
+ Players: comp2;
+ Neighbours: Drawing Room, Kitchen, Garden, Pantry)
+
+
+Neighbours: 
+(Name: Drawing Room; Items: Divider; Players: No players available)
+(Name: Kitchen; Items: Bad Cream; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Pantry; Items: No items available; Players: No players available)
+Target Character Current Room: Powder Room
+Turn Executed! Turns remaining: 190
+
+Turn of comp1, Current Room: Nursery
+Executed Move: comp1 has moved to Keeping Room
+Target Character Current Room: Library
+Turn Executed! Turns remaining: 189
+
+Turn of comp2, Current Room: Dining Room
+LookAround (Name: Dining Room;
+ Items: Glass cutter, Trowel;
+ Players: comp2;
+ Neighbours: Drawing Room, Kitchen, Garden, Pantry)
+
+
+Neighbours: 
+(Name: Drawing Room; Items: Divider; Players: No players available)
+(Name: Kitchen; Items: Bad Cream; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Pantry; Items: No items available; Players: No players available)
+Target Character Current Room: Gym
+Turn Executed! Turns remaining: 188
+
+Turn of comp1, Current Room: Keeping Room
+Executed Move: comp1 has moved to Root Cellar
+Target Character Current Room: Kitchen
+Turn Executed! Turns remaining: 187
+
+Turn of comp2, Current Room: Dining Room
+Executed Move: comp2 has moved to Pantry
+Target Character Current Room: Keeping Room
+Turn Executed! Turns remaining: 186
+
+Turn of comp1, Current Room: Root Cellar
+Executed Move: comp1 has moved to Keeping Room
+Target Character Current Room: Root Cellar
+Turn Executed! Turns remaining: 185
+
+Turn of comp2, Current Room: Pantry
+LookAround (Name: Pantry;
+ Items: No items available;
+ Players: comp2;
+ Neighbours: Dining Room, Garden, Library, Parlor;
+ Pet: Fortune the cat)
+
+Neighbours: 
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Parlor; Items: Silken Cord; Players: No players available)
+Target Character Current Room: Wine Cellar
+Turn Executed! Turns remaining: 184
+
+Turn of comp1, Current Room: Keeping Room
+LookAround (Name: Keeping Room;
+ Items: Billiard Cue;
+ Players: comp1;
+ Neighbours: Library, Garden, Laundry Room, Sunroom, Root Cellar, Nursery)
+
+
+Neighbours: 
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Laundry Room; Items: Pointed table; Players: No players available)
+(Name: Sunroom; Items: Drying fan; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+(Name: Nursery; Items: No items available; Players: No players available)
+Target Character Current Room: Washroom
+Turn Executed! Turns remaining: 183
+
+Turn of comp2, Current Room: Pantry
+Executed Move Pet: Pet has been moved to Playzone
+Target Character Current Room: Playzone
+Turn Executed! Turns remaining: 182
+
+Turn of comp1, Current Room: Keeping Room
+Executed Move Pet: Pet has been moved to Playzone
+Target Character Current Room: Nursery
+Turn Executed! Turns remaining: 181
+
+Turn of comp2, Current Room: Pantry
+Executed Move Pet: Pet has been moved to Washroom
+Target Character Current Room: Drawing Room
+Turn Executed! Turns remaining: 180
+
+Turn of comp1, Current Room: Keeping Room
+Executed Move: comp1 has moved to Library
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining: 179
+
+Turn of comp2, Current Room: Pantry
+Executed Move Pet: Pet has been moved to Living Room
+Target Character Current Room: Garden
+Turn Executed! Turns remaining: 178
+
+Turn of comp1, Current Room: Library
+Executed Move: comp1 has moved to Garden
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining: 177
+
+Turn of comp2, Current Room: Pantry
+Executed Move Pet: Pet has been moved to Wine Cellar
+Target Character Current Room: Sunroom
+Turn Executed! Turns remaining: 176
+
+Turn of comp1, Current Room: Garden
+Executed Move: comp1 has moved to Pantry
+Target Character Current Room: Living Room
+Turn Executed! Turns remaining: 175
+
+Turn of comp2, Current Room: Pantry
+Executed Move Pet: Pet has been moved to Keeping Room
+Target Character Current Room: Dining Room
+Turn Executed! Turns remaining: 174
+
+Turn of comp1, Current Room: Pantry
+Executed Move: comp1 has moved to Parlor
+Target Character Current Room: Pantry
+Turn Executed! Turns remaining: 173
+
+Turn of comp2, Current Room: Pantry
+Target Character attack stopped as the attack is being seen by other players.
+Target Character Current Room: Attic
+Turn Executed! Turns remaining: 172
+
+Turn of comp1, Current Room: Parlor
+Executed Move: comp1 has moved to Library
+Target Character Current Room: Parlor
+Turn Executed! Turns remaining: 171
+
+Turn of comp2, Current Room: Pantry
+Executed Move: comp2 has moved to Parlor
+Target Character Current Room: Powder Room
+Turn Executed! Turns remaining: 170
+
+Turn of comp1, Current Room: Library
+Executed Move: comp1 has moved to Keeping Room
+Target Character Current Room: Library
+Turn Executed! Turns remaining: 169
+
+Turn of comp2, Current Room: Parlor
+LookAround (Name: Parlor;
+ Items: Silken Cord;
+ Players: comp2;
+ Neighbours: Pantry, Library)
+
+
+Neighbours: 
+(Name: Pantry; Items: No items available; Players: No players available)
+(Name: Library; Items: Tight Hat; Players: No players available)
+Target Character Current Room: Gym
+Turn Executed! Turns remaining: 168
+
+Turn of comp1, Current Room: Keeping Room
+LookAround (Name: Keeping Room;
+ Items: Billiard Cue;
+ Players: comp1;
+ Neighbours: Library, Garden, Laundry Room, Sunroom, Root Cellar, Nursery)
+
+
+Neighbours: 
+(Name: Library; Items: Tight Hat; Players: No players available)
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Laundry Room; Items: Pointed table; Players: No players available)
+(Name: Sunroom; Items: Drying fan; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+Target Character Current Room: Kitchen
+Turn Executed! Turns remaining: 167
+
+Turn of comp2, Current Room: Parlor
+Executed Move Pet: Pet has been moved to Laundry Room
+Target Character Current Room: Keeping Room
+Turn Executed! Turns remaining: 166
+
+Turn of comp1, Current Room: Keeping Room
+Target Character killed Successfully.
+Player comp1 Wins
+Game Ended

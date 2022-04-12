@@ -1,0 +1,104 @@
+Welcome to my World !
+Add a player
+Is it a human or a computer player ? Select C or H
+h
+Enter a player name
+kaushik
+Enter a space to enter
+Music room
+Enter item capacity (should be a number)
+3
+Player kaushik has been added into the space - Music room
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+9
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+comp1
+Enter a space to enter
+Laundry room
+Enter item capacity (should be a number)
+3
+Player comp1 has been added into the space - Laundry room
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+5
+Turn of kaushik, Current Room: Music room
+Select an action to be performed
+5
+Enter the space name the pet has to be moved to
+Parlor
+Pet has been moved to Parlor
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining : 199
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Laundry Room
+LookAround (Name: Laundry Room;
+ Items: Pointed table;
+ Players: comp1;
+ Neighbours: Garden, Gym, Kitchen, Sunroom, Keeping Room)
+
+
+Neighbours: 
+(Name: Garden; Items: Big Red Hammer; Players: No players available)
+(Name: Gym; Items: Rat Poison; Players: No players available)
+(Name: Kitchen; Items: Bad Cream; Players: No players available)
+(Name: Sunroom; Items: Drying fan; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+Target Character Current Room: Garden
+Turn Executed! Turns remaining: 198
+
+Turn of kaushik, Current Room: Music Room
+Select an action to be performed
+5
+Enter the space name the pet has to be moved to
+5
+Space doesn't exist
+Turn of kaushik, Current Room: Music Room
+Select an action to be performed
+5
+Enter the space name the pet has to be moved to
+Music room
+Pet has been moved to Music Room
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining : 197
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Laundry Room
+Target Character killed Successfully.
+Player comp1 Wins
+Game Ended

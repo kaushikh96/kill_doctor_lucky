@@ -1,0 +1,44 @@
+25 16 Max's Villa
+40 Dr.Max
+Fortune the cat
+20
+0 4 7 5 Drawing Room
+6 0 11 2 Music Room
+4 9 11 10 Garden
+12 9 19 10 Laundry Room
+20 9 24 11 Sunroom
+0 0 5 3 Living Room
+1 6 7 8 Dining Room
+1 9 3 12 Pantry
+12 1 16 2 Attic
+0 13 3 15 Parlor
+17 0 22 3 Powder Room
+4 11 10 15 Library
+15 4 22 8 Gym
+8 6 14 8 Kitchen
+11 11 19 13 Keeping Room
+20 12 24 13 Root Cellar
+23 2 24 4 Wine Cellar
+8 3 10 5 Washroom
+11 3 14 5 Playzone
+11 14 24 15 Nursery
+19
+8 5 Sharp Knife
+0 7 Divider
+1 6 Pesticide
+15 3 Axle
+3 8 Pointed table
+4 2 Drying fan
+5 6 Sofa Edge
+6 5 Glass cutter
+14 4 Billiard Cue
+12 2 Rat Poison
+6 2 Trowel
+2 4 Big Red Hammer
+16 2 Pinking Shears
+10 3 Duck Decoy
+13 2 Bad Cream
+18 2 Monkey Hand
+11 2 Tight Hat
+17 2 Piece of Rope
+9 3 Silken Cord

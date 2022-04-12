@@ -1,0 +1,133 @@
+Welcome to my World !
+Add a player
+Is it a human or a computer player ? Select C or H
+h
+Enter a player name
+kaushik
+Enter a space to enter
+Sunroom
+Enter item capacity (should be a number)
+2
+Player kaushik has been added into the space - Sunroom
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+9
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+Comp1
+Enter a space to enter
+Root Cellar
+Enter item capacity (should be a number)
+2
+Player Comp1 has been added into the space - Root Cellar
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+2
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+4
+Enter the item name to be picked up
+Drying fan
+Item picked up by kaushik and removed from Space
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining : 9
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of Comp1, Current Room: Root Cellar
+Executed Move Pet: Pet has been moved to Gym
+Target Character Current Room: Garden
+Turn Executed! Turns remaining: 8
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+2
+LookAround (Name: Sunroom;
+ Items: No items available;
+ Players: kaushik;
+ Neighbours: Laundry Room, Keeping Room, Gym, Root Cellar)
+
+
+Neighbours: 
+(Name: Laundry Room; Items: Pointed table; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: Comp1)
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining : 7
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of Comp1, Current Room: Root Cellar
+Executed Move Pet: Pet has been moved to Washroom
+Target Character Current Room: Sunroom
+Turn Executed! Turns remaining: 6
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+6
+Items on player: Drying fanEnter the item name used to attack target
+(You can also enter 'poke' to poke in the eye)
+drying fan
+Target Character attack stopped as the attack is being seen by other players.
+Target Character Current Room: Living Room
+Turn Executed! Turns remaining : 5
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of Comp1, Current Room: Root Cellar
+LookAround (Name: Root Cellar;
+ Items: Axle;
+ Players: Comp1;
+ Neighbours: Keeping Room, Sunroom, Nursery)
+
+
+Neighbours: 
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Sunroom; Items: No items available; Players: kaushik)
+(Name: Nursery; Items: No items available; Players: No players available)
+Target Character Current Room: Dining Room
+Turn Executed! Turns remaining: 4
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+q
+Game Quit!
+Game Ended

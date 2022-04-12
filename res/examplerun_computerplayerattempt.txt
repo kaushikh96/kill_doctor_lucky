@@ -1,0 +1,202 @@
+Welcome to my World !
+Add a player
+Is it a human or a computer player ? Select C or H
+h
+Enter a player name
+kaushik
+Enter a space to enter
+Sunroom
+Enter item capacity (should be a number)
+2
+Player kaushik has been added into the space - Sunroom
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+9
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+comp1
+Enter a space to enter
+music room
+Enter item capacity (should be a number)
+2
+Player comp1 has been added into the space - music room
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+2
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+4
+Enter the item name to be picked up
+Drying fan
+Item picked up by kaushik and removed from Space
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining : 9
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Music Room
+Target Character hit successfully.
+Health got decreased by 1.
+Current Health: 3
+
+Target Character Current Room: Garden
+Turn Executed! Turns remaining: 8
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+2
+LookAround (Name: Sunroom;
+ Items: No items available;
+ Players: kaushik;
+ Neighbours: Laundry Room, Keeping Room, Gym, Root Cellar)
+
+
+Neighbours: 
+(Name: Laundry Room; Items: Pointed table; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Gym; Items: Rat Poison; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining : 7
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Music Room
+LookAround (Name: Music Room;
+ Items: Pesticide;
+ Players: comp1;
+ Neighbours: Living Room, Attic, Washroom, Playzone)
+
+
+Neighbours: 
+(Name: Living Room; Items: Sofa Edge; Players: No players available)
+(Name: Washroom; Items: Piece of Rope; Players: No players available)
+(Name: Playzone; Items: Monkey Hand; Players: No players available)
+Target Character Current Room: Sunroom
+Turn Executed! Turns remaining: 6
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+6
+Items on player: Drying fan
+Enter the item name used to attack target
+(You can also enter 'poke' to poke in the eye)
+Drying fan
+Target Character hit successfully.
+Health got decreased by 2.
+Current Health: 1
+
+Target Character Current Room: Living Room
+Turn Executed! Turns remaining : 5
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Music Room
+Executed Move Pet: Pet has been moved to Dining Room
+Target Character Current Room: Dining Room
+Turn Executed! Turns remaining: 4
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+2
+LookAround (Name: Sunroom;
+ Items: No items available;
+ Players: kaushik;
+ Neighbours: Laundry Room, Keeping Room, Gym, Root Cellar)
+
+
+Neighbours: 
+(Name: Laundry Room; Items: Pointed table; Players: No players available)
+(Name: Keeping Room; Items: Billiard Cue; Players: No players available)
+(Name: Gym; Items: Rat Poison; Players: No players available)
+(Name: Root Cellar; Items: Axle; Players: No players available)
+Target Character Current Room: Pantry
+Turn Executed! Turns remaining : 3
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Music Room
+Executed Move Pet: Pet has been moved to Pantry
+Target Character Current Room: Attic
+Turn Executed! Turns remaining: 2
+
+Turn of kaushik, Current Room: Sunroom
+Select an action to be performed
+3
+Enter the room name the player has to move to
+root cellar
+Player kaushik has been moved to root cellar
+Target Character Current Room: Parlor
+Turn Executed! Turns remaining : 1
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Music Room
+LookAround (Name: Music Room;
+ Items: Pesticide;
+ Players: comp1;
+ Neighbours: Living Room, Attic, Washroom, Playzone)
+
+
+Neighbours: 
+(Name: Living Room; Items: Sofa Edge; Players: No players available)
+(Name: Attic; Items: Sharp Knife; Players: No players available)
+(Name: Washroom; Items: Piece of Rope; Players: No players available)
+(Name: Playzone; Items: Monkey Hand; Players: No players available)
+Target Character Current Room: Powder Room
+Turn Executed! Turns remaining: 0
+
+Target Character Escapes
+Game Ended

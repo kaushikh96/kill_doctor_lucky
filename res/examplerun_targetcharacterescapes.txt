@@ -1,0 +1,162 @@
+Welcome to my World !
+Add a player
+Is it a human or a computer player ? Select C or H
+c
+Enter a player name
+comp1
+Enter a space to enter
+Laundry room
+Enter item capacity (should be a number)
+2
+Player comp1 has been added into the space - Laundry room
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+9
+Is it a human or a computer player ? Select C or H
+h
+Enter a player name
+Kaush
+Enter a space to enter
+Attic
+Enter item capacity (should be a number)
+2
+Player Kaush has been added into the space - Attic
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+9 -- > Add a player
+2
+Turn of comp1, Current Room: Laundry room
+Executed Move: comp1 has moved to Sunroom
+Target Character Current Room: Music Room
+Turn Executed! Turns remaining: 9
+
+Turn of Kaush, Current Room: Attic
+Select an action to be performed
+5
+Enter the space name the pet has to be moved to
+Music room
+Pet has been moved to Music Room
+Target Character Current Room: Garden
+Turn Executed! Turns remaining : 8
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Sunroom
+Executed Move: comp1 has moved to Keeping Room
+Target Character Current Room: Laundry Room
+Turn Executed! Turns remaining: 7
+
+Turn of Kaush, Current Room: Attic
+Select an action to be performed
+2
+LookAround (Name: Attic;
+ Items: Sharp Knife;
+ Players: Kaush;
+ Neighbours: Music Room, Playzone)
+
+
+Neighbours: 
+(Name: Music Room; Items: Pesticide; Players: No players available)
+(Name: Playzone; Items: Monkey Hand; Players: No players available)
+Target Character Current Room: Sunroom
+Turn Executed! Turns remaining : 6
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Keeping Room
+Executed Move: comp1 has moved to Sunroom
+Target Character Current Room: Living Room
+Turn Executed! Turns remaining: 5
+
+Turn of Kaush, Current Room: Attic
+Select an action to be performed
+4
+Enter the item name to be picked up
+sharp knife
+Item picked up by Kaush and removed from Space
+Target Character Current Room: Dining Room
+Turn Executed! Turns remaining : 4
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Sunroom
+Executed Move: comp1 has moved to Laundry Room
+Target Character Current Room: Pantry
+Turn Executed! Turns remaining: 3
+
+Turn of Kaush, Current Room: Attic
+Select an action to be performed
+2
+LookAround (Name: Attic;
+ Items: No items available;
+ Players: Kaush;
+ Neighbours: Music Room, Playzone)
+
+
+Neighbours: 
+(Name: Music Room; Items: Pesticide; Players: No players available)
+(Name: Playzone; Items: Monkey Hand; Players: No players available)
+Target Character Current Room: Attic
+Turn Executed! Turns remaining : 2
+
+Choose from the below options !
+1 -- > Create a graphical representation
+2 -- > Turn: Look Around
+3 -- > Turn: Move to Space
+4 -- > Turn: Pick up an item
+5 -- > Turn: Move Pet
+6 -- > Turn: Attack Target
+7 -- > Display Room Info
+8 -- > Display Player Info
+Turn of comp1, Current Room: Laundry Room
+Executed Move: comp1 has moved to Keeping Room
+Target Character Current Room: Parlor
+Turn Executed! Turns remaining: 1
+
+Turn of Kaush, Current Room: Attic
+Select an action to be performed
+5
+Enter the space name the pet has to be moved to
+Music room
+Pet has been moved to Music Room
+Target Character Current Room: Powder Room
+Turn Executed! Turns remaining : 0
+
+Target Character Escapes
+Game Ended
