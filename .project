@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>cs5010-project-kkomanduri13</name>
+	<name>cs5010-final-project-kaushik_sanjana_team</name>
 	<comment></comment>
 	<projects>
-		<project>cs5010-final-project-kaushik_sanjana_team</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -11,14 +10,8 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-		<buildCommand>
-			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
 </projectDescription>
