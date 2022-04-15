@@ -3,6 +3,8 @@ package controllertest;
 import static org.junit.Assert.assertEquals;
 
 import controller.GameConsoleController;
+import driver.RandomClass;
+
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -14,7 +16,6 @@ import theworld.BoardGameFacade;
 import theworld.BoardGameImpl;
 import theworld.ItemImpl;
 import theworld.PetImpl;
-import theworld.RandomClass;
 import theworld.SpaceImpl;
 import theworld.TargetCharacterImpl;
 

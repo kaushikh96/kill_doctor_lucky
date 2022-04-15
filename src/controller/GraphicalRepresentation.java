@@ -1,6 +1,6 @@
 package controller;
 
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to generate graphical
@@ -9,7 +9,7 @@ import theworld.BoardGameFacade;
 public class GraphicalRepresentation implements GameController {
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalArgumentException {
+  public void execute(BoardGameModel b) throws IllegalArgumentException {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }

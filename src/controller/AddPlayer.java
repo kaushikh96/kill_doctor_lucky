@@ -2,7 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 import theworld.ItemImpl;
 
 /**
@@ -45,7 +45,7 @@ public class AddPlayer implements GameController {
   }
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalArgumentException, IllegalStateException {
+  public void execute(BoardGameModel b) throws IllegalArgumentException, IllegalStateException {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }

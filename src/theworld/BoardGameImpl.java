@@ -15,10 +15,12 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 
+import driver.RandomClass;
+
 /**
  * This class represents a BoardGameImplementation.
  */
-public class BoardGameImpl implements BoardGameInterface {
+public class BoardGameImpl implements ReadOnlyBoardGameModel {
 
   private TargetCharacterImpl targetcharacter;
   private PetImpl targetpet;
@@ -27,6 +29,7 @@ public class BoardGameImpl implements BoardGameInterface {
   private BufferedImage bufferedimage;
   private Graphics2D graphics2d;
   private final List<Integer> worldcoordinates;
+  private final RandomClass randomref;
   private String neighboursstring;
   private String itemsstring;
   private String roomstring;
@@ -41,18 +44,19 @@ public class BoardGameImpl implements BoardGameInterface {
 
   /**
    * Construct a BoardGameImpl object that has the provided targetcharacter, name,
-   * spacelist, worldcoordinates.
+   * spacelist, worldcoordinates, randomref.
    * 
    *
-   * @param targetcharacter  target character name
+   * @param target           target character name
    * @param name             name of the world
    * @param spacelist        list of spaces
    * @param worldcoordinates world coordinates
    * @param targetpet        details of the target character pet
+   * @param randomref        the variable of the type Random
    */
-  public BoardGameImpl(TargetCharacterImpl targetcharacter, String name, List<SpaceImpl> spacelist,
-      List<Integer> worldcoordinates, PetImpl targetpet) {
-    if (targetcharacter == null) {
+  public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
+      List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref) {
+    if (target == null) {
       throw new IllegalArgumentException("Target character entity cannot be null");
     }
     if (name == null || name.trim().equals("")) {
@@ -67,12 +71,16 @@ public class BoardGameImpl implements BoardGameInterface {
     if (targetpet == null) {
       throw new IllegalArgumentException("Target Pet entity cannot be null");
     }
-    this.targetcharacter = targetcharacter;
+    if (randomref == null) {
+      throw new IllegalArgumentException("Random Variable cannot be null");
+    }
+    this.targetcharacter = target;
     this.targetpet = targetpet;
     this.name = name;
     this.spacelist = spacelist;
     this.worldcoordinates = worldcoordinates;
     this.playerlist = new ArrayList<>();
+    this.randomref = randomref;
     this.listvisitednodes = new ArrayList<>();
     this.roomstack = new Stack<SpaceImpl>();
     int height = worldcoordinates.get(0);
@@ -446,9 +454,8 @@ public class BoardGameImpl implements BoardGameInterface {
   }
 
   @Override
-  public String playTurnComputerPlayer(String playername, RandomClass randomref)
-      throws IllegalStateException {
-    if (playername == null || randomref == null || "".equals(playername.trim())) {
+  public String playTurnComputerPlayer(String playername) throws IllegalStateException {
+    if (playername == null || "".equals(playername.trim())) {
       throw new IllegalStateException("Not a valid player name or random variable");
     } else {
       List<PlayerImpl> playerlist = this.getPlayerList().stream()

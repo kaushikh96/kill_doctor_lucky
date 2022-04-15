@@ -1,6 +1,6 @@
 package controller;
 
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to get the turn of the next
@@ -24,7 +24,7 @@ public class GetPlayerTurn implements GameController {
   }
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalArgumentException {
+  public void execute(BoardGameModel b) throws IllegalArgumentException {
     if (b == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }

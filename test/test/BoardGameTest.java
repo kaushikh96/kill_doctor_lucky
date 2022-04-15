@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+
+import driver.RandomClass;
 import theworld.BoardGameImpl;
 import theworld.ItemImpl;
 import theworld.PetImpl;
 import theworld.PlayerImpl;
-import theworld.RandomClass;
 import theworld.SpaceImpl;
 import theworld.TargetCharacterImpl;
 
@@ -91,8 +92,10 @@ public class BoardGameTest {
    * @return newly created object of BoardGameImpl class
    */
   protected BoardGameImpl boardgameconstructor(TargetCharacterImpl targetcharacter, String name,
-      List<SpaceImpl> spacelist, List<Integer> worldcoordinates, PetImpl targetpet) {
-    return new BoardGameImpl(targetcharacter, name, spacelist, worldcoordinates, targetpet);
+      List<SpaceImpl> spacelist, List<Integer> worldcoordinates, PetImpl targetpet,
+      RandomClass randomref) {
+    return new BoardGameImpl(targetcharacter, name, spacelist, worldcoordinates, targetpet,
+        randomref);
   }
 
   /**

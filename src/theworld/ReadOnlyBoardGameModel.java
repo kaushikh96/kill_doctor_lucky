@@ -6,7 +6,7 @@ import java.util.List;
  * A Board Game Interface represents the data of the world and contains the list
  * of methods to related to the World operation.
  */
-public interface BoardGameInterface extends BoardGameFacade {
+public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Gets the target character entity.

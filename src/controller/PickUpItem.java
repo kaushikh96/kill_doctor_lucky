@@ -1,6 +1,6 @@
 package controller;
 
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to pick up an item from the
@@ -30,7 +30,7 @@ public class PickUpItem implements GameController {
   }
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalStateException {
+  public void execute(BoardGameModel b) throws IllegalStateException {
     if (b == null) {
       throw new IllegalStateException("model cannot be null");
     }

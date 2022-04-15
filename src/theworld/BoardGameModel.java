@@ -2,12 +2,14 @@ package theworld;
 
 import java.util.List;
 
+import driver.RandomClass;
+
 /**
  * A Board Game Facade Interface represents the data of the world and contains
  * the list of methods to related to the World operation. All these methods
  * would be called directly from the controller.
  */
-public interface BoardGameFacade {
+public interface BoardGameModel {
 
   /**
    * Adds a player to the Board game.
@@ -82,7 +84,7 @@ public interface BoardGameFacade {
    * 
    * @return description about the computer player execution
    */
-  public String playTurnComputerPlayer(String playername, RandomClass randomref);
+  public String playTurnComputerPlayer(String playername);
 
   /**
    * Method for movement of pet during a player's turn turn.

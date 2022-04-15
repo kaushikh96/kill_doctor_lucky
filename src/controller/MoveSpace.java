@@ -1,6 +1,6 @@
 package controller;
 
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to represent a turn to move a
@@ -30,7 +30,7 @@ public class MoveSpace implements GameController {
   }
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalArgumentException, IllegalStateException {
+  public void execute(BoardGameModel b) throws IllegalArgumentException, IllegalStateException {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }

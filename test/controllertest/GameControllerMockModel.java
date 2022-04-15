@@ -1,9 +1,10 @@
 package controllertest;
 
 import java.util.List;
+
+import driver.RandomClass;
 import theworld.BoardGameFacade;
 import theworld.ItemImpl;
-import theworld.RandomClass;
 
 /**
  * This is GameControllerMockMode class which acts as a mock model for

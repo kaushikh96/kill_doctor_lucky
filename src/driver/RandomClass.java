@@ -1,4 +1,4 @@
-package theworld;
+package driver;
 
 import java.util.Random;
 

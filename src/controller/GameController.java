@@ -1,6 +1,6 @@
 package controller;
 
-import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 
 /**
  * This GameController is an interface has the execute method which has to be
@@ -13,7 +13,7 @@ public interface GameController {
    *
    * @param b a non null BoardGameFacade Model
    */
-  void execute(BoardGameFacade b);
+  void execute(BoardGameModel b);
 
   /**
    * Gets the message we get after the command gets executed.

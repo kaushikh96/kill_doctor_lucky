@@ -1,7 +1,7 @@
 package controller;
 
-import theworld.BoardGameFacade;
-import theworld.RandomClass;
+import driver.RandomClass;
+import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to add a computer player to
@@ -20,7 +20,7 @@ public class ComputerPlayerTurn implements GameController {
    * @param randomref  random class reference
    * 
    */
-  public ComputerPlayerTurn(String playername, RandomClass randomref) {
+  public ComputerPlayerTurn(String playername) {
     if (playername == null || "".equals(playername.trim())) {
       throw new IllegalArgumentException("Invalid Player name");
     }
@@ -32,16 +32,15 @@ public class ComputerPlayerTurn implements GameController {
   }
 
   @Override
-  public void execute(BoardGameFacade b) throws IllegalArgumentException, IllegalStateException {
+  public void execute(BoardGameModel b) throws IllegalArgumentException, IllegalStateException {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }
-    this.outputMessage = b.playTurnComputerPlayer(playername, randomref);
+    this.outputMessage = b.playTurnComputerPlayer(playername);
   }
 
   @Override
   public String getOutput() {
     return this.outputMessage;
   }
-
 }

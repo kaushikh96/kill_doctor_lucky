@@ -3,11 +3,12 @@ package controllertest;
 import static org.junit.Assert.assertEquals;
 
 import controller.GameConsoleController;
+import driver.RandomClass;
+
 import java.io.Reader;
 import java.io.StringReader;
 import org.junit.Test;
 import theworld.BoardGameFacade;
-import theworld.RandomClass;
 
 /**
  * This is a Controller Test Class to generate tests for the controller methods.
