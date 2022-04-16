@@ -119,6 +119,11 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   public PetImpl getTargetPetImpl() {
     return this.targetpet;
   }
+  
+  @Override
+  public RandomClass getRandomClassRef() {
+    return this.randomref;
+  }
 
   @Override
   public List<SpaceImpl> getAllVisibleSpaces(SpaceImpl space) {

@@ -1,10 +1,13 @@
 package driver;
 
 import controller.BoardGameController;
+import controller.BoardGameControllerImpl;
 import controller.GameConsoleController;
 import theworld.BoardGameImpl;
 import theworld.BoardGameModel;
+import theworld.ReadOnlyBoardGameModel;
 import theworldview.BoardGameView;
+import theworldview.BoardGameViewImpl;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,9 +37,12 @@ public class Driver {
         inputdata.append((char) data);
       }
       BoardGameImpl world = Builder.readfile(inputdata.toString());
-      BoardGameView boardgameview = new BoardGameView();
+      ReadOnlyBoardGameModel model = new BoardGameImpl(world.getTargetCharacterImpl(),
+          world.getName(), world.getSpaceList(), world.getWorldCoordinates(),
+          world.getTargetPetImpl(), world.getRandomClassRef());
+      BoardGameView boardgameview = new BoardGameViewImpl("Board Game View", model);
 
-      new BoardGameController(boardgameview, world).start();
+      new BoardGameControllerImpl(boardgameview, world).start();
     } catch (IOException e) {
       System.err.println("File not found");
     } catch (IllegalArgumentException iae) {

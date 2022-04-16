@@ -2,6 +2,8 @@ package theworld;
 
 import java.util.List;
 
+import driver.RandomClass;
+
 /**
  * A Board Game Interface represents the data of the world and contains the list
  * of methods to related to the World operation.
@@ -104,5 +106,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * @return the next room of the pet movement in DFS.
    */
   public String petMovementDfs(String petcurrentroom);
+
+  public RandomClass getRandomClassRef();
 
 }
