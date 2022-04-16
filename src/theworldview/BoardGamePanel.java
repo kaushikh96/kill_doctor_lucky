@@ -2,11 +2,14 @@ package theworldview;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,15 +30,50 @@ public class BoardGamePanel extends JPanel {
    */
   public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel) {
     this.readonlymodel = readonlymodel;
-    title = new JLabel("I love stackoverflow!", JLabel.CENTER);
+    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-    title.setForeground(Color.white);
+    String labelText1 = "<html><font color=#8B8000 size=30>KILL DOCTOR LUCKY</font><br></html>";
+    JLabel coloredLabel1 = new JLabel(labelText1, JLabel.CENTER);
+    coloredLabel1.setBackground(Color.YELLOW);
+    // create a line border with the specified color and width
+    Border border = BorderFactory.createLineBorder(Color.YELLOW, 2);
 
-    this.add(title, BorderLayout.NORTH);
+    // set the border of this component
+    coloredLabel1.setBorder(border);
+    coloredLabel1.setBackground(Color.BLACK);
+    this.add(coloredLabel1);
+    JLabel emptyLabel = new JLabel("");
 
-    b = new JButton("Click Here");
-    b.setBounds(50, 100, 95, 30);
-    this.add(b, BorderLayout.SOUTH);
+    this.add(emptyLabel);
+    this.add(emptyLabel);
+    this.add(emptyLabel);
+    this.add(emptyLabel);
+    String labelText = "<html><font color=blue size=5>LETS START THE GAME PLAY !!!</font><br></html>";
+    JLabel coloredLabel = new JLabel(labelText, JLabel.CENTER);
+    this.add(coloredLabel, BorderLayout.CENTER);
+
+    JPanel jpnl = new JPanel();
+    b = new JButton("START");
+    b.setBackground(new Color(59, 89, 182));
+    b.setForeground(Color.WHITE);
+    b.setFocusPainted(false);
+    b.setFont(new Font("Tahoma", Font.BOLD, 12));
+    b.setPreferredSize(new Dimension(40, 40));
+    jpnl.add(b);
+    jpnl.setBackground(new Color(137, 207, 240));
+//    jpnl.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.add(jpnl);
+
+    String kaushiktext = "<html><font color=#00008b size=3>KAUSHIK KOMANDURI</font></html>";
+    JLabel kaushiklabel = new JLabel(kaushiktext, JLabel.RIGHT);
+    // kaushiklabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    this.add(kaushiklabel);
+
+    String sanjanatext = "<html><font color=#00008b size=3>SANJANA KANDUNOORI</font></html>";
+    JLabel sanjanaLabel = new JLabel(sanjanatext, JLabel.RIGHT);
+
+    this.add(sanjanaLabel, BorderLayout.SOUTH);
+    // sanjanaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
   }
 
   @Override
@@ -44,8 +82,8 @@ public class BoardGamePanel extends JPanel {
     Graphics2D graphics2d = (Graphics2D) graphics;
     Border border = new LineBorder(Color.BLUE, 4, true);
     this.setBorder(border);
-    this.setMinimumSize(new Dimension(100, 100));
-    graphics2d.setColor(Color.CYAN);
+    this.setMinimumSize(new Dimension(600, 600));
+    graphics2d.setColor(new Color(137, 207, 240));
     graphics2d.fillRect(0, 0, getWidth(), getHeight());
     graphics2d.setColor(Color.BLACK);
 
