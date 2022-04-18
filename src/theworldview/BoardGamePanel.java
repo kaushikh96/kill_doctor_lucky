@@ -29,11 +29,6 @@ public class BoardGamePanel extends JPanel {
    * @param readonlymodel the ReadonlyTttModel type
    */
   public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel) {
-    
-    if (readonlymodel == null) {
-      throw new IllegalArgumentException("Read Only Model cannot be null.\n");
-    }
-    
     this.readonlymodel = readonlymodel;
     this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
