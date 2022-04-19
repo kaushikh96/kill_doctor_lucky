@@ -20,11 +20,8 @@ import javax.swing.border.LineBorder;
 
 import theworld.ReadOnlyBoardGameModel;
 
-<<<<<<< HEAD:src/theworldview/BoardGamePanel.java
-public class BoardGamePanel extends JPanel implements ActionListener {
-=======
 public class WelcomePanel extends JPanel {
->>>>>>> 2118162e6bdd0f9ba25926b91580a6ab78859c9f:src/theworldview/WelcomePanel.java
+
   private ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
   private JButton b;
@@ -35,15 +32,13 @@ public class WelcomePanel extends JPanel {
    * 
    * @param readonlymodel the ReadonlyTttModel type
    */
-<<<<<<< HEAD:src/theworldview/BoardGamePanel.java
-  public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
+  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
 
-=======
-  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
-    
->>>>>>> 2118162e6bdd0f9ba25926b91580a6ab78859c9f:src/theworldview/WelcomePanel.java
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
+    }
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null.\n");
     }
 
     this.readonlymodel = readonlymodel;
@@ -80,19 +75,17 @@ public class WelcomePanel extends JPanel {
     b.addActionListener(new ButtonListener("Add Player Screen", view));
     jpnl.add(b);
     jpnl.setBackground(new Color(137, 207, 240));
-//    jpnl.setAlignmentX(Component.CENTER_ALIGNMENT);
+    //jpnl.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.add(jpnl);
 
     String kaushiktext = "<html><font color=#00008b size=3>KAUSHIK KOMANDURI</font></html>";
     JLabel kaushiklabel = new JLabel(kaushiktext, JLabel.RIGHT);
-    // kaushiklabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.add(kaushiklabel);
 
     String sanjanatext = "<html><font color=#00008b size=3>SANJANA KANDUNOORI</font></html>";
     JLabel sanjanaLabel = new JLabel(sanjanatext, JLabel.RIGHT);
 
     this.add(sanjanaLabel, BorderLayout.SOUTH);
-    // sanjanaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
   }
 
   @Override
@@ -134,11 +127,5 @@ public class WelcomePanel extends JPanel {
 //  public void actionPerformed(ActionEvent e) {
 //    b.setBackground(Color.RED);
 //  }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    // TODO Auto-generated method stub
-
-  }
 
 }

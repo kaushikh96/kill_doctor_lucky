@@ -14,7 +14,9 @@ public class ButtonListener implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if ("START".equals(e.getActionCommand())) {
-      boardgameviewimpl.addPlayerScreen();
+      boardgameviewimpl.displayAddPlayerScreen();
+    }else if ("CONTINUE".equals(e.getActionCommand())) {
+      boardgameviewimpl.displayGameScreen();
     }
   }
 }

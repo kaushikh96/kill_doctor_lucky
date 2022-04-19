@@ -29,8 +29,9 @@ import javax.swing.border.LineBorder;
 import theworld.ReadOnlyBoardGameModel;
 
 public class AddPlayerPanel extends JPanel {
-  
+
   private ReadOnlyBoardGameModel readOnlyModel;
+  private BoardGameView view;
   private JPanel addP;
   private JLabel coloredLabelAdd;
   private JLabel coloredLabelPlayerDetails;
@@ -45,194 +46,198 @@ public class AddPlayerPanel extends JPanel {
   private JPanel name;
   private GridBagConstraints cname;
   private JButton addButton;
+  private JButton nextButton;
   private JRadioButton humanType;
   private JRadioButton computerType;
   private ButtonGroup groupType;
   private JTable playerTable;
-  
-  
-  
-  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel) {
-    
+
+  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
+
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
-    
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null.\n");
+    }
+
     this.readOnlyModel = readOnlyModel;
-    
+    this.view = view;
+
     this.setLayout(new BorderLayout());
-    
+
     this.addP = new JPanel(new GridBagLayout());
     this.cAdd = new GridBagConstraints();
     this.addP.setBackground(new Color(137, 207, 240));
-    
+
     String labelTextAdd = "<html><font color=#000000 size=20>ADD PLAYER</font><br></html>";
-    this.coloredLabelAdd = new JLabel(labelTextAdd,SwingConstants.LEFT);
+    this.coloredLabelAdd = new JLabel(labelTextAdd, SwingConstants.LEFT);
+
     this.cAdd.gridx = 0;
     this.cAdd.gridy = 0;
     this.cAdd.anchor = GridBagConstraints.NORTHWEST;
-    this.cAdd.weightx = 0.1;  
-    this.cAdd.weighty = 0.1;  
-    this.cAdd.insets = new Insets(35,160,15,15);
-    
+    this.cAdd.weightx = 0.1;
+    this.cAdd.weighty = 0.1;
+    this.cAdd.insets = new Insets(35, 160, 15, 15);
+
     this.addP.add(coloredLabelAdd, cAdd);
-    
+
     this.add(addP, BorderLayout.NORTH);
-    
+
     String labelTextPlayerDetails = "<html><font color=#000000 size=20>Player Details</font><br></html>";
-    this.coloredLabelPlayerDetails = new JLabel(labelTextPlayerDetails,SwingConstants.LEFT);
+    this.coloredLabelPlayerDetails = new JLabel(labelTextPlayerDetails, SwingConstants.LEFT);
 
     this.cAdd.gridx = 1;
     this.cAdd.gridy = 0;
     this.cAdd.anchor = GridBagConstraints.NORTHWEST;
-    this.cAdd.weightx = 0.1;  
-    this.cAdd.weighty = 0.1;  
-    this.cAdd.insets = new Insets(35,160,35,15);
-    
+    this.cAdd.weightx = 0.1;
+    this.cAdd.weighty = 0.1;
+    this.cAdd.insets = new Insets(35, 160, 35, 15);
+
     this.addP.add(coloredLabelPlayerDetails, cAdd);
-    
+
     this.add(addP, BorderLayout.NORTH);
-    
+
     this.name = new JPanel(new GridBagLayout());
     this.cname = new GridBagConstraints();
     this.name.setBackground(new Color(137, 207, 240));
-    
+
     String labelTextName = "<html><font color=#000000 size=7>Name</font><br></html>";
     this.coloredLabelName = new JLabel(labelTextName);
 
     this.cname.gridx = 0;
     this.cname.gridy = 0;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1;   
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(8,65,20,30);
-    
+    this.cname.insets = new Insets(8, 65, 20, 30);
+
     this.name.add(coloredLabelName, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.nameText = new JTextField(20);
-    this.nameText.setPreferredSize(new Dimension(20,30));
-    
+    this.nameText.setPreferredSize(new Dimension(20, 30));
+
     this.cname.gridx = 1;
     this.cname.gridy = 0;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1; 
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(22,20,5,5);
-    
+    this.cname.insets = new Insets(22, 20, 5, 5);
+
     this.name.add(nameText, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     String labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
-    this.coloredLabelSpaceName = new JLabel(labelTextSpaceName,SwingConstants.LEFT);
-    
+    this.coloredLabelSpaceName = new JLabel(labelTextSpaceName, SwingConstants.LEFT);
+
     this.cname.gridx = 0;
     this.cname.gridy = 1;
-    this.cname.anchor = GridBagConstraints.NORTHWEST;  
-    this.cname.weightx = 0.1;   
+    this.cname.anchor = GridBagConstraints.NORTHWEST;
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(8,65,20,30);
-    
+    this.cname.insets = new Insets(8, 65, 20, 30);
+
     this.name.add(coloredLabelSpaceName, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.spaceNameText = new JTextField(20);
-    this.spaceNameText.setPreferredSize(new Dimension(20,30));
-    
+    this.spaceNameText.setPreferredSize(new Dimension(20, 30));
+
     this.cname.gridx = 1;
     this.cname.gridy = 1;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1; 
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(22,20,5,5);
-    
+    this.cname.insets = new Insets(22, 20, 5, 5);
+
     this.name.add(spaceNameText, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     String labelTextItemLimit = "<html><font color=#000000 size=7>Item Limit</font><br></html>";
-    this.coloredLabelItemLimit = new JLabel(labelTextItemLimit,SwingConstants.LEFT);
-    
+    this.coloredLabelItemLimit = new JLabel(labelTextItemLimit, SwingConstants.LEFT);
+
     this.cname.gridx = 0;
     this.cname.gridy = 2;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1; 
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(8,65,20,30);
-    
+    this.cname.insets = new Insets(8, 65, 20, 30);
+
     this.name.add(coloredLabelItemLimit, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.itemLimitText = new JTextField(20);
-    itemLimitText.setPreferredSize(new Dimension(20,30));
-    
+    itemLimitText.setPreferredSize(new Dimension(20, 30));
+
     this.cname.gridx = 1;
     this.cname.gridy = 2;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1; 
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(22,20,5,5);
-    
+    this.cname.insets = new Insets(22, 20, 5, 5);
+
     this.name.add(itemLimitText, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     String labelTextPlayerType = "<html><font color=#000000 size=7>Type</font><br></html>";
-    this.coloredLabelPlayerType = new JLabel(labelTextPlayerType,SwingConstants.LEFT);
-    
+    this.coloredLabelPlayerType = new JLabel(labelTextPlayerType, SwingConstants.LEFT);
+
     this.cname.gridx = 0;
     this.cname.gridy = 3;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1;  
-    this.cname.weighty = 0.1;  
+    this.cname.weightx = 0.1;
+    this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(8,65,20,20);
-    
+    this.cname.insets = new Insets(8, 65, 20, 20);
+
     this.name.add(coloredLabelPlayerType, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.addButton = new JButton("ADD");
     this.addButton.setBackground(new Color(59, 89, 182));
     this.addButton.setForeground(Color.WHITE);
     this.addButton.setFocusPainted(false);
     this.addButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.addButton.setPreferredSize(new Dimension(80, 40));
-    
+
     this.cname.gridx = 1;
     this.cname.gridy = 4;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1;  
-    this.cname.weighty = 1.0;  
+    this.cname.weightx = 0.1;
+    this.cname.weighty = 1.0;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(25,0,20,15);
-    
+    this.cname.insets = new Insets(25, 0, 20, 15);
+
     this.name.add(addButton, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.humanType = new JRadioButton("Human");
     this.humanType.setBackground(new Color(137, 207, 240));
     this.humanType.setFont(humanType.getFont().deriveFont(18.0f));
-    
+
     this.cname.gridx = 1;
     this.cname.gridy = 3;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
@@ -240,44 +245,64 @@ public class AddPlayerPanel extends JPanel {
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(22,16,5,5);
-    
+    this.cname.insets = new Insets(22, 16, 5, 5);
+
     this.name.add(humanType, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
+
     this.computerType = new JRadioButton("Computer");
     this.computerType.setBackground(new Color(137, 207, 240));
     this.computerType.setFont(computerType.getFont().deriveFont(18.0f));
-    
+
     this.cname.gridx = 1;
     this.cname.gridy = 3;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
-    this.cname.weightx = 0.1; 
+    this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(60,16,5,5);
-    
+    this.cname.insets = new Insets(60, 16, 5, 5);
+
     this.name.add(computerType, cname);
-    
+
     this.add(name, BorderLayout.WEST);
-    
-    this.groupType = new ButtonGroup(); 
+
+    this.groupType = new ButtonGroup();
     this.groupType.add(humanType);
     this.groupType.add(computerType);
-    
+
+    this.nextButton = new JButton("CONTINUE");
+    this.nextButton.setBackground(new Color(59, 89, 182));
+    this.nextButton.setForeground(Color.WHITE);
+    this.nextButton.setFocusPainted(false);
+    this.nextButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+    this.nextButton.setPreferredSize(new Dimension(120, 40));
+    this.nextButton.addActionListener(new ButtonListener("Add Player Screen", view));
+
+    this.cname.gridx = 2;
+    this.cname.gridy = 4;
+    this.cname.anchor = GridBagConstraints.NORTHWEST;
+    this.cname.weightx = 0.1;
+    this.cname.weighty = 1.0;
+    this.cname.gridwidth = 1;
+    this.cname.gridheight = 1;
+    this.cname.insets = new Insets(75, 0, 20, 15);
+
+    this.name.add(nextButton, cname);
+
+    this.add(name, BorderLayout.WEST);
+
     this.playerTable = new JTable();
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     this.playerTable.setBackground(new Color(137, 207, 240));
-    this.playerTable.setPreferredSize(new Dimension(600,50));
+    this.playerTable.setPreferredSize(new Dimension(600, 50));
 //  JScrollPane spTable = new JScrollPane(playerTable);
-    
+
     this.add(playerTable, BorderLayout.EAST);
-    
-    
-    }
-  
+
+  }
+
   @Override
   public void paintComponent(Graphics graphics) {
     super.paintComponent(graphics);
@@ -291,6 +316,5 @@ public class AddPlayerPanel extends JPanel {
 
     graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
   }
-  
 
 }

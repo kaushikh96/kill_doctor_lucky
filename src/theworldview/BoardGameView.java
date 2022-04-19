@@ -21,6 +21,8 @@ public interface BoardGameView {
    */
   void makeVisible();
 
-  public void addPlayerScreen();
+  public void displayAddPlayerScreen();
+
+  public void displayGameScreen();
 
 }

@@ -15,7 +15,7 @@ import controller.BoardGameController;
 import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
-  private final BoardGamePanel boardGamePanel;
+  private final WelcomePanel boardGamePanel;
   private final AddPlayerPanel addPlayerPanel;
   private final GamePanel gamePanel;
   private JButton b;
@@ -33,28 +33,13 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     // this.boardGamePanel = null;
-    this.boardGamePanel = new BoardGamePanel(model, this);
+    this.boardGamePanel = new WelcomePanel(model, this);
     // this.boardGamePanel.add(b);
     this.add(boardGamePanel, BorderLayout.CENTER);
-    this.addPlayerPanel = new AddPlayerPanel(model);
-    this.gamePanel = new GamePanel(model);
-    this.add(gamePanel, BorderLayout.CENTER);
-//    if ("Board Game View".equalsIgnoreCase(caption)) {
-//      
-//      this.addPlayerPanel = null;
-//     
-//    } else {
-//      this.boardGamePanel = null;
-//      
-//      //this.add(addPlayerPanel, BorderLayout.CENTER);
-//    }
-//    boardgamepanel.setBackground(Color.CYAN);
-//    boardgamepanel.setBorder(new EmptyBorder(100, 100, 100, 100));
-    // this.add(boardGamePanel, BorderLayout.CENTER);
-    //this.add(boardGamePanel, BorderLayout.CENTER);
-    
-    this.add(gamePanel, BorderLayout.CENTER);
-    
+    this.addPlayerPanel = new AddPlayerPanel(model, this);
+    this.gamePanel = new GamePanel(model, this);
+
+    // this.add(gamePanel, BorderLayout.CENTER);
 
     pack();
     setVisible(true);
@@ -69,10 +54,17 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
-  public void addPlayerScreen() {
+  public void displayAddPlayerScreen() {
     this.remove(boardGamePanel);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
+  }
+
+  @Override
+  public void displayGameScreen() {
+    this.remove(addPlayerPanel);
+    this.add(gamePanel, BorderLayout.CENTER);
+    gamePanel.revalidate();
   }
 
   @Override
