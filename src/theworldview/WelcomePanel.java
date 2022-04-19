@@ -20,7 +20,11 @@ import javax.swing.border.LineBorder;
 
 import theworld.ReadOnlyBoardGameModel;
 
+<<<<<<< HEAD:src/theworldview/BoardGamePanel.java
 public class BoardGamePanel extends JPanel implements ActionListener {
+=======
+public class WelcomePanel extends JPanel {
+>>>>>>> 2118162e6bdd0f9ba25926b91580a6ab78859c9f:src/theworldview/WelcomePanel.java
   private ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
   private JButton b;
@@ -31,8 +35,13 @@ public class BoardGamePanel extends JPanel implements ActionListener {
    * 
    * @param readonlymodel the ReadonlyTttModel type
    */
+<<<<<<< HEAD:src/theworldview/BoardGamePanel.java
   public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
 
+=======
+  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
+    
+>>>>>>> 2118162e6bdd0f9ba25926b91580a6ab78859c9f:src/theworldview/WelcomePanel.java
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }

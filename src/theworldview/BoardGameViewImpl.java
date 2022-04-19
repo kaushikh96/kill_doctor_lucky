@@ -17,6 +17,7 @@ import theworld.ReadOnlyBoardGameModel;
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private final BoardGamePanel boardGamePanel;
   private final AddPlayerPanel addPlayerPanel;
+  private final GamePanel gamePanel;
   private JButton b;
 
   /**
@@ -36,6 +37,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     // this.boardGamePanel.add(b);
     this.add(boardGamePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model);
+    this.gamePanel = new GamePanel(model);
+    this.add(gamePanel, BorderLayout.CENTER);
 //    if ("Board Game View".equalsIgnoreCase(caption)) {
 //      
 //      this.addPlayerPanel = null;
@@ -48,6 +51,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 //    boardgamepanel.setBackground(Color.CYAN);
 //    boardgamepanel.setBorder(new EmptyBorder(100, 100, 100, 100));
     // this.add(boardGamePanel, BorderLayout.CENTER);
+    //this.add(boardGamePanel, BorderLayout.CENTER);
+    
+    this.add(gamePanel, BorderLayout.CENTER);
+    
 
     pack();
     setVisible(true);
