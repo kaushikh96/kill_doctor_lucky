@@ -21,8 +21,8 @@ public class MouseClickEvent extends MouseAdapter{
     this.listener = listener;
   }
 
-//  @Override
-//  public void mouseClicked(MouseEvent event) {
+  @Override
+  public void mouseClicked(MouseEvent event) {
 //    listener.handleCellClick(event.getX() / 200, event.getY() / 200);
-//  }
+  }
 }

@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -18,23 +20,25 @@ import javax.swing.border.LineBorder;
 
 import theworld.ReadOnlyBoardGameModel;
 
-public class BoardGamePanel extends JPanel {
+public class BoardGamePanel extends JPanel implements ActionListener {
   private ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
   private JButton b;
+  private BoardGameView view;
 
   /**
    * Constructor for PanelImpl class.
    * 
    * @param readonlymodel the ReadonlyTttModel type
    */
-  public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel) {
-    
+  public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
+
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
-    
+
     this.readonlymodel = readonlymodel;
+    this.view = view;
     this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
     String labelText1 = "<html><font color=#8B8000 size=30>KILL DOCTOR LUCKY</font><br></html>";
@@ -64,6 +68,7 @@ public class BoardGamePanel extends JPanel {
     b.setFocusPainted(false);
     b.setFont(new Font("Tahoma", Font.BOLD, 12));
     b.setPreferredSize(new Dimension(40, 40));
+    b.addActionListener(new ButtonListener("Add Player Screen", view));
     jpnl.add(b);
     jpnl.setBackground(new Color(137, 207, 240));
 //    jpnl.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -114,6 +119,17 @@ public class BoardGamePanel extends JPanel {
 //        graphics2d.drawString("GAME TIE", 200, 200);
 //      }
 //    }
+  }
+//
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    b.setBackground(Color.RED);
+//  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    // TODO Auto-generated method stub
+
   }
 
 }
