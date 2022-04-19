@@ -18,7 +18,7 @@ import javax.swing.border.LineBorder;
 
 import theworld.ReadOnlyBoardGameModel;
 
-public class BoardGamePanel extends JPanel {
+public class WelcomePanel extends JPanel {
   private ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
   private JButton b;
@@ -28,7 +28,7 @@ public class BoardGamePanel extends JPanel {
    * 
    * @param readonlymodel the ReadonlyTttModel type
    */
-  public BoardGamePanel(ReadOnlyBoardGameModel readonlymodel) {
+  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
     
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");

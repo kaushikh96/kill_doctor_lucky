@@ -87,7 +87,7 @@ public class AddPlayerPanel extends JPanel {
     this.cAdd.anchor = GridBagConstraints.NORTHWEST;
     this.cAdd.weightx = 0.1;  
     this.cAdd.weighty = 0.1;  
-    this.cAdd.insets = new Insets(35,160,15,15);
+    this.cAdd.insets = new Insets(35,160,35,15);
     
     this.addP.add(coloredLabelPlayerDetails, cAdd);
     
@@ -270,9 +270,11 @@ public class AddPlayerPanel extends JPanel {
     this.playerTable = new JTable();
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     this.playerTable.setBackground(new Color(137, 207, 240));
-//    JScrollPane spTable = new JScrollPane(playerTable);
+    this.playerTable.setPreferredSize(new Dimension(600,50));
+//  JScrollPane spTable = new JScrollPane(playerTable);
     
-    this.add(playerTable, BorderLayout.CENTER);
+    this.add(playerTable, BorderLayout.EAST);
+    
     
     }
   

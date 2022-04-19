@@ -13,7 +13,8 @@ import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
   //private final BoardGamePanel boardGamePanel;
-  private final AddPlayerPanel addPlayerPanel;
+  //private final AddPlayerPanel addPlayerPanel;
+  private final GamePanel gamePanel;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -29,12 +30,13 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.setLayout(new BorderLayout());
     //this.boardGamePanel = new BoardGamePanel(model);
     
-    this.addPlayerPanel = new AddPlayerPanel(model);
+    //this.addPlayerPanel = new AddPlayerPanel(model);
+    this.gamePanel = new GamePanel(model);
 //    boardgamepanel.setBackground(Color.CYAN);
 //    boardgamepanel.setBorder(new EmptyBorder(100, 100, 100, 100));
     //this.add(boardGamePanel, BorderLayout.CENTER);
     
-    this.add(addPlayerPanel, BorderLayout.CENTER);
+    this.add(gamePanel, BorderLayout.CENTER);
     
 
     pack();
