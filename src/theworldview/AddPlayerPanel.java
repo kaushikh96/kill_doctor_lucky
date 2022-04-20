@@ -12,6 +12,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -25,10 +28,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
+import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
-public class AddPlayerPanel extends JPanel {
+public class AddPlayerPanel extends JPanel implements ActionListener {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -51,6 +57,7 @@ public class AddPlayerPanel extends JPanel {
   private JRadioButton computerType;
   private ButtonGroup groupType;
   private JTable playerTable;
+  private List<PlayerImpl> playerinfo;
 
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
@@ -220,6 +227,7 @@ public class AddPlayerPanel extends JPanel {
     this.addButton.setFocusPainted(false);
     this.addButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.addButton.setPreferredSize(new Dimension(80, 40));
+    this.addButton.addActionListener(this);
 
     this.cname.gridx = 1;
     this.cname.gridy = 4;
@@ -292,19 +300,31 @@ public class AddPlayerPanel extends JPanel {
     this.name.add(nextButton, cname);
 
     this.add(name, BorderLayout.WEST);
+    List<PlayerImpl> playerlist = readOnlyModel.getPlayerList();
 
-    this.playerTable = new JTable();
+    String[][] data = playerlist.stream()
+        .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
+            Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
+        .toArray(String[][]::new);
+    String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
+
+    this.playerTable = new JTable(data, col);
+    JTableHeader header = this.playerTable.getTableHeader();
+    header.setBackground(Color.YELLOW);
+    JScrollPane pane = new JScrollPane(this.playerTable);
+
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     this.playerTable.setBackground(new Color(137, 207, 240));
     this.playerTable.setPreferredSize(new Dimension(600, 50));
-//  JScrollPane spTable = new JScrollPane(playerTable);
-
-    this.add(playerTable, BorderLayout.EAST);
+    this.add(pane, BorderLayout.EAST);
 
   }
 
   @Override
   public void paintComponent(Graphics graphics) {
+    if (graphics == null) {
+      throw new IllegalArgumentException("Graphics cannot be null.\n");
+    }
     super.paintComponent(graphics);
     Graphics2D graphics2d = (Graphics2D) graphics;
     Border border = new LineBorder(Color.BLUE, 4, true);
@@ -317,4 +337,13 @@ public class AddPlayerPanel extends JPanel {
     graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    String demo = groupType.getSelection().getActionCommand();
+    int itemcapacity = Integer.parseInt(itemLimitText.getText());
+    view.addPlayers(nameText.getText(), spaceNameText.getText(), itemcapacity, false);
+    this.nameText.setText("");
+    this.spaceNameText.setText("");
+    this.itemLimitText.setText("");
+  }
 }

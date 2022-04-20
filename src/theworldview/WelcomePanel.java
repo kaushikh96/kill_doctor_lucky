@@ -33,7 +33,6 @@ public class WelcomePanel extends JPanel {
    * @param readonlymodel the ReadonlyTttModel type
    */
   public WelcomePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
-
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
@@ -75,7 +74,6 @@ public class WelcomePanel extends JPanel {
     b.addActionListener(new ButtonListener("Add Player Screen", view));
     jpnl.add(b);
     jpnl.setBackground(new Color(137, 207, 240));
-    //jpnl.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.add(jpnl);
 
     String kaushiktext = "<html><font color=#00008b size=3>KAUSHIK KOMANDURI</font></html>";
@@ -98,34 +96,7 @@ public class WelcomePanel extends JPanel {
     graphics2d.setColor(new Color(137, 207, 240));
     graphics2d.fillRect(0, 0, getWidth(), getHeight());
     graphics2d.setColor(Color.BLACK);
-
-//    graphics2d.drawLine(0, 200, 600, 200);
-//    graphics2d.drawLine(0, 400, 600, 400);
-//    graphics2d.drawLine(200, 0, 200, 600);
-//    graphics2d.drawLine(400, 0, 400, 600);
-
     graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
-
-//    Player[][] playerBoard = readonlymodel.getBoard();
-//    for (int i = 0; i < 3; i++) {
-//      for (int j = 0; j < 3; j++) {
-//        if (playerBoard[i][j] != null) {
-//          graphics2d.drawString(playerBoard[i][j].toString(), (i * 200) + 50, (j * 200) + 50);
-//        }
-//      }
-//    }
-//    if (readonlymodel.isGameOver()) {
-//      if (readonlymodel.getWinner() != null) {
-//        graphics2d.drawString("GAME OVER ! Winner is " + readonlymodel.getWinner(), 200, 200);
-//      } else {
-//        graphics2d.drawString("GAME TIE", 200, 200);
-//      }
-//    }
   }
-//
-//  @Override
-//  public void actionPerformed(ActionEvent e) {
-//    b.setBackground(Color.RED);
-//  }
 
 }

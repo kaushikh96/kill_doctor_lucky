@@ -1,6 +1,10 @@
 package theworldview;
 
+import java.util.List;
+
 import controller.BoardGameController;
+import controller.Features;
+import theworld.PlayerImpl;
 
 public interface BoardGameView {
 
@@ -24,5 +28,10 @@ public interface BoardGameView {
   public void displayAddPlayerScreen();
 
   public void displayGameScreen();
+
+  public void addPlayers(String playerName, String roomName, int itemCapacity,
+      boolean isComputerPlayer);
+
+  public void setFeatures(Features f);
 
 }

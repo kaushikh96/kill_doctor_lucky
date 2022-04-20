@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,12 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 import controller.BoardGameController;
+import controller.BoardGameControllerImpl;
+import controller.Features;
+import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
+  private final ReadOnlyBoardGameModel readOnlyModel;
   private final WelcomePanel boardGamePanel;
-  private final AddPlayerPanel addPlayerPanel;
+  private AddPlayerPanel addPlayerPanel;
   private final GamePanel gamePanel;
+  private Features f;
   private JButton b;
 
   /**
@@ -31,19 +37,14 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setSize(600, 600);
     setLocation(0, 0);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.readOnlyModel = model;
     this.setLayout(new BorderLayout());
-    // this.boardGamePanel = null;
     this.boardGamePanel = new WelcomePanel(model, this);
-    // this.boardGamePanel.add(b);
     this.add(boardGamePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model, this);
     this.gamePanel = new GamePanel(model, this);
-
-    // this.add(gamePanel, BorderLayout.CENTER);
-
     pack();
     setVisible(true);
-
   }
 
   @Override
@@ -68,6 +69,15 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
+  public void addPlayers(String playerName, String roomName, int itemCapacity,
+      boolean isComputerPlayer) {
+    f.addPlayer(playerName, roomName, itemCapacity, isComputerPlayer);
+    this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
+    //this.add(addPlayerPanel, BorderLayout.CENTER);
+    addPlayerPanel.revalidate();
+  }
+
+  @Override
   public void refresh() {
     repaint();
   }
@@ -75,5 +85,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void makeVisible() {
     setVisible(true);
+  }
+
+  @Override
+  public void setFeatures(Features f) {
+    this.f = f;
   }
 }

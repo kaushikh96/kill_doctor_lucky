@@ -13,9 +13,12 @@ public class ButtonListener implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
+    if (e == null) {
+      throw new IllegalArgumentException("Action Event cannot be null.\n");
+    }
     if ("START".equals(e.getActionCommand())) {
       boardgameviewimpl.displayAddPlayerScreen();
-    }else if ("CONTINUE".equals(e.getActionCommand())) {
+    } else if ("CONTINUE".equals(e.getActionCommand())) {
       boardgameviewimpl.displayGameScreen();
     }
   }
