@@ -15,9 +15,10 @@ import controller.BoardGameController;
 import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
-  private final WelcomePanel boardGamePanel;
-  private final AddPlayerPanel addPlayerPanel;
-  private final GamePanel gamePanel;
+  private WelcomePanel boardGamePanel;
+  private AddPlayerPanel addPlayerPanel;
+  private GamePanel gamePanel;
+  private WorldSelectionPanel worldSelectionPanel;
   private JButton b;
 
   /**
@@ -32,14 +33,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setLocation(0, 0);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
-    // this.boardGamePanel = null;
     this.boardGamePanel = new WelcomePanel(model, this);
-    // this.boardGamePanel.add(b);
     this.add(boardGamePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model, this);
     this.gamePanel = new GamePanel(model, this);
-
-    // this.add(gamePanel, BorderLayout.CENTER);
+    this.worldSelectionPanel = new WorldSelectionPanel(model, this);
 
     pack();
     setVisible(true);
@@ -52,10 +50,17 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 //    boardGamePanel.addMouseListener(mouse);
 //    setFocusable(true);
   }
+  
+  @Override
+  public void displayWorldSelectionScreen() {
+    this.remove(boardGamePanel);
+    this.add(worldSelectionPanel, BorderLayout.CENTER);
+    worldSelectionPanel.revalidate();
+  }
 
   @Override
   public void displayAddPlayerScreen() {
-    this.remove(boardGamePanel);
+    this.remove(worldSelectionPanel);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
   }

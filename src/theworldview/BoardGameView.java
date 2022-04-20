@@ -25,4 +25,5 @@ public interface BoardGameView {
 
   public void displayGameScreen();
 
+  public void displayWorldSelectionScreen();
 }

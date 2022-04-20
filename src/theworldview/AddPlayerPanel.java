@@ -278,7 +278,7 @@ public class AddPlayerPanel extends JPanel {
     this.nextButton.setFocusPainted(false);
     this.nextButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.nextButton.setPreferredSize(new Dimension(120, 40));
-    this.nextButton.addActionListener(new ButtonListener("Add Player Screen", view));
+    this.nextButton.addActionListener(new ButtonListener(view));
 
     this.cname.gridx = 2;
     this.cname.gridy = 4;
