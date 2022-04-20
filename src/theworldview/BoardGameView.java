@@ -34,4 +34,5 @@ public interface BoardGameView {
 
   public void setFeatures(Features f);
 
+  public void displayWorldSelectionScreen();
 }
