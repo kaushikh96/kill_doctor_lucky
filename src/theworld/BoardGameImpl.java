@@ -119,7 +119,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   public PetImpl getTargetPetImpl() {
     return this.targetpet;
   }
-  
+
   @Override
   public RandomClass getRandomClassRef() {
     return this.randomref;
@@ -432,11 +432,10 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   }
 
   @Override
-  public void addPlayer(String name, int health, String currentRoom, int itemcapacity,
+  public void addPlayer(String name, String currentRoom, int itemcapacity,
       List<ItemImpl> playeritems, boolean isComputerPlayer)
       throws IllegalStateException, IllegalArgumentException {
-    if (name == null || health < 0 || currentRoom == null || itemcapacity < 0
-        || playeritems == null) {
+    if (name == null || currentRoom == null || itemcapacity < 0 || playeritems == null) {
       throw new IllegalArgumentException("Invalid paramaters");
     } else {
       if (this.getPlayerList().stream().filter(c -> c.getName().trim().equalsIgnoreCase(name))

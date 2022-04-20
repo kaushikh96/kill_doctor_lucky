@@ -21,7 +21,7 @@ public interface BoardGameModel {
    * @param playeritems      list of items on the player
    * @param currentRoom      current room of the player
    */
-  public void addPlayer(String name, int health, String currentRoom, int itemcapacity,
+  public void addPlayer(String name, String currentRoom, int itemcapacity,
       List<ItemImpl> playeritems, boolean isComputerPlayer);
 
   /**

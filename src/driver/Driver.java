@@ -37,12 +37,13 @@ public class Driver {
         inputdata.append((char) data);
       }
       BoardGameImpl world = Builder.readfile(inputdata.toString());
-      ReadOnlyBoardGameModel model = new BoardGameImpl(world.getTargetCharacterImpl(),
-          world.getName(), world.getSpaceList(), world.getWorldCoordinates(),
-          world.getTargetPetImpl(), world.getRandomClassRef());
-      BoardGameView boardgameview = new BoardGameViewImpl("Board Game View", model);
+     // BoardGameModel boardGameModel = world;
+//      ReadOnlyBoardGameModel readOnlyModel = new BoardGameImpl(world.getTargetCharacterImpl(),
+//          world.getName(), world.getSpaceList(), world.getWorldCoordinates(),
+//          world.getTargetPetImpl(), world.getRandomClassRef());
+      BoardGameView boardGameView = new BoardGameViewImpl("Board Game View", world);
 
-      new BoardGameControllerImpl(boardgameview, world).start();
+      new BoardGameControllerImpl(boardGameView, world).start();
     } catch (IOException e) {
       System.err.println("File not found");
     } catch (IllegalArgumentException iae) {

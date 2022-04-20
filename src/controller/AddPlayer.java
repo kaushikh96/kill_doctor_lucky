@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import theworld.BoardGameModel;
 import theworld.ItemImpl;
+import theworld.PlayerImpl;
 
 /**
  * This class is a part of command design pattern to add a human player to the
@@ -12,7 +13,6 @@ import theworld.ItemImpl;
 public class AddPlayer implements GameController {
 
   private String name;
-  private int health;
   private String currentRoom;
   private int itemcapacity;
   private boolean isComputerPlayer;
@@ -49,7 +49,7 @@ public class AddPlayer implements GameController {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }
-    b.addPlayer(this.name, this.health, this.currentRoom, this.itemcapacity, this.playeritems,
+    b.addPlayer(this.name, this.currentRoom, this.itemcapacity, this.playeritems,
         this.isComputerPlayer);
     this.outputMessage = String.format("Player %s has been added into the space - %s\n", this.name,
         this.currentRoom);
