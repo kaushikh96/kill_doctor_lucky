@@ -2,11 +2,18 @@ package theworldview;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -14,7 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
+import theworld.SpaceImpl;
 
 public class GamePanel extends JPanel {
   
@@ -83,9 +92,7 @@ public class GamePanel extends JPanel {
     
     this.add(infoPanel, game);
     
-    
-    
-    
   }
+  
 
 }

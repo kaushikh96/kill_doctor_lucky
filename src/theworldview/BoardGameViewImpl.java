@@ -10,6 +10,9 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.border.EmptyBorder;
 
 import controller.BoardGameController;
@@ -26,6 +29,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private WorldSelectionPanel worldSelectionPanel;
   private Features f;
   private JButton b;
+  private JMenuBar menuBar;
+  private JMenu menu;
+  private JMenuItem currentWorldItem;
+  private JMenuItem newWorldItem;
+  private JMenuItem quit;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -45,9 +53,29 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.addPlayerPanel = new AddPlayerPanel(model, this);
     this.gamePanel = new GamePanel(model, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
+    
+    this.menuBar = new JMenuBar();
+    
+    this.menu = new JMenu("Menu");
+    
+    this.currentWorldItem = new JMenuItem("Current World");
+    this.newWorldItem = new JMenuItem("New World");
+    this.quit = new JMenuItem("Quit");
+    
+    this.menu.add(this.currentWorldItem);
+    this.currentWorldItem.addActionListener(new ButtonListener(this));
+    this.menu.add(this.newWorldItem);
+    this.newWorldItem.addActionListener(new ButtonListener(this));
+    this.menu.add(this.quit);
+    this.quit.addActionListener(new ButtonListener(this));
+    
+    this.menuBar.add(this.menu);
+    
+    this.add(menuBar, BorderLayout.NORTH);
     pack();
     setVisible(true);
   }
+  
 
   @Override
   public void addClickListener(BoardGameController listener) {
@@ -81,9 +109,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   public void addPlayers(String playerName, String roomName, int itemCapacity,
       boolean isComputerPlayer) {
     f.addPlayer(playerName, roomName, itemCapacity, isComputerPlayer);
-    this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
+    //this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
     //this.add(addPlayerPanel, BorderLayout.CENTER);
-    addPlayerPanel.revalidate();
+    //addPlayerPanel.revalidate();
   }
 
   @Override
@@ -101,3 +129,4 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.f = f;
   }
 }
+//
