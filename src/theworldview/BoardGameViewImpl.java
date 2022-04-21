@@ -81,9 +81,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   public void addPlayers(String playerName, String roomName, int itemCapacity,
       boolean isComputerPlayer) {
     f.addPlayer(playerName, roomName, itemCapacity, isComputerPlayer);
-    this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
+    //this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
     //this.add(addPlayerPanel, BorderLayout.CENTER);
-    addPlayerPanel.revalidate();
+    //addPlayerPanel.revalidate();
   }
 
   @Override

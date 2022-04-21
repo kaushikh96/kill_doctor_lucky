@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import theworld.BoardGameModel;
 import theworld.ItemImpl;
-import theworld.PlayerImpl;
 
 /**
  * This class is a part of command design pattern to add a human player to the
