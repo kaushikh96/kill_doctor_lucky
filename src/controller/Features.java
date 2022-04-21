@@ -9,4 +9,6 @@ public interface Features {
       boolean isComputerPlayer);
 
   public String getTurns(String playerName);
+
+  public String keyPressEvent(String action, String playername, String roomOrItemName);
 }

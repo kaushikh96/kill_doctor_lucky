@@ -119,7 +119,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   public PetImpl getTargetPetImpl() {
     return this.targetpet;
   }
-  
+
   @Override
   public RandomClass getRandomClassRef() {
     return this.randomref;
@@ -322,7 +322,8 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         this.graphics2d.drawRect(coord.get(1) * 60, coord.get(0) * 30,
             (coord.get(3) - coord.get(1)) * 60 + 59, (coord.get(2) - coord.get(0)) * 30 + 29);
         this.graphics2d.drawString(s.getName(), coord.get(1) * 60 + 19, coord.get(0) * 30 + 29);
-        //g2.drawString("Sanjana", (space.getRoomLocation().get(1)) * 60 + 5, (space.getRoomLocation().get(0)) * 30 + 5);
+        // g2.drawString("Sanjana", (space.getRoomLocation().get(1)) * 60 + 5,
+        // (space.getRoomLocation().get(0)) * 30 + 5);
       });
       File newfile = new File("rep.jpg");
       ImageIO.write(this.bufferedimage, "jpg", newfile);
@@ -436,8 +437,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   public void addPlayer(String name, String currentRoom, int itemcapacity,
       List<ItemImpl> playeritems, boolean isComputerPlayer)
       throws IllegalStateException, IllegalArgumentException {
-    if (name == null || currentRoom == null || itemcapacity < 0
-        || playeritems == null) {
+    if (name == null || currentRoom == null || itemcapacity < 0 || playeritems == null) {
       throw new IllegalArgumentException("Invalid paramaters");
     } else {
       if (this.getPlayerList().stream().filter(c -> c.getName().trim().equalsIgnoreCase(name))
@@ -761,15 +761,17 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       if (!currentplayerinfo.isEmpty()) {
         int currplayerindex = this.getPlayerList().indexOf(currentplayerinfo.get(0));
         if (currplayerindex == (this.getPlayerList().size() - 1)) {
-          return String.format(
-              "%s, PlayerType: %s", this.getPlayerInfo(this.getPlayerList().get(0).getName())
-                  .replace("Player Info (Name:", "Turn of"),
-              this.getPlayerList().get(0).isComputerPlayer());
+          return String.format("%s, PlayerType: %s; Target Current Location: %s",
+              this.getPlayerInfo(this.getPlayerList().get(0).getName()).replace(
+                  "Player Info (Name:", "Turn of"),
+              this.getPlayerList().get(0).isComputerPlayer(),
+              this.targetcharacter.getCurrentRoom().getName());
         } else {
-          return String.format("%s, PlayerType: %s",
+          return String.format("%s, PlayerType: %s; Target Current Location: %s",
               this.getPlayerInfo(this.getPlayerList().get(currplayerindex + 1).getName())
-                  .replace("Player Info (Name:", "Turn of"),
-              this.getPlayerList().get(currplayerindex + 1).isComputerPlayer());
+                  .replace("Player Info (Name:", "Turn of:"),
+              this.getPlayerList().get(currplayerindex + 1).isComputerPlayer(),
+              this.targetcharacter.getCurrentRoom().getName());
         }
       } else {
         throw new IllegalArgumentException("Player not exists");

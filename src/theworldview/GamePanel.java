@@ -1,10 +1,13 @@
 package theworldview;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,7 +17,7 @@ import javax.swing.JTextArea;
 
 import theworld.ReadOnlyBoardGameModel;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements KeyListener {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -84,6 +87,13 @@ public class GamePanel extends JPanel {
 
     this.infoPanel = new JPanel(new GridLayout(3, 0, 10, 10));
     this.playersArea = new JTextArea();
+
+    this.playersArea.setLineWrap(true);
+    this.playersArea.setText("Player Index:");
+
+    // Sets JTextArea font and color.
+    Font font = new Font("Segoe Script", Font.BOLD, 20);
+    this.playersArea.setFont(font);
     this.playersArea.setEnabled(false);
     this.playersArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.playersArea.setBackground(new Color(37, 190, 175));
@@ -97,20 +107,44 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(playersArea);
 
     this.turnInfoArea = new JTextArea();
-    this.turnInfoArea.setText(this.turnMessage);
+    String playerInfo = this.turnMessage.split("Items:")[0];
+    String targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
+
+    this.turnInfoArea
+        .setText(String.format("Turn Info:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+    this.turnInfoArea.setFont(font);
     this.turnInfoArea.setDisabledTextColor(Color.BLUE);
     this.turnInfoArea.setEnabled(false);
     this.turnInfoArea.setBorder(BorderFactory.createLineBorder(Color.GREEN));
     this.infoPanel.add(turnInfoArea);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(this.outputMessage);
+    this.turnResultArea.setText(String.format("Turn Result:\n\n %s", this.outputMessage));
+    this.turnResultArea.setFont(font);
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.turnResultArea.setBackground(new Color(37, 190, 175));
     this.infoPanel.add(turnResultArea);
 
     this.add(infoPanel, game);
+    this.addKeyListener(this);
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    // TODO Auto-generated method stub
+
   }
 
 }

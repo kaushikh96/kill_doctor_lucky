@@ -57,4 +57,21 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       return null;
     }
   }
+
+  @Override
+  public String keyPressEvent(String action, String playerName, String roomOrItemName) {
+    if ("Attack".equalsIgnoreCase(action)) {
+      GameController cmd = new AttackTarget(playerName, roomOrItemName);
+      cmd.execute(model);
+      return cmd.getOutput();
+    } else if ("pickItem".equalsIgnoreCase(action)) {
+      GameController cmd = new PickUpItem(playerName, roomOrItemName);
+      cmd.execute(model);
+      return cmd.getOutput();
+    } else {
+      GameController cmd = new LookAround(playerName);
+      cmd.execute(model);
+      return cmd.getOutput();
+    }
+  }
 }
