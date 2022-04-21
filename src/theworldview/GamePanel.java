@@ -2,7 +2,10 @@ package theworldview;
 
 import java.awt.Color;
 import java.awt.Dimension;
+<<<<<<< HEAD
 import java.awt.Font;
+=======
+>>>>>>> d5362bcbdecaab6e79c41fd4fe1b441a66c36932
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -10,12 +13,18 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+=======
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+>>>>>>> d5362bcbdecaab6e79c41fd4fe1b441a66c36932
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -27,6 +36,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
 
@@ -152,7 +162,12 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(turnResultArea);
 
     this.add(infoPanel, game);
+<<<<<<< HEAD
+=======
+    
+>>>>>>> d5362bcbdecaab6e79c41fd4fe1b441a66c36932
   }
+  
 
 //  @Override
 //  public void paintComponent(Graphics graphics) {

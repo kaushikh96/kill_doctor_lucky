@@ -14,11 +14,15 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -33,8 +37,9 @@ import javax.swing.table.JTableHeader;
 
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
+import theworld.SpaceImpl;
 
-public class AddPlayerPanel extends JPanel implements ActionListener {
+public class AddPlayerPanel extends JPanel implements ActionListener, ItemListener {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -46,7 +51,7 @@ public class AddPlayerPanel extends JPanel implements ActionListener {
   private JLabel coloredLabelItemLimit;
   private JLabel coloredLabelPlayerType;
   private JTextField nameText;
-  private JTextField spaceNameText;
+  private JComboBox spaceName;
   private JTextField itemLimitText;
   private GridBagConstraints cAdd;
   private JPanel name;
@@ -58,6 +63,8 @@ public class AddPlayerPanel extends JPanel implements ActionListener {
   private ButtonGroup groupType;
   private JTable playerTable;
   private List<PlayerImpl> playerinfo;
+  private String[] spaceNames;
+  private String space;
 
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
@@ -157,8 +164,10 @@ public class AddPlayerPanel extends JPanel implements ActionListener {
 
     this.add(name, BorderLayout.WEST);
 
-    this.spaceNameText = new JTextField(20);
-    this.spaceNameText.setPreferredSize(new Dimension(20, 30));
+    this.spaceNames = readOnlyModel.getSpaceList().stream().map(SpaceImpl::getName).collect(Collectors.toList()).toArray(new String[0]);
+    
+    this.spaceName = new JComboBox(this.spaceNames);
+    this.spaceName.setPreferredSize(new Dimension(200, 30));
 
     this.cname.gridx = 1;
     this.cname.gridy = 1;
@@ -169,9 +178,10 @@ public class AddPlayerPanel extends JPanel implements ActionListener {
     this.cname.gridheight = 1;
     this.cname.insets = new Insets(22, 20, 5, 5);
 
-    this.name.add(spaceNameText, cname);
+    this.name.add(spaceName, cname);
 
     this.add(name, BorderLayout.WEST);
+    this.spaceName.addItemListener(this);
 
     String labelTextItemLimit = "<html><font color=#000000 size=7>Item Limit</font><br></html>";
     this.coloredLabelItemLimit = new JLabel(labelTextItemLimit, SwingConstants.LEFT);
@@ -341,9 +351,18 @@ public class AddPlayerPanel extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String demo = groupType.getSelection().getActionCommand();
     int itemcapacity = Integer.parseInt(itemLimitText.getText());
-    view.addPlayers(nameText.getText(), spaceNameText.getText(), itemcapacity, false);
+    view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
     this.nameText.setText("");
-    this.spaceNameText.setText("");
+    this.spaceName.setSelectedIndex(-1);
     this.itemLimitText.setText("");
+    this.groupType.clearSelection();
+  }
+  
+  @Override
+  public void itemStateChanged(ItemEvent itemEvent) {
+    
+    if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+      this.space = (String) itemEvent.getItem();
+    }
   }
 }
