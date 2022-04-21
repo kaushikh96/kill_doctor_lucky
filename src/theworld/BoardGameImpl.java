@@ -322,8 +322,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         this.graphics2d.drawRect(coord.get(1) * 60, coord.get(0) * 30,
             (coord.get(3) - coord.get(1)) * 60 + 59, (coord.get(2) - coord.get(0)) * 30 + 29);
         this.graphics2d.drawString(s.getName(), coord.get(1) * 60 + 19, coord.get(0) * 30 + 29);
-        // g2.drawString("Sanjana", (space.getRoomLocation().get(1)) * 60 + 5,
-        // (space.getRoomLocation().get(0)) * 30 + 5);
       });
       File newfile = new File("rep.jpg");
       ImageIO.write(this.bufferedimage, "jpg", newfile);

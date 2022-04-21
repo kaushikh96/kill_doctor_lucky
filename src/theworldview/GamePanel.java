@@ -53,47 +53,60 @@ public class GamePanel extends JPanel implements KeyListener {
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
 
-    this.setLayout(new GridBagLayout());
-    this.gamePanel = new JPanel(null);
+//    this.setLayout(null);
+    this.gamePanel = new JPanel();
     this.game = new GridBagConstraints();
 
-    this.player1 = new GridBagConstraints();
-    this.target = new GridBagConstraints();
+    //this.player1 = new GridBagConstraints();
+    //this.target = new GridBagConstraints();
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
-
+    
+    
+    this.imageLabel.setLayout(null);
+  
     this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
-    this.targetLabel.setBounds(2, 2, 2, 2);
+    
+    this.targetLabel.setBounds(100, 100, 20, 20);
+    
+//    this.targetLabel.setBounds(readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(1) * 60 + 5, 
+//        readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(0) * 30 + 5, 10, 10);
 
+    
     this.playerLabel = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
         .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+    
+    this.playerLabel.setBounds(200, 200, 20, 20);
+//    this.playerLabel.setBounds(readOnlyModel.getPlayerList().get(0).getCurrentRoom().getRoomLocation().get(1) * 60 + 5, 
+//        readOnlyModel.getPlayerList().get(0).getCurrentRoom().getRoomLocation().get(0) * 30 + 5, 2, 2);
 
-    this.player1.gridx = 0;
-    this.player1.gridy = 0;
-    this.player1.weightx = 2;
-    this.player1.weighty = 2;
-    this.player1.fill = GridBagConstraints.BOTH;
-    this.player1.insets = new Insets(80, 60, 140, 80);
+//    this.player1.gridx = 0;
+//    this.player1.gridy = 0;
+//    this.player1.weightx = 2;
+//    this.player1.weighty = 2;
+//    this.player1.fill = GridBagConstraints.BOTH;
+//    this.player1.insets = new Insets(80, 60, 140, 80);
+//
+//    this.target.gridx = 0;
+//    this.target.gridy = 0;
+//    this.target.weightx = 1;
+//    this.target.weighty = 1;
+//    this.target.insets = new Insets(11, 14, 24, 15);
+//
+//    this.setBackground(new Color(137, 207, 240));
+//
+//    this.game.gridx = 0;
+//    this.game.gridy = 0;
+//    this.game.weightx = 1;
+//    this.game.weighty = 1;
+//    this.game.fill = GridBagConstraints.BOTH;
+//    this.game.anchor = GridBagConstraints.NORTHWEST;
+//    this.game.insets = new Insets(10, 10, 10, 10);
 
-    this.target.gridx = 0;
-    this.target.gridy = 0;
-    this.target.weightx = 1;
-    this.target.weighty = 1;
-    this.target.insets = new Insets(11, 14, 24, 15);
-
-    this.setBackground(new Color(137, 207, 240));
-
-    this.game.gridx = 0;
-    this.game.gridy = 0;
-    this.game.weightx = 1;
-    this.game.weighty = 1;
-    this.game.fill = GridBagConstraints.BOTH;
-    this.game.anchor = GridBagConstraints.NORTHWEST;
-    this.game.insets = new Insets(10, 10, 10, 10);
-
-    this.add(this.targetLabel, this.target);
-    this.add(this.playerLabel, this.player1);
-    this.add(this.imageLabel, game);
+    this.imageLabel.add(this.targetLabel);
+    this.imageLabel.add(this.playerLabel);
+    this.gamePanel.add(this.imageLabel);
+    this.add(gamePanel);
 
     this.infoPanel = new JPanel(new GridLayout(3, 0, 10, 10));
     this.playersArea = new JTextArea();
