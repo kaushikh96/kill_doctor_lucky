@@ -9,6 +9,8 @@ import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -25,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener {
   private JLabel playerLabel;
   private JLabel targetLabel;
   private JPanel infoPanel;
+  private JPanel gamePanel;
   private JTextArea playersArea;
   private JTextArea turnInfoArea;
   private GridBagConstraints game;
@@ -51,6 +54,7 @@ public class GamePanel extends JPanel implements KeyListener {
     this.outputMessage = outputMessage;
 
     this.setLayout(new GridBagLayout());
+    this.gamePanel = new JPanel(null);
     this.game = new GridBagConstraints();
 
     this.player1 = new GridBagConstraints();
@@ -59,26 +63,30 @@ public class GamePanel extends JPanel implements KeyListener {
 
     this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
+    this.targetLabel.setBounds(2, 2, 2, 2);
 
     this.playerLabel = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
         .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
 
     this.player1.gridx = 0;
     this.player1.gridy = 0;
-    this.player1.weightx = 0.1;
-    this.player1.weighty = 0.1;
-    this.player1.insets = new Insets(0, 0, 3, 5);
+    this.player1.weightx = 2;
+    this.player1.weighty = 2;
+    this.player1.fill = GridBagConstraints.BOTH;
+    this.player1.insets = new Insets(80, 60, 140, 80);
 
-    this.target.weightx = 0.1;
-    this.target.weighty = 0.1;
-    this.target.insets = new Insets(0, 80, 50, 6);
+    this.target.gridx = 0;
+    this.target.gridy = 0;
+    this.target.weightx = 1;
+    this.target.weighty = 1;
+    this.target.insets = new Insets(11, 14, 24, 15);
 
     this.setBackground(new Color(137, 207, 240));
 
     this.game.gridx = 0;
     this.game.gridy = 0;
-    this.game.weightx = 0.1;
-    this.game.weighty = 0.1;
+    this.game.weightx = 1;
+    this.game.weighty = 1;
     this.game.fill = GridBagConstraints.BOTH;
     this.game.anchor = GridBagConstraints.NORTHWEST;
     this.game.insets = new Insets(10, 10, 10, 10);
@@ -128,6 +136,7 @@ public class GamePanel extends JPanel implements KeyListener {
     this.turnResultArea.setBackground(new Color(37, 190, 175));
     this.infoPanel.add(turnResultArea);
 
+    // this.add(gamePanel, game);
     this.add(infoPanel, game);
     this.addKeyListener(this);
   }

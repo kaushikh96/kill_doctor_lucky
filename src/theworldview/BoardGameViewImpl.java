@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -78,12 +79,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setVisible(true);
   }
 
-//  @Override
-//  public void addClickListener(Features listener) {
-//    MouseListener mouse = new MouseClickEvent(listener);
-//    gamePanel.addMouseListener(mouse);
-//    setFocusable(true);
-//  }
+  @Override
+  public void addClickListener(Features listener) {
+    MouseListener mouse = new MouseClickEvent(listener);
+    gamePanel.addMouseListener(mouse);
+    setFocusable(true);
+  }
 
   @Override
   public void displayWorldSelectionScreen() {
@@ -133,6 +134,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void makeVisible() {
     setVisible(true);
+  }
+
+  @Override
+  public void closeWindow() {
+    this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
   }
 
   @Override

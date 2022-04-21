@@ -24,6 +24,8 @@ public class ButtonListener implements ActionListener {
       boardgameviewimpl.displayAddPlayerScreen();
     } else if ("New World".equals(e.getActionCommand())) {
       String filename = JOptionPane.showInputDialog("Enter the file name", null);
+    } else if ("Quit".equals(e.getActionCommand())) {
+      boardgameviewimpl.closeWindow();
 
     }
   }
