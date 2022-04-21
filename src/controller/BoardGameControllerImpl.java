@@ -30,7 +30,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * @param boardgameimpl the boardgame facade interface type
    */
   public void start() throws IllegalStateException {
-    view.addClickListener(this);
+    // view.addClickListener(this);
     view.setFeatures(this);
     view.makeVisible();
 
@@ -59,7 +59,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String keyPressEvent(String action, String playerName, String roomOrItemName) {
+  public String handleKeyPressEvent(String action, String playerName, String roomOrItemName) {
     if ("Attack".equalsIgnoreCase(action)) {
       GameController cmd = new AttackTarget(playerName, roomOrItemName);
       cmd.execute(model);
@@ -73,5 +73,10 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       cmd.execute(model);
       return cmd.getOutput();
     }
+  }
+
+  @Override
+  public String handleMouseClickEvent(int x, int y) {
+    return "Player Sccuessfully Moved to this space";
   }
 }

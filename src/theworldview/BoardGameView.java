@@ -13,7 +13,7 @@ public interface BoardGameView {
    * 
    * @param listener the controller
    */
-  void addClickListener(BoardGameController listener);
+ // void addClickListener(Features listener);
 
   /**
    * Refresh the view to reflect any changes in the game state.

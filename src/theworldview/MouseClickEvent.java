@@ -4,25 +4,28 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import controller.BoardGameController;
+import controller.Features;
 
-public class MouseClickEvent extends MouseAdapter{
+public class MouseClickEvent extends MouseAdapter {
   public final int width;
   public final int height;
-  public final BoardGameController listener;
+  public final Features listener;
+  public String Result;
 
   /**
    * Constructor for ClickEventMouse class.
    * 
    * @param listener the TicTacToeController type.
    */
-  public MouseClickEvent(BoardGameController listener) {
+  public MouseClickEvent(Features listener) {
     height = 600;
     width = 600;
     this.listener = listener;
+    this.Result = "";
   }
 
   @Override
   public void mouseClicked(MouseEvent event) {
-//    listener.handleCellClick(event.getX() / 200, event.getY() / 200);
+    String result = listener.handleMouseClickEvent(event.getX() / 200, event.getY() / 200);
   }
 }

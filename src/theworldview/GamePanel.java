@@ -63,9 +63,11 @@ public class GamePanel extends JPanel implements KeyListener {
     this.playerLabel = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
         .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
 
+    this.player1.gridx = 0;
+    this.player1.gridy = 0;
     this.player1.weightx = 0.1;
     this.player1.weighty = 0.1;
-    this.player1.insets = new Insets(50, 80, 20, 6);
+    this.player1.insets = new Insets(0, 0, 3, 5);
 
     this.target.weightx = 0.1;
     this.target.weighty = 0.1;
@@ -89,7 +91,7 @@ public class GamePanel extends JPanel implements KeyListener {
     this.playersArea = new JTextArea();
 
     this.playersArea.setLineWrap(true);
-    this.playersArea.setText("Player Index:");
+    this.playersArea.setText("PLAYERS INDEX:");
 
     // Sets JTextArea font and color.
     Font font = new Font("Segoe Script", Font.BOLD, 20);
@@ -111,7 +113,7 @@ public class GamePanel extends JPanel implements KeyListener {
     String targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
 
     this.turnInfoArea
-        .setText(String.format("Turn Info:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+        .setText(String.format("TURN INFO:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setDisabledTextColor(Color.BLUE);
     this.turnInfoArea.setEnabled(false);
@@ -119,7 +121,7 @@ public class GamePanel extends JPanel implements KeyListener {
     this.infoPanel.add(turnInfoArea);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(String.format("Turn Result:\n\n %s", this.outputMessage));
+    this.turnResultArea.setText(String.format("TURN RESULT:\n\n %s", this.outputMessage));
     this.turnResultArea.setFont(font);
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
