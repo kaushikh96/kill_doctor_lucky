@@ -34,6 +34,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private JMenuItem currentWorldItem;
   private JMenuItem newWorldItem;
   private JMenuItem quit;
+  private String outputMessage;
+  private String turnMessage;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -51,31 +53,30 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.boardGamePanel = new WelcomePanel(model, this);
     this.add(boardGamePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model, this);
-    this.gamePanel = new GamePanel(model, this);
+    // this.gamePanel = new GamePanel(model, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
-    
+
     this.menuBar = new JMenuBar();
-    
+
     this.menu = new JMenu("Menu");
-    
+
     this.currentWorldItem = new JMenuItem("Current World");
     this.newWorldItem = new JMenuItem("New World");
     this.quit = new JMenuItem("Quit");
-    
+
     this.menu.add(this.currentWorldItem);
     this.currentWorldItem.addActionListener(new ButtonListener(this));
     this.menu.add(this.newWorldItem);
     this.newWorldItem.addActionListener(new ButtonListener(this));
     this.menu.add(this.quit);
     this.quit.addActionListener(new ButtonListener(this));
-    
+
     this.menuBar.add(this.menu);
-    
+
     this.add(menuBar, BorderLayout.NORTH);
     pack();
     setVisible(true);
   }
-  
 
   @Override
   public void addClickListener(BoardGameController listener) {
@@ -83,7 +84,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 //    boardGamePanel.addMouseListener(mouse);
 //    setFocusable(true);
   }
-  
+
   @Override
   public void displayWorldSelectionScreen() {
     this.remove(boardGamePanel);
@@ -99,8 +100,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
-  public void displayGameScreen() {
+  public void displayGameScreen(String playername) {
     this.remove(addPlayerPanel);
+    this.turnMessage = this.getTurnsofPlayers(playername);
+    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
     this.add(gamePanel, BorderLayout.CENTER);
     gamePanel.revalidate();
   }
@@ -109,9 +112,14 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   public void addPlayers(String playerName, String roomName, int itemCapacity,
       boolean isComputerPlayer) {
     f.addPlayer(playerName, roomName, itemCapacity, isComputerPlayer);
-    //this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
-    //this.add(addPlayerPanel, BorderLayout.CENTER);
-    //addPlayerPanel.revalidate();
+    // this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
+    // this.add(addPlayerPanel, BorderLayout.CENTER);
+    // addPlayerPanel.revalidate();
+  }
+
+  @Override
+  public String getTurnsofPlayers(String playerName) {
+    return f.getTurns(playerName);
   }
 
   @Override

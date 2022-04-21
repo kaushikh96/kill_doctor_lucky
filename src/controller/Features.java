@@ -7,4 +7,6 @@ import theworld.PlayerImpl;
 public interface Features {
   public void addPlayer(String playerName, String spaceName, int itemCapacity,
       boolean isComputerPlayer);
+
+  public String getTurns(String playerName);
 }

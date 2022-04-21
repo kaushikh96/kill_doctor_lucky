@@ -46,4 +46,15 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     }
 
   }
+
+  @Override
+  public String getTurns(String playerName) {
+    try {
+      GameController cmd = new GetPlayerTurn(playerName);
+      cmd.execute(model);
+      return cmd.getOutput();
+    } catch (IllegalStateException ise) {
+      return null;
+    }
+  }
 }

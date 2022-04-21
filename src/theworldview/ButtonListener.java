@@ -22,11 +22,9 @@ public class ButtonListener implements ActionListener {
       boardgameviewimpl.displayWorldSelectionScreen();
     } else if ("Current World".equals(e.getActionCommand())) {
       boardgameviewimpl.displayAddPlayerScreen();
-    } else if ("CONTINUE".equals(e.getActionCommand())) {
-      boardgameviewimpl.displayGameScreen();
-    } else if ("New World".equals(e.getActionCommand())) {     
+    } else if ("New World".equals(e.getActionCommand())) {
       String filename = JOptionPane.showInputDialog("Enter the file name", null);
-          
+
     }
   }
 }

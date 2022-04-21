@@ -65,6 +65,7 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
   private List<PlayerImpl> playerinfo;
   private String[] spaceNames;
   private String space;
+  private List<PlayerImpl> playerlist;
 
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
@@ -77,6 +78,7 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
 
     this.readOnlyModel = readOnlyModel;
     this.view = view;
+    this.space = "Drawing Room";
 
     this.setLayout(new BorderLayout());
 
@@ -164,8 +166,9 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
 
     this.add(name, BorderLayout.WEST);
 
-    this.spaceNames = readOnlyModel.getSpaceList().stream().map(SpaceImpl::getName).collect(Collectors.toList()).toArray(new String[0]);
-    
+    this.spaceNames = readOnlyModel.getSpaceList().stream().map(SpaceImpl::getName)
+        .collect(Collectors.toList()).toArray(new String[0]);
+
     this.spaceName = new JComboBox(this.spaceNames);
     this.spaceName.setPreferredSize(new Dimension(200, 30));
 
@@ -287,8 +290,8 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.add(name, BorderLayout.WEST);
 
     this.groupType = new ButtonGroup();
-    this.groupType.add(humanType);
-    this.groupType.add(computerType);
+    this.groupType.add(this.humanType);
+    this.groupType.add(this.computerType);
 
     this.nextButton = new JButton("CONTINUE");
     this.nextButton.setBackground(new Color(59, 89, 182));
@@ -296,7 +299,8 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.nextButton.setFocusPainted(false);
     this.nextButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.nextButton.setPreferredSize(new Dimension(120, 40));
-    this.nextButton.addActionListener(new ButtonListener(view));
+    this.nextButton.addActionListener(this);
+    this.nextButton.setEnabled(false);
 
     this.cname.gridx = 2;
     this.cname.gridy = 4;
@@ -310,9 +314,9 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.name.add(nextButton, cname);
 
     this.add(name, BorderLayout.WEST);
-    List<PlayerImpl> playerlist = readOnlyModel.getPlayerList();
+    this.playerlist = readOnlyModel.getPlayerList();
 
-    String[][] data = playerlist.stream()
+    String[][] data = this.playerlist.stream()
         .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
             Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
         .toArray(String[][]::new);
@@ -349,18 +353,30 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    String demo = groupType.getSelection().getActionCommand();
-    int itemcapacity = Integer.parseInt(itemLimitText.getText());
-    view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
-    this.nameText.setText("");
-    this.spaceName.setSelectedIndex(-1);
-    this.itemLimitText.setText("");
-    this.groupType.clearSelection();
+
+    if ("CONTINUE".equals(e.getActionCommand())) {
+      if (this.playerlist.size() > 0) {
+        view.displayGameScreen(this.playerlist.get(playerlist.size() - 1).getName());
+      } else {
+        view.displayGameScreen("");
+      }
+    } else {
+      this.nextButton.setEnabled(true);
+      String demo = this.groupType.getSelection().getActionCommand();
+      int itemcapacity = Integer.parseInt(itemLimitText.getText());
+      String group = this.groupType.getSelection().getActionCommand();
+      view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
+      this.playerlist = readOnlyModel.getPlayerList();
+      this.nameText.setText("");
+      this.spaceName.setSelectedIndex(-1);
+      this.itemLimitText.setText("");
+      this.groupType.clearSelection();
+    }
   }
-  
+
   @Override
   public void itemStateChanged(ItemEvent itemEvent) {
-    
+
     if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
       this.space = (String) itemEvent.getItem();
     }
