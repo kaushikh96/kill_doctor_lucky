@@ -1,9 +1,10 @@
 package controller;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-
 import theworldview.ButtonListener;
+import theworldview.KeyboardListener;
 import theworld.BoardGameModel;
 import theworldview.BoardGameView;
 
@@ -36,6 +37,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     view.setFeatures(this);
     view.makeVisible();
     configureButtonListener();
+    configureKeyBoardListener();
 
   }
 
@@ -105,9 +107,40 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       this.view.setOutputMessage(String.format("Game Starts !! Execute the first turn !"));
       this.view.displayGameScreen();
     });
-
     buttonListener.setButtonClickedActionMap(buttonClickedMap);
     this.view.addActionListener(buttonListener);
 
+  }
+  
+  private void configureKeyBoardListener() {
+    //Map<Character, Runnable> keyTypes = new HashMap<>();
+    Map<Integer, Runnable> keyPresses = new HashMap<>();
+    //Map<Integer, Runnable> keyReleases = new HashMap<>();
+    
+    keyPresses.put(KeyEvent.VK_P, () -> {
+      String playerName = this.view.getCurrentPlayerName();
+      String itemName = this.view.showPickDialog();
+      GameController cmd = new PickUpItem(playerName, itemName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+      this.view.displayGameScreen();
+      
+    });
+    
+    keyPresses.put(KeyEvent.VK_L, () -> {
+      String playerName = this.view.getCurrentPlayerName();
+      GameController cmd = new LookAround(playerName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+      this.view.displayGameScreen();
+      
+    });
+    
+    KeyboardListener kbd = new KeyboardListener();
+  //  kbd.setKeyTypedMap(keyTypes);
+    kbd.setKeyPressedMap(keyPresses);
+  //  kbd.setKeyReleasedMap(keyReleases);
+
+   view.addKeyListener(kbd);
   }
 }

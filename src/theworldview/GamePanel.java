@@ -1,9 +1,5 @@
 package theworldview;
 
-import controller.Features;
-import theworld.PlayerImpl;
-import theworld.ReadOnlyBoardGameModel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -154,7 +150,7 @@ public class GamePanel extends JPanel {
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.turnResultArea.setBackground(new Color(37, 190, 175));
-    this.infoPanel.add(turnResultArea);
+    this.infoPanel.add(turnResultArea, game);
 
     this.add(infoPanel, game);
   }
@@ -172,4 +168,23 @@ public class GamePanel extends JPanel {
         player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
     return playerLabel;
   }
+
+//  public void showPickDialog() {
+//    
+//    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
+//        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim())).collect(Collectors.toList()).get(0);
+//    System.out.println(player);
+//    
+//    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
+//        .collect(Collectors.toList()).toArray(new String[0]);
+//    
+//    System.out.print(itemList);
+//    
+//    JComboBox items = new JComboBox(itemList);
+//    items.setPreferredSize(new Dimension(200, 30));
+//    
+//    UIManager.put("OptionPane.okButtonText", "Pick"); 
+//    JOptionPane.showMessageDialog(null, items);
+//    
+//  }
 }

@@ -11,7 +11,6 @@ public class ButtonListener implements ActionListener {
   private Map<String, Runnable> buttonClickedActions;
 
   public ButtonListener() {
-
     this.buttonClickedActions = null;
   }
 
