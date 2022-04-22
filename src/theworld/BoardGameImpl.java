@@ -471,6 +471,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           SpaceImpl space = spacelist.get(0);
           PlayerImpl player = new PlayerImpl(name, space, itemcapacity, playeritems,
               isComputerPlayer);
+          this.currentPlayerTurn = player.getName();
           playerlist.add(player);
         } else {
           throw new IllegalStateException("Space doesn't exist in the world\n");

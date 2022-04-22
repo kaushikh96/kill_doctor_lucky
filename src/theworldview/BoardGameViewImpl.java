@@ -54,7 +54,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.welcomePanel = new WelcomePanel(model, this);
     this.add(welcomePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model, this);
-    // this.gamePanel = new GamePanel(model, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
 
     this.menuBar = new JMenuBar();
@@ -66,11 +65,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.quit = new JMenuItem("Quit");
 
     this.menu.add(this.currentWorldItem);
-    //this.currentWorldItem.addActionListener(new ButtonListener());
     this.menu.add(this.newWorldItem);
-    //this.newWorldItem.addActionListener(new ButtonListener());
     this.menu.add(this.quit);
-    //this.quit.addActionListener(new ButtonListener());
 
     this.menuBar.add(this.menu);
 
@@ -79,13 +75,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setVisible(true);
   }
 
-//  @Override
-//  public void addClickListener(Features listener) {
-//    MouseListener mouse = new MouseClickEvent(listener);
-//    gamePanel
-//    setFocusable(true);
-//  }
-  
   @Override
   public void addActionListener(ActionListener actionListener) {
     this.welcomePanel.addActionListener(actionListener);
@@ -111,16 +100,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void displayGameScreen() {
-    String playerName;
-    if (this.readOnlyModel.getPlayerList().size() > 0) {
-    playerName = this.readOnlyModel.getPlayerList().get(readOnlyModel.getPlayerList().size() - 1).getName();
-    } else {
-    playerName = "";
-    }
     this.remove(addPlayerPanel);
-    this.turnMessage = this.getTurnsofPlayers(playerName);
+    this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
-    // MouseListener mouse = new MouseClickEvent(f);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
@@ -129,10 +111,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void addPlayers() {
-    
-    this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace()
-        , this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
-    
+
+    this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
+        this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
+
     this.addPlayerPanel.resetFields();
   }
 
@@ -159,7 +141,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setFeatures(Features f) {
     this.f = f;
-    // this.addPlayerPanel.setFeatures(f);
+  }
+
+  @Override
+  public void setOutputMessage(String outputMessage) {
+    this.outputMessage = outputMessage;
   }
 }
-//

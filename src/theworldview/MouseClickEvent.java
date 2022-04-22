@@ -30,9 +30,7 @@ public class MouseClickEvent extends MouseAdapter {
   public void mouseClicked(MouseEvent event) {
     String result = listener.handleMouseClickEvent((event.getY() - 29) / 30,
         (event.getX() - 59) / 60);
-    // view.displayGameScreen(result);
-    // view.getTurnsofPlayers(result);
-    String playername = result.split("Move:")[1].split("has been")[0].trim();
-    view.displayGameScreen(playername);
+    view.setOutputMessage(result);
+    view.displayGameScreen();
   }
 }

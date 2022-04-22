@@ -1,12 +1,10 @@
 package controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import theworldview.ButtonListener;
 import theworld.BoardGameModel;
-import theworld.PlayerImpl;
 import theworldview.BoardGameView;
 
 public class BoardGameControllerImpl implements BoardGameController, Features {
@@ -86,28 +84,28 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     cmd.execute(model);
     return cmd.getOutput();
   }
-  
+
   private void configureButtonListener() {
     Map<String, Runnable> buttonClickedMap = new HashMap<>();
     ButtonListener buttonListener = new ButtonListener();
-    
+
     buttonClickedMap.put("START", () -> {
       this.view.displayWorldSelectionScreen();
     });
-    
+
     buttonClickedMap.put("Current World", () -> {
       this.view.displayAddPlayerScreen();
     });
-    
+
     buttonClickedMap.put("ADD", () -> {
-        this.view.addPlayers();  
+      this.view.addPlayers();
     });
-    
-    buttonClickedMap.put("CONTINUE", () -> {   
-      this.view.displayGameScreen();   
+
+    buttonClickedMap.put("CONTINUE", () -> {
+      this.view.setOutputMessage(String.format("Game Starts !! Execute the first turn !"));
+      this.view.displayGameScreen();
     });
-    
-    
+
     buttonListener.setButtonClickedActionMap(buttonClickedMap);
     this.view.addActionListener(buttonListener);
 

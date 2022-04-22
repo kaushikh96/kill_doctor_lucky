@@ -40,5 +40,7 @@ public interface BoardGameView {
 
   void addPlayers();
 
-  void displayGameScreen();
+  public void displayGameScreen();
+
+  public void setOutputMessage(String outputMessage);
 }
