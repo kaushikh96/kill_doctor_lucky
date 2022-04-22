@@ -79,12 +79,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setVisible(true);
   }
 
-  @Override
-  public void addClickListener(Features listener) {
-    MouseListener mouse = new MouseClickEvent(listener);
-    gamePanel.addMouseListener(mouse);
-    setFocusable(true);
-  }
+//  @Override
+//  public void addClickListener(Features listener) {
+//    MouseListener mouse = new MouseClickEvent(listener);
+//    gamePanel
+//    setFocusable(true);
+//  }
 
   @Override
   public void displayWorldSelectionScreen() {
@@ -105,8 +105,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.remove(addPlayerPanel);
     this.turnMessage = this.getTurnsofPlayers(playername);
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
-    MouseListener mouse = new MouseClickEvent(f);
-    gamePanel.addMouseListener(mouse);
+    // MouseListener mouse = new MouseClickEvent(f);
+    this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
     gamePanel.revalidate();
@@ -144,6 +144,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setFeatures(Features f) {
     this.f = f;
+    // this.addPlayerPanel.setFeatures(f);
   }
 }
 //

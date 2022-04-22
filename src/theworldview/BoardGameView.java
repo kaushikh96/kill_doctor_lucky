@@ -13,7 +13,7 @@ public interface BoardGameView {
    * 
    * @param listener the controller
    */
-  void addClickListener(Features listener);
+  // void addClickListener(Features listener);
 
   /**
    * Refresh the view to reflect any changes in the game state.
@@ -37,6 +37,6 @@ public interface BoardGameView {
   public void displayWorldSelectionScreen();
 
   public String getTurnsofPlayers(String playerName);
-  
+
   public void closeWindow();
 }

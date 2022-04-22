@@ -26,6 +26,7 @@ public class MouseClickEvent extends MouseAdapter {
 
   @Override
   public void mouseClicked(MouseEvent event) {
-    String result = listener.handleMouseClickEvent(event.getX() / 30, event.getY() / 60);
+    String result = listener.handleMouseClickEvent((event.getX() - 59) / 60,
+        (event.getY() - 29) / 30);
   }
 }

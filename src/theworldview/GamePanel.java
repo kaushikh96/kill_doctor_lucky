@@ -11,12 +11,17 @@ import java.awt.event.KeyListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.Features;
+import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -24,7 +29,16 @@ public class GamePanel extends JPanel implements KeyListener {
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
   private JLabel imageLabel;
-  private JLabel playerLabel;
+  private JLabel playerLabel1;
+  private JLabel playerLabel2;
+  private JLabel playerLabel3;
+  private JLabel playerLabel4;
+  private JLabel playerLabel5;
+  private JLabel playerLabel6;
+  private JLabel playerLabel7;
+  private JLabel playerLabel8;
+  private JLabel playerLabel9;
+  private JLabel playerLabel10;
   private JLabel targetLabel;
   private JPanel infoPanel;
   private JPanel gamePanel;
@@ -36,6 +50,7 @@ public class GamePanel extends JPanel implements KeyListener {
   private JTextArea turnResultArea;
   private String outputMessage;
   private String turnMessage;
+  private int playerIteration = 1;
 
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
       String turnMessage) {
@@ -53,58 +68,99 @@ public class GamePanel extends JPanel implements KeyListener {
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
 
-//    this.setLayout(null);
     this.gamePanel = new JPanel();
     this.game = new GridBagConstraints();
 
-    //this.player1 = new GridBagConstraints();
-    //this.target = new GridBagConstraints();
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
-    
-    
+
     this.imageLabel.setLayout(null);
-  
+
     this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
-    
-    this.targetLabel.setBounds(100, 100, 20, 20);
-    
-//    this.targetLabel.setBounds(readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(1) * 60 + 5, 
-//        readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(0) * 30 + 5, 10, 10);
 
-    
-    this.playerLabel = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-        .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-    
-    this.playerLabel.setBounds(200, 200, 20, 20);
-//    this.playerLabel.setBounds(readOnlyModel.getPlayerList().get(0).getCurrentRoom().getRoomLocation().get(1) * 60 + 5, 
-//        readOnlyModel.getPlayerList().get(0).getCurrentRoom().getRoomLocation().get(0) * 30 + 5, 2, 2);
+    this.targetLabel.setBounds(
+        readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(1) * 60 + 5,
+        readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(0) * 30 + 5,
+        20, 20);
 
-//    this.player1.gridx = 0;
-//    this.player1.gridy = 0;
-//    this.player1.weightx = 2;
-//    this.player1.weighty = 2;
-//    this.player1.fill = GridBagConstraints.BOTH;
-//    this.player1.insets = new Insets(80, 60, 140, 80);
-//
-//    this.target.gridx = 0;
-//    this.target.gridy = 0;
-//    this.target.weightx = 1;
-//    this.target.weighty = 1;
-//    this.target.insets = new Insets(11, 14, 24, 15);
-//
-//    this.setBackground(new Color(137, 207, 240));
-//
-//    this.game.gridx = 0;
-//    this.game.gridy = 0;
-//    this.game.weightx = 1;
-//    this.game.weighty = 1;
-//    this.game.fill = GridBagConstraints.BOTH;
-//    this.game.anchor = GridBagConstraints.NORTHWEST;
-//    this.game.insets = new Insets(10, 10, 10, 10);
+    List<PlayerImpl> playerList = readOnlyModel.getPlayerList();
+    playerList.forEach(s -> {
+      if (playerIteration == 1) {
+        this.playerLabel1 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel1.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel1);
+      } else if (playerIteration == 2) {
+        this.playerLabel2 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel2.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel2);
+      } else if (playerIteration == 3) {
+        this.playerLabel3 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel3.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel3);
+      } else if (playerIteration == 4) {
+        this.playerLabel4 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel4.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel4);
+      } else if (playerIteration == 5) {
+        this.playerLabel5 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel5.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel5);
+      } else if (playerIteration == 6) {
+        this.playerLabel6 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel6.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel6);
+      } else if (playerIteration == 7) {
+        this.playerLabel7 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel7.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel7);
+      } else if (playerIteration == 8) {
+        this.playerLabel8 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel8.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel8);
+      } else if (playerIteration == 9) {
+        this.playerLabel9 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel9.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel9);
+      } else if (playerIteration == 10) {
+        this.playerLabel10 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
+            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+
+        this.playerLabel10.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.imageLabel.add(this.playerLabel10);
+      }
+      playerIteration++;
+    });
 
     this.imageLabel.add(this.targetLabel);
-    this.imageLabel.add(this.playerLabel);
+
     this.gamePanel.add(this.imageLabel);
     this.add(gamePanel);
 
@@ -114,7 +170,6 @@ public class GamePanel extends JPanel implements KeyListener {
     this.playersArea.setLineWrap(true);
     this.playersArea.setText("PLAYERS INDEX:");
 
-    // Sets JTextArea font and color.
     Font font = new Font("Segoe Script", Font.BOLD, 20);
     this.playersArea.setFont(font);
     this.playersArea.setEnabled(false);
@@ -149,7 +204,6 @@ public class GamePanel extends JPanel implements KeyListener {
     this.turnResultArea.setBackground(new Color(37, 190, 175));
     this.infoPanel.add(turnResultArea);
 
-    // this.add(gamePanel, game);
     this.add(infoPanel, game);
     this.addKeyListener(this);
   }
@@ -171,4 +225,9 @@ public class GamePanel extends JPanel implements KeyListener {
 
   }
 
+  public void setFeatures(Features f) {
+    MouseListener mouse = new MouseClickEvent(f);
+    this.gamePanel.addMouseListener(mouse);
+    setFocusable(true);
+  }
 }

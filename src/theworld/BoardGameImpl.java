@@ -323,7 +323,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             (coord.get(3) - coord.get(1)) * 60 + 59, (coord.get(2) - coord.get(0)) * 30 + 29);
         this.graphics2d.drawString(s.getName(), coord.get(1) * 60 + 19, coord.get(0) * 30 + 29);
       });
-      File newfile = new File("rep.jpg");
+      File newfile = new File("res/rep.jpg");
       ImageIO.write(this.bufferedimage, "jpg", newfile);
     } catch (IOException io) {
       throw new IllegalArgumentException("Invalid buffer image");

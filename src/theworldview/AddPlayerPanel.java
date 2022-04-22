@@ -35,6 +35,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
@@ -352,8 +353,15 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void itemStateChanged(ItemEvent itemEvent) {
 
+    if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+      this.space = (String) itemEvent.getItem();
+    }
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
     if ("CONTINUE".equals(e.getActionCommand())) {
       if (this.playerlist.size() > 0) {
         view.displayGameScreen(this.playerlist.get(playerlist.size() - 1).getName());
@@ -372,13 +380,6 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
       this.itemLimitText.setText("");
       this.groupType.clearSelection();
     }
-  }
 
-  @Override
-  public void itemStateChanged(ItemEvent itemEvent) {
-
-    if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-      this.space = (String) itemEvent.getItem();
-    }
   }
 }

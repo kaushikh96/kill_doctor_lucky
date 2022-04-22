@@ -37,12 +37,12 @@ public class Driver {
         inputdata.append((char) data);
       }
       BoardGameImpl world = Builder.readfile(inputdata.toString());
-     // BoardGameModel boardGameModel = world;
+      // BoardGameModel boardGameModel = world;
 //      ReadOnlyBoardGameModel readOnlyModel = new BoardGameImpl(world.getTargetCharacterImpl(),
 //          world.getName(), world.getSpaceList(), world.getWorldCoordinates(),
 //          world.getTargetPetImpl(), world.getRandomClassRef());
       BoardGameView boardGameView = new BoardGameViewImpl("Board Game View", world);
-
+      world.createGraphicalRepresentation();
       new BoardGameControllerImpl(boardGameView, world).start();
     } catch (IOException e) {
       System.err.println("File not found");
