@@ -41,6 +41,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   private String compdisplaymessage;
   private String neighbourinfo;
   private boolean isBackTrack;
+  private String currentPlayerTurn;
 
   /**
    * Construct a BoardGameImpl object that has the provided targetcharacter, name,
@@ -96,6 +97,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.playerstring = "";
     this.compdisplaymessage = "";
     this.neighbourinfo = "";
+    this.currentPlayerTurn = "";
   }
 
   @Override
@@ -123,6 +125,11 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   @Override
   public RandomClass getRandomClassRef() {
     return this.randomref;
+  }
+
+  @Override
+  public String getCurrentPlayerTurn() {
+    return this.currentPlayerTurn;
   }
 
   @Override
@@ -331,24 +338,41 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   }
 
   @Override
-  public String movePlayer(String playername, String roomtobemovedto) throws IllegalStateException {
-    if (playername == null || roomtobemovedto == null || "".equals(playername)
-        || "".equals(roomtobemovedto)) {
-      throw new IllegalStateException("Invalid player name or room name");
+  public String movePlayer(int x_coordinate, int y_coordinate) throws IllegalStateException {
+    if (x_coordinate < 0 || y_coordinate < 0) {
+      throw new IllegalStateException("Invalid coordinates");
     } else {
       PlayerImpl player = this.playerlist.stream()
-          .filter(s -> s.getName().trim().equalsIgnoreCase(playername.trim()))
+          .filter(s -> s.getName().trim().equalsIgnoreCase(this.currentPlayerTurn.trim()))
           .collect(Collectors.toList()).get(0);
       List<SpaceImpl> neighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
+      String roomToBeMovedTo = this.getSpaceFromCoordinates(x_coordinate, y_coordinate);
       if (neighbours.stream()
-          .filter(s -> s.getName().trim().equalsIgnoreCase(roomtobemovedto.trim()))
+          .filter(s -> s.getName().trim().equalsIgnoreCase(roomToBeMovedTo.trim()))
           .collect(Collectors.toList()).isEmpty()) {
         throw new IllegalStateException(
             "Player can't be moved as the Given room as it is not a neighbour\n");
       }
-      player.movePlayer(neighbours, roomtobemovedto);
+      player.movePlayer(neighbours, roomToBeMovedTo);
+      this.getNextTargetCharacterRoom();
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      return this.getNextTargetCharacterRoom();
+      return String.format("Executed Move: %s has been moved to %s", player.getName(),
+          roomToBeMovedTo);
+    }
+  }
+
+  private String getSpaceFromCoordinates(int x_coordinate, int y_coordinate) {
+    if (x_coordinate < 0 || y_coordinate < 0) {
+      throw new IllegalStateException("Invalid coordinates");
+    } else {
+      List<SpaceImpl> spaces = this.getSpaceList();
+      List<SpaceImpl> toBeMoved = spaces.stream()
+          .filter(r -> r.getRoomLocation().get(0) <= x_coordinate
+              && r.getRoomLocation().get(2) >= x_coordinate
+              && r.getRoomLocation().get(3) >= y_coordinate
+              && r.getRoomLocation().get(1) <= y_coordinate)
+          .collect(Collectors.toList());
+      return toBeMoved.get(0).getName();
     }
   }
 
@@ -447,6 +471,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           SpaceImpl space = spacelist.get(0);
           PlayerImpl player = new PlayerImpl(name, space, itemcapacity, playeritems,
               isComputerPlayer);
+          this.currentPlayerTurn = player.getName();
           playerlist.add(player);
         } else {
           throw new IllegalStateException("Space doesn't exist in the world\n");
@@ -759,12 +784,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       if (!currentplayerinfo.isEmpty()) {
         int currplayerindex = this.getPlayerList().indexOf(currentplayerinfo.get(0));
         if (currplayerindex == (this.getPlayerList().size() - 1)) {
+          this.currentPlayerTurn = this.getPlayerList().get(0).getName();
           return String.format("%s, PlayerType: %s; Target Current Location: %s",
               this.getPlayerInfo(this.getPlayerList().get(0).getName()).replace(
                   "Player Info (Name:", "Turn of"),
               this.getPlayerList().get(0).isComputerPlayer(),
               this.targetcharacter.getCurrentRoom().getName());
         } else {
+          this.currentPlayerTurn = this.getPlayerList().get(currplayerindex + 1).getName();
           return String.format("%s, PlayerType: %s; Target Current Location: %s",
               this.getPlayerInfo(this.getPlayerList().get(currplayerindex + 1).getName())
                   .replace("Player Info (Name:", "Turn of:"),

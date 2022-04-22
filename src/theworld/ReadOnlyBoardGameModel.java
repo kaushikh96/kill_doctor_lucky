@@ -109,4 +109,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   public RandomClass getRandomClassRef();
 
+  public String getCurrentPlayerTurn();
+
 }

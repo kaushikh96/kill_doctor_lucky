@@ -56,4 +56,6 @@ public interface BoardGameView {
    * @param listener the listener to add
    */
   void addKeyListener(KeyListener listener);
+
+  public void setOutputMessage(String outputMessage);
 }
