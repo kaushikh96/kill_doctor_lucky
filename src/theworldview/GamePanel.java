@@ -1,6 +1,7 @@
 package theworldview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,18 +15,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import controller.Features;
+import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
+import theworld.SpaceImpl;
 
-public class GamePanel extends JPanel implements KeyListener {
+public class GamePanel extends JPanel {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -206,23 +213,6 @@ public class GamePanel extends JPanel implements KeyListener {
     this.infoPanel.add(turnResultArea);
 
     this.add(infoPanel, game);
-    this.addKeyListener(this);
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-
-  }
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    // TODO Auto-generated method stub
 
   }
 
@@ -235,4 +225,23 @@ public class GamePanel extends JPanel implements KeyListener {
   public void addActionListener(ActionListener listener) {
     
   }
+
+//  public void showPickDialog() {
+//    
+//    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
+//        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim())).collect(Collectors.toList()).get(0);
+//    System.out.println(player);
+//    
+//    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
+//        .collect(Collectors.toList()).toArray(new String[0]);
+//    
+//    System.out.print(itemList);
+//    
+//    JComboBox items = new JComboBox(itemList);
+//    items.setPreferredSize(new Dimension(200, 30));
+//    
+//    UIManager.put("OptionPane.okButtonText", "Pick"); 
+//    JOptionPane.showMessageDialog(null, items);
+//    
+//  }
 }

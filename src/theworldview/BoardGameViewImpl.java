@@ -2,23 +2,29 @@ package theworldview;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import controller.BoardGameController;
 import controller.BoardGameControllerImpl;
 import controller.Features;
+import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
@@ -160,6 +166,29 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   public void setFeatures(Features f) {
     this.f = f;
     // this.addPlayerPanel.setFeatures(f);
+  }
+  
+  public String showPickDialog() {
+    String itemName = null;
+    
+  PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
+  .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim())).collect(Collectors.toList()).get(0);
+
+  String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
+  .collect(Collectors.toList()).toArray(new String[0]);
+
+  JComboBox items = new JComboBox(itemList);
+  items.setPreferredSize(new Dimension(200, 30));
+
+  //UIManager.put("OptionPane.okButtonText", "Pick"); 
+  int result = JOptionPane.showConfirmDialog(null, items,"Pick an Item", JOptionPane.DEFAULT_OPTION);
+  
+  if (result == JOptionPane.OK_OPTION) {
+    itemName = (String) items.getSelectedItem();
+  }
+  
+  return itemName;
+
   }
 }
 //

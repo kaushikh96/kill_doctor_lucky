@@ -1,10 +1,11 @@
 package controller;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import theworldview.ButtonListener;
+import theworldview.KeyboardListener;
 import theworld.BoardGameModel;
 import theworld.PlayerImpl;
 import theworldview.BoardGameView;
@@ -38,6 +39,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     view.setFeatures(this);
     view.makeVisible();
     configureButtonListener();
+    configureKeyBoardListener();
 
   }
 
@@ -105,9 +107,28 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       this.view.displayGameScreen();   
     });
     
+//    buttonClickedMap.put("Pick", null)
+    
     
     buttonListener.setButtonClickedActionMap(buttonClickedMap);
     this.view.addActionListener(buttonListener);
 
+  }
+  
+  private void configureKeyBoardListener() {
+    Map<Character, Runnable> keyTypes = new HashMap<>();
+    Map<Integer, Runnable> keyPresses = new HashMap<>();
+    Map<Integer, Runnable> keyReleases = new HashMap<>();
+    
+    keyPresses.put(KeyEvent.VK_P, () -> {
+      this.view.showPickDialog();
+    });
+    
+    KeyboardListener kbd = new KeyboardListener();
+    kbd.setKeyTypedMap(keyTypes);
+    kbd.setKeyPressedMap(keyPresses);
+    kbd.setKeyReleasedMap(keyReleases);
+
+   view.addKeyListener(kbd);
   }
 }
