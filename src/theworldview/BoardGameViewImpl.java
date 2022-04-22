@@ -1,28 +1,19 @@
 package theworldview;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 
-import controller.BoardGameController;
-import controller.BoardGameControllerImpl;
 import controller.Features;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
@@ -162,7 +153,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
 
-    // UIManager.put("OptionPane.okButtonText", "Pick");
     int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
         JOptionPane.DEFAULT_OPTION);
 
@@ -178,12 +168,20 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   public void setOutputMessage(String outputMessage) {
     this.outputMessage = outputMessage;
   }
-  
+
   @Override
   public String getCurrentPlayerName() {
     return this.readOnlyModel.getCurrentPlayerTurn();
   }
-  
+
+  public void changeGamePositions() {
+    this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+    // this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage,
+    // this.turnMessage);
+    // this.gamePanel.setFeatures(f);
+    gamePanel.changeGamePositions(this.outputMessage, turnMessage);
+  }
+
   @Override
   public void resetFocus() {
     this.setFocusable(true);

@@ -40,17 +40,18 @@ public interface BoardGameView {
   public void addActionListener(ActionListener actionListener);
 
   public void addPlayers();
-  
+
   public void displayGameScreen();
 
   public String showPickDialog();
-  
+
   /**
    * This is to force the view to have a method to set up the keyboard. The name
    * has been chosen deliberately. This is the same method signature to add a key
    * listener in Java Swing.
    *
-   * <p>Thus our Swing-based implementation of this interface will already have such
+   * <p>
+   * Thus our Swing-based implementation of this interface will already have such
    * a method.
    * 
    * @param listener the listener to add
@@ -58,8 +59,10 @@ public interface BoardGameView {
   void addKeyListener(KeyListener listener);
 
   public void setOutputMessage(String outputMessage);
-  
+
   public String getCurrentPlayerName();
 
   void resetFocus();
+
+  public void changeGamePositions();
 }

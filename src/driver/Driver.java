@@ -27,7 +27,7 @@ public class Driver {
     try {
       FileReader fr;
       StringBuilder inputdata = new StringBuilder();
-      String filepath = "C:\\Users\\Sanjana\\workspaces\\cs5010-final-project-kaushik_sanjana_team\\res\\myworld.txt";
+      String filepath = "C:\\Users\\Kaushik\\eclipse-workspace\\cs5010-final-project-kaushik_sanjana_team\\res\\myworld.txt";
       int turns = 10;// Integer.parseInt(args[1]);
       Readable input = new InputStreamReader(System.in);
       Appendable output = System.out;

@@ -32,7 +32,7 @@ public class WelcomePanel extends JPanel {
   private BoardGameView view;
   private GridBagConstraints welcome;
   private JPanel welcomePanel;
-  
+
   /**
    * Constructor for PanelImpl class.
    * 
@@ -48,15 +48,15 @@ public class WelcomePanel extends JPanel {
 
     this.readonlymodel = readonlymodel;
     this.view = view;
-    //this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    // this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
     this.setLayout(new BorderLayout());
-    
+
     this.welcomePanel = new JPanel(new GridBagLayout());
     this.welcomePanel.setBackground(new Color(137, 207, 240));
     this.welcome = new GridBagConstraints();
-    
-    String labelText1 = "<html><font color=#8B8000 size=300>KILL DOCTOR LUCKY</font><br></html>";
+
+    String labelText1 = "<html><font color=#8B8000 size=500>KILL DOCTOR LUCKY</font><br></html>";
     JLabel coloredLabel1 = new JLabel(labelText1, JLabel.CENTER);
     coloredLabel1.setPreferredSize(new Dimension(550, 80));
     coloredLabel1.setBackground(Color.YELLOW);
@@ -67,16 +67,16 @@ public class WelcomePanel extends JPanel {
     coloredLabel1.setBorder(border);
     this.welcome.gridx = 0;
     this.welcome.gridy = 0;
-    this.welcome.anchor = GridBagConstraints.NORTH;   
+    this.welcome.anchor = GridBagConstraints.NORTH;
     this.welcome.weightx = 5.0;
     this.welcome.weighty = 5.0;
     this.welcome.insets = new Insets(80, 10, 10, 10);
     this.welcomePanel.add(coloredLabel1, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
-    
+
     String labelText = "<html><font color=blue size=15>LET'S START THE GAME PLAY !!!</font><br></html>";
     JLabel coloredLabel = new JLabel(labelText, JLabel.CENTER);
-    
+
     this.welcome.gridx = 0;
     this.welcome.gridy = 1;
     this.welcome.anchor = GridBagConstraints.NORTH;
@@ -101,12 +101,11 @@ public class WelcomePanel extends JPanel {
     this.welcome.insets = new Insets(50, 10, 10, 10);
     this.welcomePanel.add(b, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
-    
-    
+
     String kaushikText = "<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>SANJANA KANDUNOORI</font></html>";
     JLabel kaushikLabel = new JLabel(kaushikText);
     kaushikLabel.setBorder(new EmptyBorder(10, 30, 40, 10));
-    
+
     this.add(kaushikLabel, BorderLayout.SOUTH);
   }
 
@@ -124,7 +123,6 @@ public class WelcomePanel extends JPanel {
     graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
   }
 
-  
   public void addActionListener(ActionListener listener) {
     this.b.addActionListener(listener);
   }

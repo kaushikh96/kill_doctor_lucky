@@ -1,5 +1,6 @@
 package theworldview;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,6 +12,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import controller.Features;
+import theworld.PlayerImpl;
+import theworld.ReadOnlyBoardGameModel;
+
 import java.util.List;
 
 public class GamePanel extends JPanel {
@@ -110,7 +116,7 @@ public class GamePanel extends JPanel {
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-    this.add(gamePanel);
+    this.add(gamePanel, game);
 
     this.infoPanel = new JPanel(new GridLayout(3, 0, 10, 10));
     this.playersArea = new JTextArea();
@@ -136,8 +142,8 @@ public class GamePanel extends JPanel {
     String playerInfo = this.turnMessage.split("Items:")[0];
     String targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
 
-    this.turnInfoArea
-        .setText(String.format("TURN INFO:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+    this.turnInfoArea.setText(
+        String.format("CURRENT TURN INFO:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setDisabledTextColor(Color.BLUE);
     this.turnInfoArea.setEnabled(false);
@@ -145,7 +151,7 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(turnInfoArea);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(String.format("TURN RESULT:\n\n %s", this.outputMessage));
+    this.turnResultArea.setText(String.format("PREVIOUS TURN RESULT:\n\n %s", this.outputMessage));
     this.turnResultArea.setFont(font);
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
@@ -153,6 +159,8 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(turnResultArea, game);
 
     this.add(infoPanel, game);
+    // this.revalidate();
+    this.repaint();
   }
 
   public void setFeatures(Features f) {
@@ -169,22 +177,12 @@ public class GamePanel extends JPanel {
     return playerLabel;
   }
 
-//  public void showPickDialog() {
-//    
-//    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
-//        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim())).collect(Collectors.toList()).get(0);
-//    System.out.println(player);
-//    
-//    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
-//        .collect(Collectors.toList()).toArray(new String[0]);
-//    
-//    System.out.print(itemList);
-//    
-//    JComboBox items = new JComboBox(itemList);
-//    items.setPreferredSize(new Dimension(200, 30));
-//    
-//    UIManager.put("OptionPane.okButtonText", "Pick"); 
-//    JOptionPane.showMessageDialog(null, items);
-//    
-//  }
+  public void changeGamePositions(String outputMessage, String turnMessage) {
+    readOnlyModel.getPlayerList().forEach(s -> {
+      this.getPlayerJLabel(s, "playericon.png");
+    });
+    this.turnResultArea.setText(outputMessage);
+    this.turnInfoArea.setText(turnMessage);
+    this.revalidate();
+  }
 }
