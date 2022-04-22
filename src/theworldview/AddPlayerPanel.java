@@ -40,7 +40,7 @@ import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
 
-public class AddPlayerPanel extends JPanel implements ActionListener, ItemListener {
+public class AddPlayerPanel extends JPanel implements ItemListener {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -241,7 +241,6 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.addButton.setFocusPainted(false);
     this.addButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.addButton.setPreferredSize(new Dimension(80, 40));
-    this.addButton.addActionListener(this);
 
     this.cname.gridx = 1;
     this.cname.gridy = 4;
@@ -257,6 +256,7 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.add(name, BorderLayout.WEST);
 
     this.humanType = new JRadioButton("Human");
+    this.humanType.setActionCommand("Human");
     this.humanType.setBackground(new Color(137, 207, 240));
     this.humanType.setFont(humanType.getFont().deriveFont(18.0f));
 
@@ -274,6 +274,7 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.add(name, BorderLayout.WEST);
 
     this.computerType = new JRadioButton("Computer");
+    this.humanType.setActionCommand("Computer");
     this.computerType.setBackground(new Color(137, 207, 240));
     this.computerType.setFont(computerType.getFont().deriveFont(18.0f));
 
@@ -300,7 +301,6 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     this.nextButton.setFocusPainted(false);
     this.nextButton.setFont(new Font("Tahoma", Font.BOLD, 12));
     this.nextButton.setPreferredSize(new Dimension(120, 40));
-    this.nextButton.addActionListener(this);
     this.nextButton.setEnabled(false);
 
     this.cname.gridx = 2;
@@ -360,26 +360,60 @@ public class AddPlayerPanel extends JPanel implements ActionListener, ItemListen
     }
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    if ("CONTINUE".equals(e.getActionCommand())) {
-      if (this.playerlist.size() > 0) {
-        view.displayGameScreen(this.playerlist.get(playerlist.size() - 1).getName());
-      } else {
-        view.displayGameScreen("");
-      }
-    } else {
-      this.nextButton.setEnabled(true);
-      String demo = this.groupType.getSelection().getActionCommand();
-      int itemcapacity = Integer.parseInt(itemLimitText.getText());
-      String group = this.groupType.getSelection().getActionCommand();
-      view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
-      this.playerlist = readOnlyModel.getPlayerList();
-      this.nameText.setText("");
-      this.spaceName.setSelectedIndex(-1);
-      this.itemLimitText.setText("");
-      this.groupType.clearSelection();
-    }
-
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    if ("CONTINUE".equals(e.getActionCommand())) {
+//      if (this.playerlist.size() > 0) {
+//        view.displayGameScreen(this.playerlist.get(playerlist.size() - 1).getName());
+//      } else {
+//        view.displayGameScreen("");
+//      }
+//    } else {
+//      this.nextButton.setEnabled(true);
+//      String demo = this.groupType.getSelection().getActionCommand();
+//      int itemcapacity = Integer.parseInt(itemLimitText.getText());
+//      String group = this.groupType.getSelection().getActionCommand();
+//      view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
+//      this.playerlist = readOnlyModel.getPlayerList();
+//      this.nameText.setText("");
+//      this.spaceName.setSelectedIndex(-1);
+//      this.itemLimitText.setText("");
+//      this.groupType.clearSelection();
+//    }
+//
+//  }
+  
+  public String getPlayerName() {
+    return this.nameText.getText();
   }
+  
+  public String getSpace() {
+    return this.space;
+  }
+  
+  public int itemCapacity() {
+    return Integer.parseInt(itemLimitText.getText());
+  }
+  
+  public boolean getPlayerType() {
+    if("Human".equals(this.humanType)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
+  public void resetFields() {
+    this.nextButton.setEnabled(true);
+    this.nameText.setText("");
+    this.spaceName.setSelectedIndex(-1);
+    this.itemLimitText.setText("");
+    this.groupType.clearSelection();
+  }
+  
+  public void addActionListener(ActionListener listener) {
+    this.addButton.addActionListener(listener);
+    this.nextButton.addActionListener(listener);
+  }
+  
 }

@@ -1,5 +1,6 @@
 package theworldview;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import controller.BoardGameController;
@@ -27,11 +28,6 @@ public interface BoardGameView {
 
   public void displayAddPlayerScreen();
 
-  public void displayGameScreen(String playername);
-
-  public void addPlayers(String playerName, String roomName, int itemCapacity,
-      boolean isComputerPlayer);
-
   public void setFeatures(Features f);
 
   public void displayWorldSelectionScreen();
@@ -39,4 +35,10 @@ public interface BoardGameView {
   public String getTurnsofPlayers(String playerName);
 
   public void closeWindow();
+
+  void addActionListener(ActionListener actionListener);
+
+  void addPlayers();
+
+  void displayGameScreen();
 }

@@ -92,7 +92,6 @@ public class WelcomePanel extends JPanel {
     b.setFocusPainted(false);
     b.setFont(new Font("Tahoma", Font.BOLD, 12));
     b.setPreferredSize(new Dimension(80, 40));
-    b.addActionListener(new ButtonListener(view));
 
     this.welcome.gridx = 0;
     this.welcome.gridy = 2;
@@ -125,4 +124,8 @@ public class WelcomePanel extends JPanel {
     graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
   }
 
+  
+  public void addActionListener(ActionListener listener) {
+    this.b.addActionListener(listener);
+  }
 }
