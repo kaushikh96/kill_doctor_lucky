@@ -24,7 +24,7 @@ import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private final ReadOnlyBoardGameModel readOnlyModel;
-  private WelcomePanel boardGamePanel;
+  private WelcomePanel welcomePanel;
   private AddPlayerPanel addPlayerPanel;
   private GamePanel gamePanel;
   private WorldSelectionPanel worldSelectionPanel;
@@ -51,8 +51,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.readOnlyModel = model;
     this.setLayout(new BorderLayout());
-    this.boardGamePanel = new WelcomePanel(model, this);
-    this.add(boardGamePanel, BorderLayout.CENTER);
+    this.welcomePanel = new WelcomePanel(model, this);
+    this.add(welcomePanel, BorderLayout.CENTER);
     this.addPlayerPanel = new AddPlayerPanel(model, this);
     // this.gamePanel = new GamePanel(model, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
@@ -66,11 +66,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.quit = new JMenuItem("Quit");
 
     this.menu.add(this.currentWorldItem);
-    this.currentWorldItem.addActionListener(new ButtonListener(this));
+    //this.currentWorldItem.addActionListener(new ButtonListener());
     this.menu.add(this.newWorldItem);
-    this.newWorldItem.addActionListener(new ButtonListener(this));
+    //this.newWorldItem.addActionListener(new ButtonListener());
     this.menu.add(this.quit);
-    this.quit.addActionListener(new ButtonListener(this));
+    //this.quit.addActionListener(new ButtonListener());
 
     this.menuBar.add(this.menu);
 
@@ -85,10 +85,19 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 //    gamePanel
 //    setFocusable(true);
 //  }
+  
+  @Override
+  public void addActionListener(ActionListener actionListener) {
+    this.welcomePanel.addActionListener(actionListener);
+    this.currentWorldItem.addActionListener(actionListener);
+    this.newWorldItem.addActionListener(actionListener);
+    this.quit.addActionListener(new ButtonListener());
+    this.addPlayerPanel.addActionListener(actionListener);
+  }
 
   @Override
   public void displayWorldSelectionScreen() {
-    this.remove(boardGamePanel);
+    this.remove(welcomePanel);
     this.add(worldSelectionPanel, BorderLayout.CENTER);
     worldSelectionPanel.revalidate();
   }
@@ -101,9 +110,15 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
-  public void displayGameScreen(String playername) {
+  public void displayGameScreen() {
+    String playerName;
+    if (this.readOnlyModel.getPlayerList().size() > 0) {
+    playerName = this.readOnlyModel.getPlayerList().get(readOnlyModel.getPlayerList().size() - 1).getName();
+    } else {
+    playerName = "";
+    }
     this.remove(addPlayerPanel);
-    this.turnMessage = this.getTurnsofPlayers(playername);
+    this.turnMessage = this.getTurnsofPlayers(playerName);
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
     // MouseListener mouse = new MouseClickEvent(f);
     this.gamePanel.setFeatures(f);
@@ -113,12 +128,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
-  public void addPlayers(String playerName, String roomName, int itemCapacity,
-      boolean isComputerPlayer) {
-    f.addPlayer(playerName, roomName, itemCapacity, isComputerPlayer);
-    // this.addPlayerPanel = new AddPlayerPanel(readOnlyModel, this);
-    // this.add(addPlayerPanel, BorderLayout.CENTER);
-    // addPlayerPanel.revalidate();
+  public void addPlayers() {
+    
+    this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace()
+        , this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
+    
+    this.addPlayerPanel.resetFields();
   }
 
   @Override
