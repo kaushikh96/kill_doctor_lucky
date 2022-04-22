@@ -110,13 +110,13 @@ public class PlayerImpl implements PlayerInterface {
             .filter(s -> s.getName().trim().equalsIgnoreCase(itemname))
             .collect(Collectors.toList());
         if (ifexistsitem.size() == 0) {
-          throw new IllegalStateException("Item doesn't exist in the space\n");
+          throw new IllegalStateException("Item doesn't\n exist in the space\n");
         } else {
           this.getItems().add(ifexistsitem.get(0));
           playercurrspace.removeItem(itemname);
         }
       } else {
-        throw new IllegalStateException("More than the item capacity of the player\n");
+        throw new IllegalStateException("More than the item capacity\n of the player\n");
       }
     }
   }

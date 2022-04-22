@@ -45,6 +45,10 @@ public interface BoardGameView {
 
   public String showPickDialog();
 
+  public String showAttackDialog();
+
+  public void setIfTurnExecuted(boolean ifTurnExecuted);
+
   /**
    * This is to force the view to have a method to set up the keyboard. The name
    * has been chosen deliberately. This is the same method signature to add a key
@@ -62,7 +66,5 @@ public interface BoardGameView {
 
   public String getCurrentPlayerName();
 
-  void resetFocus();
-
-  public void changeGamePositions();
+  public void resetFocus();
 }

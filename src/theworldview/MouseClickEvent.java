@@ -32,10 +32,13 @@ public class MouseClickEvent extends MouseAdapter {
       String result = listener.handleMouseClickEvent((event.getY() - 29) / 30,
           (event.getX() - 59) / 60);
       view.setOutputMessage(result);
-      view.changeGamePositions();
+      view.setIfTurnExecuted(true);
+      view.displayGameScreen();
     } catch (IllegalStateException ise) {
       view.setOutputMessage(ise.getMessage());
+      view.setIfTurnExecuted(false);
       view.displayGameScreen();
+
     }
 
   }

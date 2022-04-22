@@ -351,7 +351,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           .filter(s -> s.getName().trim().equalsIgnoreCase(roomToBeMovedTo.trim()))
           .collect(Collectors.toList()).isEmpty()) {
         throw new IllegalStateException(
-            "Player can't be moved as the Given room as it is not a neighbour\n");
+            "Player can't be moved as the chosen\n room is not a neighbour\n");
       }
       player.movePlayer(neighbours, roomToBeMovedTo);
       this.getNextTargetCharacterRoom();
@@ -387,8 +387,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       player.pickItem(itemname);
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
       this.getNextTargetCharacterRoom();
-      return String.format("Executed PickItem: \n%s picked up by player %s \nand removed from space\n",
-          itemname, player.getName());
+      return String.format(
+          "Executed PickItem: \n%s picked up by player \n%s and removed from space\n", itemname,
+          player.getName());
     }
   }
 
@@ -476,7 +477,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           this.currentPlayerTurn = player.getName();
           playerlist.add(player);
         } else {
-          throw new IllegalStateException("Space doesn't exist in the world\n");
+          throw new IllegalStateException("Space doesn't exist in \nthe world\n");
         }
       } else {
         throw new IllegalStateException("Player already exists\n");
@@ -607,7 +608,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       String targetcurrentspace = this.targetcharacter.getCurrentRoom().getName();
       if (!playercurrent.getCurrentRoom().getName().equalsIgnoreCase(targetcurrentspace)) {
         throw new IllegalStateException(
-            "Cannot attack the target as it is not in the current room\n");
+            "Cannot attack the target as it\n is not in the current room\n");
       } else {
         if (playercurrent.getCurrentRoom().getName().trim()
             .equalsIgnoreCase(this.targetpet.getCurrentRoom().getName().trim())) {
@@ -619,14 +620,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
               return hitmessage;
             } else {
               this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-              return String.format("%s\nTarget Character Current Room: %s\n", hitmessage,
-                  this.getNextTargetCharacterRoom());
+              this.getNextTargetCharacterRoom();
+              return String.format("%s\n", hitmessage);
             }
           } else {
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-            String stopmessage = "Target Character attack stopped as the attack is being seen";
-            return String.format("%s by other players.\nTarget Character Current Room: %s\n",
-                stopmessage, this.getNextTargetCharacterRoom());
+            this.getNextTargetCharacterRoom();
+            String stopmessage = "Target Character attack stopped\n as the attack is being seen\n";
+            return String.format("%s by other players", stopmessage);
           }
         } else {
           List<SpaceImpl> neighbourlist = this.getAllVisibleSpaces(playercurrent.getCurrentRoom());
@@ -643,17 +644,17 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           });
           if (players.size() > 1) {
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-            String stopmessage = "Target Character attack stopped as the attack is being seen";
-            return String.format("%s by other players.\nTarget Character Current Room: %s\n",
-                stopmessage, this.getNextTargetCharacterRoom());
+            this.getNextTargetCharacterRoom();
+            String stopmessage = "Target Character attack stopped\n as the attack is being seen";
+            return String.format("%s by other players.\n", stopmessage);
           } else {
             String hitmessage = this.decreaseTargetHealth(playercurrent, itemname);
             if (hitmessage.contains("Wins")) {
               return hitmessage;
             } else {
               this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-              return String.format("%s\nTarget Character Current Room: %s\n", hitmessage,
-                  this.getNextTargetCharacterRoom());
+              this.getNextTargetCharacterRoom();
+              return String.format("%s\n", hitmessage);
             }
           }
         }

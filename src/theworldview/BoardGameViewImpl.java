@@ -34,6 +34,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private JMenuItem quit;
   private String outputMessage;
   private String turnMessage;
+  private boolean ifTurnsExecuted;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -68,6 +69,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.menuBar.add(this.menu);
 
     this.add(menuBar, BorderLayout.NORTH);
+    this.ifTurnsExecuted = true;
     pack();
     setVisible(true);
   }
@@ -98,7 +100,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void displayGameScreen() {
     this.remove(addPlayerPanel);
-    this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+    if (this.ifTurnsExecuted) {
+      this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+    }
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
@@ -174,18 +178,21 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     return this.readOnlyModel.getCurrentPlayerTurn();
   }
 
-  public void changeGamePositions() {
-    this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
-    // this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage,
-    // this.turnMessage);
-    // this.gamePanel.setFeatures(f);
-    gamePanel.changeGamePositions(this.outputMessage, turnMessage);
-  }
-
   @Override
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();
+  }
+
+  @Override
+  public String showAttackDialog() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public void setIfTurnExecuted(boolean ifTurnExecuted) {
+    this.ifTurnsExecuted = ifTurnExecuted;
   }
 
 }

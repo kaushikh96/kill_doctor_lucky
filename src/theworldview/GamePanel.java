@@ -1,6 +1,5 @@
 package theworldview;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -80,34 +79,34 @@ public class GamePanel extends JPanel {
 
     playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png");
         this.imageLabel.add(this.playerLabel1);
       } else if (playerIteration == 2) {
-        this.playerLabel2 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png");
         this.imageLabel.add(this.playerLabel2);
       } else if (playerIteration == 3) {
-        this.playerLabel3 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png");
         this.imageLabel.add(this.playerLabel3);
       } else if (playerIteration == 4) {
-        this.playerLabel4 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png");
         this.imageLabel.add(this.playerLabel4);
       } else if (playerIteration == 5) {
-        this.playerLabel5 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png");
         this.imageLabel.add(this.playerLabel5);
       } else if (playerIteration == 6) {
-        this.playerLabel6 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png");
         this.imageLabel.add(this.playerLabel6);
       } else if (playerIteration == 7) {
-        this.playerLabel7 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png");
         this.imageLabel.add(this.playerLabel7);
       } else if (playerIteration == 8) {
-        this.playerLabel8 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png");
         this.imageLabel.add(this.playerLabel8);
       } else if (playerIteration == 9) {
-        this.playerLabel9 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png");
         this.imageLabel.add(this.playerLabel9);
       } else if (playerIteration == 10) {
-        this.playerLabel10 = getPlayerJLabel(s, "playericon.png");
+        this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png");
         this.imageLabel.add(this.playerLabel10);
       }
       playerIteration++;
@@ -116,7 +115,7 @@ public class GamePanel extends JPanel {
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-    this.add(gamePanel, game);
+    this.add(gamePanel);
 
     this.infoPanel = new JPanel(new GridLayout(3, 0, 10, 10));
     this.playersArea = new JTextArea();
@@ -143,7 +142,7 @@ public class GamePanel extends JPanel {
     String targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
 
     this.turnInfoArea.setText(
-        String.format("CURRENT TURN INFO:\n\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+        String.format("CURRENT TURN INFO:\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setDisabledTextColor(Color.BLUE);
     this.turnInfoArea.setEnabled(false);
@@ -151,7 +150,7 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(turnInfoArea);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(String.format("PREVIOUS TURN RESULT:\n\n %s", this.outputMessage));
+    this.turnResultArea.setText(String.format("PREVIOUS TURN RESULT:\n %s", this.outputMessage));
     this.turnResultArea.setFont(font);
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
@@ -159,7 +158,6 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(turnResultArea, game);
 
     this.add(infoPanel, game);
-    // this.revalidate();
     this.repaint();
   }
 
@@ -171,18 +169,32 @@ public class GamePanel extends JPanel {
 
   public JLabel getPlayerJLabel(PlayerImpl player, String iconUrl) {
     JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
-        .getImage().getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+        .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
     playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
         player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
     return playerLabel;
   }
 
-  public void changeGamePositions(String outputMessage, String turnMessage) {
-    readOnlyModel.getPlayerList().forEach(s -> {
-      this.getPlayerJLabel(s, "playericon.png");
-    });
-    this.turnResultArea.setText(outputMessage);
-    this.turnInfoArea.setText(turnMessage);
-    this.revalidate();
+//  public void showPickDialog() {
+//    
+//    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
+//        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim())).collect(Collectors.toList()).get(0);
+//    System.out.println(player);
+//    
+//    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
+//        .collect(Collectors.toList()).toArray(new String[0]);
+//    
+//    System.out.print(itemList);
+//    
+//    JComboBox items = new JComboBox(itemList);
+//    items.setPreferredSize(new Dimension(200, 30));
+//    
+//    UIManager.put("OptionPane.okButtonText", "Pick"); 
+//    JOptionPane.showMessageDialog(null, items);
+//    
+//  }
+
+  public void resetFocus() {
+    this.setFocusable(true);
   }
 }
