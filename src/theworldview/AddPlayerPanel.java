@@ -304,7 +304,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.nextButton.setEnabled(false);
 
     this.cname.gridx = 2;
-    this.cname.gridy = 3;
+    this.cname.gridy = 4;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
     this.cname.weightx = 0.1;
     this.cname.weighty = 0.1;
