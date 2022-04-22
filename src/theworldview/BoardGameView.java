@@ -61,5 +61,5 @@ public interface BoardGameView {
   
   public String getCurrentPlayerName();
 
-  void resetFocus();
+  public void resetFocus();
 }

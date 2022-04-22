@@ -222,10 +222,6 @@ public class GamePanel extends JPanel {
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
   }
-  
-  public void addActionListener(ActionListener listener) {
-    
-  }
 
 //  public void showPickDialog() {
 //    
@@ -245,4 +241,8 @@ public class GamePanel extends JPanel {
 //    JOptionPane.showMessageDialog(null, items);
 //    
 //  }
+  
+  public void resetFocus() {
+    this.setFocusable(true);
+  }
 }

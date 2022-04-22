@@ -176,7 +176,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setOutputMessage(String outputMessage) {
-    this.outputMessage = outputMessage;
+    this.outputMessage ="";
   }
   
   @Override
@@ -187,7 +187,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void resetFocus() {
     this.setFocusable(true);
-    this.requestFocus();
+    //this.requestFocus();
   }
 
 }

@@ -356,7 +356,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       player.movePlayer(neighbours, roomToBeMovedTo);
       this.getNextTargetCharacterRoom();
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      return String.format("Executed Move: %s has been moved to %s", player.getName(),
+      return String.format("Executed Move: %s has been \n moved to %s", player.getName(),
           roomToBeMovedTo);
     }
   }
