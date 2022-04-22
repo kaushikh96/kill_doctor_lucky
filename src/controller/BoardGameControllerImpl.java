@@ -121,7 +121,10 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     Map<Integer, Runnable> keyReleases = new HashMap<>();
     
     keyPresses.put(KeyEvent.VK_P, () -> {
-      this.view.showPickDialog();
+      String playerName = this.
+      String itemName = this.view.showPickDialog();
+      
+      
     });
     
     KeyboardListener kbd = new KeyboardListener();
