@@ -356,7 +356,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       player.movePlayer(neighbours, roomToBeMovedTo);
       this.getNextTargetCharacterRoom();
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      return String.format("Executed Move: %s has been \n moved to %s", player.getName(),
+      return String.format("Executed Move: \n%s has been \n moved to %s", player.getName(),
           roomToBeMovedTo);
     }
   }
@@ -387,7 +387,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       player.pickItem(itemname);
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
       this.getNextTargetCharacterRoom();
-      return String.format("Executed PickItem: %s picked up by player %s and removed from space",
+      return String.format("Executed PickItem: \n%s picked up by player %s \nand removed from space\n",
           itemname, player.getName());
     }
   }
