@@ -77,6 +77,8 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
 
   @Override
   public String handleMouseClickEvent(int x, int y) {
-    return "Player Sccuessfully Moved to this space";
+    GameController cmd = new MovePlayer(x, y);
+    cmd.execute(model);
+    return cmd.getOutput();
   }
 }

@@ -32,7 +32,7 @@ public interface BoardGameModel {
    * 
    * @return the room that the target character has moved to
    */
-  public String movePlayer(String playername, String roomtobemovedto) throws IllegalStateException;
+  public String movePlayer(int x_coordinate, int y_coordinate) throws IllegalStateException;
 
   /**
    * Allows a player to pick an item from the space.

@@ -226,7 +226,7 @@ public class GamePanel extends JPanel implements KeyListener {
   }
 
   public void setFeatures(Features f) {
-    MouseListener mouse = new MouseClickEvent(f);
+    MouseListener mouse = new MouseClickEvent(f, view);
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
   }
