@@ -1,37 +1,22 @@
 package theworldview;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 
 import controller.Features;
-import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
-import theworld.SpaceImpl;
+
+import java.util.List;
 
 public class GamePanel extends JPanel {
 
@@ -54,8 +39,6 @@ public class GamePanel extends JPanel {
   private JTextArea playersArea;
   private JTextArea turnInfoArea;
   private GridBagConstraints game;
-  private GridBagConstraints player1;
-  private GridBagConstraints target;
   private JTextArea turnResultArea;
   private String outputMessage;
   private String turnMessage;
@@ -93,76 +76,37 @@ public class GamePanel extends JPanel {
         20, 20);
 
     List<PlayerImpl> playerList = readOnlyModel.getPlayerList();
+
     playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel1.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel1 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel1);
       } else if (playerIteration == 2) {
-        this.playerLabel2 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel2.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel2 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel2);
       } else if (playerIteration == 3) {
-        this.playerLabel3 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel3.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel3 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel3);
       } else if (playerIteration == 4) {
-        this.playerLabel4 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel4.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel4 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel4);
       } else if (playerIteration == 5) {
-        this.playerLabel5 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel5.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel5 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel5);
       } else if (playerIteration == 6) {
-        this.playerLabel6 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel6.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel6 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel6);
       } else if (playerIteration == 7) {
-        this.playerLabel7 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel7.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel7 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel7);
       } else if (playerIteration == 8) {
-        this.playerLabel8 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel8.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel8 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel8);
       } else if (playerIteration == 9) {
-        this.playerLabel9 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel9.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel9 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel9);
       } else if (playerIteration == 10) {
-        this.playerLabel10 = new JLabel(new ImageIcon(new ImageIcon("res/playericon.png").getImage()
-            .getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
-
-        this.playerLabel10.setBounds(s.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-            s.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 20, 20);
+        this.playerLabel10 = getPlayerJLabel(s, "playericon.png");
         this.imageLabel.add(this.playerLabel10);
       }
       playerIteration++;
@@ -213,14 +157,21 @@ public class GamePanel extends JPanel {
     this.turnResultArea.setBackground(new Color(37, 190, 175));
     this.infoPanel.add(turnResultArea, game);
 
-    this.add(infoPanel);
-
+    this.add(infoPanel, game);
   }
 
   public void setFeatures(Features f) {
     MouseListener mouse = new MouseClickEvent(f, view);
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
+  }
+  
+  public JLabel getPlayerJLabel(PlayerImpl player, String iconUrl) {
+    JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
+        .getImage().getScaledInstance(20, 25, java.awt.Image.SCALE_SMOOTH)));
+    playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+        player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
+    return playerLabel;
   }
 
 //  public void showPickDialog() {

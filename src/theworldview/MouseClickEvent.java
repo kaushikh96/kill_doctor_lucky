@@ -28,9 +28,15 @@ public class MouseClickEvent extends MouseAdapter {
 
   @Override
   public void mouseClicked(MouseEvent event) {
-    String result = listener.handleMouseClickEvent((event.getY() - 29) / 30,
-        (event.getX() - 59) / 60);
-    view.setOutputMessage(result);
-    view.displayGameScreen();
+    try {
+      String result = listener.handleMouseClickEvent((event.getY() - 29) / 30,
+          (event.getX() - 59) / 60);
+      view.setOutputMessage(result);
+      view.displayGameScreen();
+    } catch (IllegalStateException ise) {
+      view.setOutputMessage(ise.getMessage());
+      view.displayGameScreen();
+    }
+
   }
 }

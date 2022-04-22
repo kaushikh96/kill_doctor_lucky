@@ -386,7 +386,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           .get(0);
       player.pickItem(itemname);
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      return this.getNextTargetCharacterRoom();
+      this.getNextTargetCharacterRoom();
+      return String.format("Executed PickItem: %s picked up by player %s and removed from space",
+          itemname, player.getName());
     }
   }
 
@@ -443,12 +445,12 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           }
         }
         this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-        return String.format("%s\nTarget Character Current Room: %s\n",
+        this.getNextTargetCharacterRoom();
+        return String.format("%s\n",
             player.lookAround(
                 this.getRoomInfo(player.getCurrentRoom().getName())
                     .replace("RoomInfo", "LookAround").replace("Pet: %s", this.targetpet.getName()),
-                this.neighbourinfo.replace("RoomInfo", "Details")),
-            this.getNextTargetCharacterRoom());
+                this.neighbourinfo.replace("RoomInfo", "Details")));
       } else {
         return String.format("No such player exists");
       }

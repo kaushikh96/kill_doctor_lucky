@@ -304,13 +304,13 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.nextButton.setEnabled(false);
 
     this.cname.gridx = 2;
-    this.cname.gridy = 4;
+    this.cname.gridy = 3;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
     this.cname.weightx = 0.1;
-    this.cname.weighty = 1.0;
+    this.cname.weighty = 0.1;
     this.cname.gridwidth = 1;
     this.cname.gridheight = 1;
-    this.cname.insets = new Insets(75, 0, 20, 15);
+    this.cname.insets = new Insets(60, 16, 5, 5);
 
     this.name.add(nextButton, cname);
 
@@ -360,49 +360,26 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     }
   }
 
-//  @Override
-//  public void actionPerformed(ActionEvent e) {
-//    if ("CONTINUE".equals(e.getActionCommand())) {
-//      if (this.playerlist.size() > 0) {
-//        view.displayGameScreen(this.playerlist.get(playerlist.size() - 1).getName());
-//      } else {
-//        view.displayGameScreen("");
-//      }
-//    } else {
-//      this.nextButton.setEnabled(true);
-//      String demo = this.groupType.getSelection().getActionCommand();
-//      int itemcapacity = Integer.parseInt(itemLimitText.getText());
-//      String group = this.groupType.getSelection().getActionCommand();
-//      view.addPlayers(nameText.getText(), this.space, itemcapacity, false);
-//      this.playerlist = readOnlyModel.getPlayerList();
-//      this.nameText.setText("");
-//      this.spaceName.setSelectedIndex(-1);
-//      this.itemLimitText.setText("");
-//      this.groupType.clearSelection();
-//    }
-//
-//  }
-  
   public String getPlayerName() {
     return this.nameText.getText();
   }
-  
+
   public String getSpace() {
     return this.space;
   }
-  
+
   public int itemCapacity() {
     return Integer.parseInt(itemLimitText.getText());
   }
-  
+
   public boolean getPlayerType() {
-    if("Human".equals(this.humanType)) {
+    if ("Human".equals(this.humanType)) {
       return false;
     } else {
       return true;
     }
   }
-  
+
   public void resetFields() {
     this.nextButton.setEnabled(true);
     this.nameText.setText("");
@@ -410,10 +387,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.itemLimitText.setText("");
     this.groupType.clearSelection();
   }
-  
+
   public void addActionListener(ActionListener listener) {
     this.addButton.addActionListener(listener);
     this.nextButton.addActionListener(listener);
   }
-  
+
 }
