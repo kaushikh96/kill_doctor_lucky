@@ -79,7 +79,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String handleMouseClickEvent(int x, int y) {
+  public String handleMouseClickEvent(int x, int y) throws IllegalStateException {
     GameController cmd = new MovePlayer(x, y);
     cmd.execute(model);
     return cmd.getOutput();

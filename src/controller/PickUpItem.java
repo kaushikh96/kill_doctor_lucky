@@ -34,10 +34,7 @@ public class PickUpItem implements GameController {
     if (b == null) {
       throw new IllegalStateException("model cannot be null");
     }
-    String room = b.pickItem(playername, itemname);
-    this.outputMessage = String.format(
-        "Item picked up by %s and removed from Space\nTarget Character Current Room: %s\n",
-        playername, room);
+    this.outputMessage = b.pickItem(playername, itemname);
   }
 
   @Override
