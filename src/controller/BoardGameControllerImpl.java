@@ -113,21 +113,33 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
   
   private void configureKeyBoardListener() {
-    Map<Character, Runnable> keyTypes = new HashMap<>();
+    //Map<Character, Runnable> keyTypes = new HashMap<>();
     Map<Integer, Runnable> keyPresses = new HashMap<>();
-    Map<Integer, Runnable> keyReleases = new HashMap<>();
+    //Map<Integer, Runnable> keyReleases = new HashMap<>();
     
-//    keyPresses.put(KeyEvent.VK_P, () -> {
-//      String playerName = this.
-//      String itemName = this.view.showPickDialog();
-//      
-//      
-//    });
+    keyPresses.put(KeyEvent.VK_P, () -> {
+      String playerName = this.view.getCurrentPlayerName();
+      String itemName = this.view.showPickDialog();
+      GameController cmd = new PickUpItem(playerName, itemName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+      this.view.displayGameScreen();
+      
+    });
+    
+    keyPresses.put(KeyEvent.VK_L, () -> {
+      String playerName = this.view.getCurrentPlayerName();
+      GameController cmd = new LookAround(playerName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+      this.view.displayGameScreen();
+      
+    });
     
     KeyboardListener kbd = new KeyboardListener();
-    kbd.setKeyTypedMap(keyTypes);
+  //  kbd.setKeyTypedMap(keyTypes);
     kbd.setKeyPressedMap(keyPresses);
-    kbd.setKeyReleasedMap(keyReleases);
+  //  kbd.setKeyReleasedMap(keyReleases);
 
    view.addKeyListener(kbd);
   }

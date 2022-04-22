@@ -58,4 +58,8 @@ public interface BoardGameView {
   void addKeyListener(KeyListener listener);
 
   public void setOutputMessage(String outputMessage);
+  
+  public String getCurrentPlayerName();
+
+  void resetFocus();
 }

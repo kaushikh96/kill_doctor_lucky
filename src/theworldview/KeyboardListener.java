@@ -74,6 +74,7 @@ public class KeyboardListener implements KeyListener {
     if (keyTypedMap.containsKey(e.getKeyChar())) {
       keyTypedMap.get(e.getKeyChar()).run();
     }
+    
   }
 
   /**

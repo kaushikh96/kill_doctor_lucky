@@ -1,5 +1,6 @@
 package theworldview;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -210,9 +211,9 @@ public class GamePanel extends JPanel {
     this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.turnResultArea.setBackground(new Color(37, 190, 175));
-    this.infoPanel.add(turnResultArea);
+    this.infoPanel.add(turnResultArea, game);
 
-    this.add(infoPanel, game);
+    this.add(infoPanel);
 
   }
 
