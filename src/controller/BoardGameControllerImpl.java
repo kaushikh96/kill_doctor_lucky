@@ -99,6 +99,14 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       this.view.displayAddPlayerScreen();
     });
 
+    buttonClickedMap.put("New World", () -> {
+      this.view.showFileUploadDialog();
+    });
+
+    buttonClickedMap.put("Quit", () -> {
+      this.view.closeWindow();
+    });
+
     buttonClickedMap.put("ADD", () -> {
       this.view.addPlayers();
     });
