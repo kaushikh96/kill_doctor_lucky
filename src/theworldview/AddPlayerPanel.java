@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -31,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -67,6 +69,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private String[] spaceNames;
   private String space;
   private List<PlayerImpl> playerlist;
+  private DefaultTableModel model;
 
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
@@ -317,21 +320,35 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
     this.playerlist = readOnlyModel.getPlayerList();
 
-    String[][] data = this.playerlist.stream()
-        .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
-            Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
-        .toArray(String[][]::new);
-    String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
+//    String[][] data = this.playerlist.stream()
+//        .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
+//            Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
+//        .toArray(String[][]::new);
+    
+//    String[][] data = {{"Vinod","Music Room", "3", "false"},{"Raju","200", "1", "false"},{"Ranju","300", "5", "false"}};
+      String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
 
-    this.playerTable = new JTable(data, col);
-    JTableHeader header = this.playerTable.getTableHeader();
-    header.setBackground(Color.YELLOW);
+//    this.playerTable = new JTable(data, col);
+//    JTableHeader header = this.playerTable.getTableHeader();
+    //header.setBackground(Color.YELLOW);
+    
+    JPanel tablePanel = new JPanel();
+    tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
+    
+    this.model = new DefaultTableModel(col, 0);
+    this.playerTable = new JTable(model);
+    
     JScrollPane pane = new JScrollPane(this.playerTable);
 
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    this.playerTable.setRowHeight(this.playerTable.getRowHeight() + 30);
     this.playerTable.setBackground(new Color(137, 207, 240));
-    this.playerTable.setPreferredSize(new Dimension(600, 50));
-    this.add(pane, BorderLayout.EAST);
+
+    this.playerTable.setBorder(new EmptyBorder(30, 100, 50, 70));
+    
+    tablePanel.add(pane);
+    
+    this.add(tablePanel, BorderLayout.CENTER);
 
   }
 
@@ -386,6 +403,16 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.spaceName.setSelectedIndex(-1);
     this.itemLimitText.setText("");
     this.groupType.clearSelection();
+  }
+  
+  public void addDataToTable() {
+    
+    this.model.addRow(new Object[] {
+        this.nameText.getText(),
+        this.spaceName.getSelectedItem(),
+        this.itemLimitText.getText(),
+        this.groupType.getSelection().getActionCommand()
+    });
   }
 
   public void addActionListener(ActionListener listener) {

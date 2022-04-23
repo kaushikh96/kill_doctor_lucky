@@ -70,6 +70,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.menuBar.add(this.menu);
 
     this.add(menuBar, BorderLayout.NORTH);
+    this.currentWorldItem.setEnabled(false);
+    this.newWorldItem.setEnabled(false);
     this.ifTurnsExecuted = true;
     pack();
     setVisible(true);
@@ -87,6 +89,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void displayWorldSelectionScreen() {
     this.remove(welcomePanel);
+    this.currentWorldItem.setEnabled(true);
+    this.newWorldItem.setEnabled(true);
     this.add(worldSelectionPanel, BorderLayout.CENTER);
     worldSelectionPanel.revalidate();
   }
@@ -94,6 +98,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void displayAddPlayerScreen() {
     this.remove(worldSelectionPanel);
+    this.currentWorldItem.setEnabled(false);
+    this.newWorldItem.setEnabled(false);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
   }
@@ -101,6 +107,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void displayGameScreen() {
     this.remove(addPlayerPanel);
+    this.currentWorldItem.setEnabled(false);
+    this.newWorldItem.setEnabled(false);
     if (this.ifTurnsExecuted) {
       this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
     }
@@ -117,7 +125,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
         this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
 
+    this.addPlayerPanel.addDataToTable();
     this.addPlayerPanel.resetFields();
+    
+   
   }
 
   @Override
