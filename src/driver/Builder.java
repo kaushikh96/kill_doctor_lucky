@@ -105,8 +105,10 @@ public class Builder {
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
         PetImpl targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
         RandomClass randomref = new RandomClass();
-        BoardGameImpl world = new BoardGameImpl(target, worldattributes1[2], roomlist,
-            worldcoordinates, targetpet, randomref);
+        BoardGameImpl world;
+        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
+            targetpet, randomref);
+
         return world;
       }
 

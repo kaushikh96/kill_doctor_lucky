@@ -111,4 +111,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   public String getCurrentPlayerTurn();
 
+  public BoardGameImpl updateWorld(String inputdata);
+
 }

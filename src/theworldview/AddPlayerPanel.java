@@ -2,17 +2,13 @@ package theworldview;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -32,10 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
@@ -79,7 +73,6 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     this.readOnlyModel = readOnlyModel;
     this.view = view;
-    this.space = "Drawing Room";
 
     this.setLayout(new BorderLayout());
 
@@ -171,6 +164,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
         .collect(Collectors.toList()).toArray(new String[0]);
 
     this.spaceName = new JComboBox(this.spaceNames);
+    this.spaceName.setSelectedIndex(-1);
     this.spaceName.setPreferredSize(new Dimension(200, 30));
 
     this.cname.gridx = 1;
@@ -321,6 +315,8 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
         .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
             Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
         .toArray(String[][]::new);
+
+    System.out.println(data);
     String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
 
     this.playerTable = new JTable(data, col);
@@ -373,7 +369,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   }
 
   public boolean getPlayerType() {
-    if ("Human".equals(this.humanType)) {
+    if ("Human".equals(this.groupType.getSelection().getActionCommand())) {
       return false;
     } else {
       return true;

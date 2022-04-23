@@ -4,10 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,7 +27,7 @@ import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
-  private final ReadOnlyBoardGameModel readOnlyModel;
+  private ReadOnlyBoardGameModel readOnlyModel;
   private WelcomePanel welcomePanel;
   private AddPlayerPanel addPlayerPanel;
   private GamePanel gamePanel;
@@ -35,6 +42,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private String outputMessage;
   private String turnMessage;
   private boolean ifTurnsExecuted;
+  private ActionListener listener;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -51,7 +59,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.setLayout(new BorderLayout());
     this.welcomePanel = new WelcomePanel(model, this);
     this.add(welcomePanel, BorderLayout.CENTER);
-    this.addPlayerPanel = new AddPlayerPanel(model, this);
+    this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
 
     this.menuBar = new JMenuBar();
@@ -70,6 +78,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     this.add(menuBar, BorderLayout.NORTH);
     this.ifTurnsExecuted = true;
+    this.listener = null;
     pack();
     setVisible(true);
   }
@@ -81,6 +90,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.newWorldItem.addActionListener(actionListener);
     this.quit.addActionListener(new ButtonListener());
     this.addPlayerPanel.addActionListener(actionListener);
+    this.listener = actionListener;
   }
 
   @Override
@@ -93,6 +103,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void displayAddPlayerScreen() {
     this.remove(worldSelectionPanel);
+    this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
+    this.addPlayerPanel.addActionListener(this.listener);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
   }
@@ -168,6 +180,33 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   }
 
+  public String showFileUploadDialog() {
+    try {
+      JFileChooser chooser = new JFileChooser();
+      chooser.showOpenDialog(null);
+      File file = chooser.getCurrentDirectory();
+      chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+      File filepath = chooser.getSelectedFile();
+      String file1 = filepath.getAbsolutePath();
+
+      StringBuilder inputdata = new StringBuilder();
+      FileReader fr1 = new FileReader(file1);
+      int data;
+      while ((data = fr1.read()) != -1) {
+        inputdata.append((char) data);
+      }
+      this.readOnlyModel = readOnlyModel.updateWorld(inputdata.toString());
+    } catch (FileNotFoundException fnf) {
+      throw new IllegalStateException("File not Found");
+    } catch (IOException io) {
+      throw new IllegalStateException("Invalid Read");
+    }
+
+    return "";
+
+  }
+
   @Override
   public void setOutputMessage(String outputMessage) {
     this.outputMessage = outputMessage;
@@ -186,8 +225,26 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public String showAttackDialog() {
-    // TODO Auto-generated method stub
-    return null;
+    String itemName = null;
+
+    List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
+        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
+        .collect(Collectors.toList()).get(0).getItems();
+    itemsOnPlayer.add(new ItemImpl(1, "Poke"));
+    String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
+        .toArray(new String[0]);
+
+    JComboBox items = new JComboBox(itemList);
+    items.setPreferredSize(new Dimension(200, 30));
+
+    int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
+        JOptionPane.DEFAULT_OPTION);
+
+    if (result == JOptionPane.OK_OPTION) {
+      itemName = (String) items.getSelectedItem();
+    }
+
+    return itemName;
   }
 
   @Override

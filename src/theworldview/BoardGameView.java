@@ -47,6 +47,8 @@ public interface BoardGameView {
 
   public String showAttackDialog();
 
+  public String showFileUploadDialog();
+
   public void setIfTurnExecuted(boolean ifTurnExecuted);
 
   /**

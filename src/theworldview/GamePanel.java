@@ -1,10 +1,12 @@
 package theworldview;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,7 +20,7 @@ import theworld.ReadOnlyBoardGameModel;
 
 import java.util.List;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseListener {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -81,6 +83,9 @@ public class GamePanel extends JPanel {
       if (playerIteration == 1) {
         this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png");
         this.imageLabel.add(this.playerLabel1);
+//        this.playerLabel1.addMouseListener(new MouseAdapter()->{
+//          this.action(null, playerList);
+//        });
       } else if (playerIteration == 2) {
         this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png");
         this.imageLabel.add(this.playerLabel2);
@@ -111,7 +116,7 @@ public class GamePanel extends JPanel {
       }
       playerIteration++;
     });
-
+    this.playerLabel1.addMouseListener(this);
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
@@ -196,5 +201,37 @@ public class GamePanel extends JPanel {
 
   public void resetFocus() {
     this.setFocusable(true);
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    Component c = e.getComponent();
+    System.out.println("mocuse clikc");
+
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    // TODO Auto-generated method stub
+    Component c = e.getComponent();
+    System.out.println("mocuse press");
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    // TODO Auto-generated method stub
+
   }
 }
