@@ -135,9 +135,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
             f.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
         this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
       }
-      this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
-          this.f);
     }
+    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
+        this.f);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
@@ -192,6 +192,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
         JOptionPane.DEFAULT_OPTION);
@@ -263,6 +264,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
         JOptionPane.DEFAULT_OPTION);

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GamePanel extends JPanel implements MouseListener {
+public class GamePanel extends JPanel {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -87,6 +87,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
+    //this.gamePanel.revalidate();
 
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
 
@@ -107,60 +108,58 @@ public class GamePanel extends JPanel implements MouseListener {
         this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
-        this.addPlayerListener(this.playerLabel1, this.features);
+        this.addPlayerListener(this.playerLabel1, this.features, 0);
       } else if (playerIteration == 2) {
         this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
-        this.addPlayerListener(this.playerLabel2, this.features);
+        this.addPlayerListener(this.playerLabel2, this.features, 1);
       } else if (playerIteration == 3) {
         this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
-        this.addPlayerListener(this.playerLabel3, this.features);
+        this.addPlayerListener(this.playerLabel3, this.features, 2);
       } else if (playerIteration == 4) {
         this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
-        this.addPlayerListener(this.playerLabel4, this.features);
+        this.addPlayerListener(this.playerLabel4, this.features, 3);
       } else if (playerIteration == 5) {
         this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
-        this.addPlayerListener(this.playerLabel5, this.features);
+        this.addPlayerListener(this.playerLabel5, this.features, 4);
       } else if (playerIteration == 6) {
         this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
-        this.addPlayerListener(this.playerLabel6, this.features);
+        this.addPlayerListener(this.playerLabel6, this.features, 5);
       } else if (playerIteration == 7) {
         this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
-        this.addPlayerListener(this.playerLabel7, this.features);
+        this.addPlayerListener(this.playerLabel7, this.features, 6);
       } else if (playerIteration == 8) {
         this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
-        this.addPlayerListener(this.playerLabel8, this.features);
+        this.addPlayerListener(this.playerLabel8, this.features, 7);
       } else if (playerIteration == 9) {
         this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
-        this.addPlayerListener(this.playerLabel9, this.features);
+        this.addPlayerListener(this.playerLabel9, this.features, 8);
       } else if (playerIteration == 10) {
         this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
-        this.addPlayerListener(this.playerLabel10, this.features);
+        this.addPlayerListener(this.playerLabel10, this.features, 9);
       }
       playerIteration++;
     });
-    this.playerLabel1.addMouseListener(this);
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-    // this.gamePanel.setMinimumSize(getMinimumSize())
     JScrollPane imagePane = new JScrollPane(this.gamePanel);
     this.add(imagePane, BorderLayout.CENTER);
 
@@ -182,16 +181,8 @@ public class GamePanel extends JPanel implements MouseListener {
     this.playersArea.setForeground(Color.WHITE);
     this.playersArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.playersArea.setBackground(new Color(37, 190, 175));
-//    this.playersArea.setMaximumSize(new Dimension(50, 50));
     this.playersArea.setMinimumSize(new Dimension(100, 100));
     this.playersArea.setPreferredSize(new Dimension(500, 500));
-
-//    this.game.gridx = 1;
-//    this.game.gridy = 0;
-//    this.game.weightx = 3.0;
-//    this.game.weighty = 3.0;
-//    this.game.anchor = GridBagConstraints.NORTHEAST;
-//    this.game.insets = new Insets(20, 5, 10, 10);
 
     JScrollPane infoPane = new JScrollPane(this.playersArea);
     this.infoPanel.add(infoPane);
@@ -206,12 +197,9 @@ public class GamePanel extends JPanel implements MouseListener {
     this.turnInfoArea.setLineWrap(true);
     this.turnInfoArea.setWrapStyleWord(true);
     this.turnInfoArea.setEnabled(false);
-    // this.turnInfoArea.setDisabledTextColor(Color.BLUE);
-    // this.turnInfoArea.setEnabled(false);
     this.turnInfoArea.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
     this.turnInfoArea.setPreferredSize(new Dimension(500, 500));
 
-    // this.turnInfoArea.setMaximumSize(new Dimension(50, 50));
     this.turnInfoArea.setMinimumSize(new Dimension(100, 100));
 
     JScrollPane turnInfoPane = new JScrollPane(this.turnInfoArea);
@@ -229,13 +217,13 @@ public class GamePanel extends JPanel implements MouseListener {
     this.turnResultArea.setForeground(Color.WHITE);
 
     this.turnResultArea.setPreferredSize(new Dimension(500, 500));
-    // this.turnResultArea.setMaximumSize(new Dimension(50, 50));
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
     JScrollPane turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
-
+    //this.infoPanel.revalidate();
     this.add(infoPanel, BorderLayout.EAST);
     this.repaint();
+   // this.revalidate();
   }
 
   public void setFeatures(Features f) {
@@ -296,47 +284,15 @@ public class GamePanel extends JPanel implements MouseListener {
     return sb.toString();
   }
 
-  public void addPlayerListener(JLabel label, Features f) {
+  public void addPlayerListener(JLabel label, Features f, int index) {
     label.addMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        f.handlePlayerMouseClickEvent(readOnlyModel.getPlayerList().get(index).getName());
       }
     });
   }
 
   public void resetFocus() {
     this.setFocusable(true);
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    Component c = e.getComponent();
-    System.out.println("mocuse clikc");
-
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    // TODO Auto-generated method stub
-    Component c = e.getComponent();
-    System.out.println("mocuse press");
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
-
   }
 }

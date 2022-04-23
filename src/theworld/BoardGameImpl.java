@@ -921,10 +921,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         return this;
       }
 
-    } catch (IllegalArgumentException iae) {
-      throw new IllegalArgumentException(iae.getMessage());
+    } catch (ArrayIndexOutOfBoundsException iob) {
+      throw new IllegalArgumentException("Invalid File Format.");
     }
-
   }
 
   @Override
@@ -948,7 +947,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
 
   @Override
   public String toString() {
-    return String.format("RoomInfo (Name: %s;\n Items: %s;\n Players: %s;\n Neighbours: %s)\n\n",
+    return String.format("RoomInfo (Name: %s;\n Items: %s;\n Players: %s;\n Neighbours: %s)\n",
         this.roomstring, this.itemsstring, this.playerstring, this.neighboursstring);
   }
 
