@@ -211,6 +211,18 @@ public class GamePanel extends JPanel implements MouseListener {
         player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
     return playerLabel;
   }
+  
+  public String setPlayerIndexText() {
+    
+    StringBuilder sb = new StringBuilder();
+    
+   
+      sb.append(new JLabel(new ImageIcon(new ImageIcon(String.format("res/Icon1.png"))
+          .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH))))
+    
+    return outputMessage;
+    
+  }
 
 //  public void showPickDialog() {
 //    
