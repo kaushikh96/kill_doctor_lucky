@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -186,8 +187,26 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public String showAttackDialog() {
-    // TODO Auto-generated method stub
-    return null;
+    String itemName = null;
+
+    List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
+        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
+        .collect(Collectors.toList()).get(0).getItems();
+    itemsOnPlayer.add(new ItemImpl(1, "poke"));
+    String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
+        .toArray(new String[0]);
+
+    JComboBox items = new JComboBox(itemList);
+    items.setPreferredSize(new Dimension(200, 30));
+
+    int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
+        JOptionPane.DEFAULT_OPTION);
+
+    if (result == JOptionPane.OK_OPTION) {
+      itemName = (String) items.getSelectedItem();
+    }
+
+    return itemName;
   }
 
   @Override
