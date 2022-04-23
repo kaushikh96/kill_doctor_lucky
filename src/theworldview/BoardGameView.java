@@ -69,4 +69,6 @@ public interface BoardGameView {
   public String getCurrentPlayerName();
 
   public void resetFocus();
+
+  public void setPlayerInfoDialog(String output);
 }

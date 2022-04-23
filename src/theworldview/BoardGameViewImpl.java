@@ -125,6 +125,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
       this.outputMessage = "Turns Exhausted ! Target Character Escapes !!";
     }
     if (this.ifTurnsExecuted) {
+      if (this.gamePanel != null) {
+        this.remove(this.gamePanel);
+      }
       this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
       String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
       if ("true".equalsIgnoreCase(turnmessage)) {
@@ -132,8 +135,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
             f.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
         this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
       }
+      this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
+          this.f);
     }
-    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
@@ -142,13 +146,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void addPlayers() {
-
     this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
         this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
 
     this.addPlayerPanel.addDataToTable();
     this.addPlayerPanel.resetFields();
-
   }
 
   @Override
@@ -169,6 +171,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void closeWindow() {
     this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+//    this.setVisible(false);
+//    this.dispose();
   }
 
   @Override
@@ -273,6 +277,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setIfTurnExecuted(boolean ifTurnExecuted) {
     this.ifTurnsExecuted = ifTurnExecuted;
+  }
+
+  @Override
+  public void setPlayerInfoDialog(String output) {
+    JOptionPane.showMessageDialog(null, output);
   }
 
 }

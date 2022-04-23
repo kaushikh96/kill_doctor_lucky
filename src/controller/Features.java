@@ -15,4 +15,6 @@ public interface Features {
   public String handleMouseClickEvent(int x, int y);
 
   public String playComputerPlayer(String playerName);
+
+  public void handlePlayerMouseClickEvent(String playerName);
 }
