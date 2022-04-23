@@ -178,4 +178,11 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
 
     view.addKeyListener(kbd);
   }
+
+  @Override
+  public void handlePlayerMouseClickEvent(String playerName) {
+    GameController cmd = new DisplayPlayerInfo(playerName);
+    cmd.execute(model);
+    this.view.setPlayerInfoDialog(cmd.getOutput());
+  }
 }

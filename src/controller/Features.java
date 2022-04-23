@@ -13,4 +13,6 @@ public interface Features {
   public String handleKeyPressEvent(String action, String playername, String roomOrItemName);
 
   public String handleMouseClickEvent(int x, int y);
+  
+  public void handlePlayerMouseClickEvent(String playerName);
 }

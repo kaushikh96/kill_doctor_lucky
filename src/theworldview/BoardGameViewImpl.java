@@ -123,7 +123,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     if (this.ifTurnsExecuted) {
       this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
     }
-    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
+    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage, this.f);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
@@ -160,6 +160,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void closeWindow() {
     this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+//    this.setVisible(false);
+//    this.dispose();
   }
 
   @Override
@@ -261,6 +263,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setIfTurnExecuted(boolean ifTurnExecuted) {
     this.ifTurnsExecuted = ifTurnExecuted;
+  }
+
+  @Override
+  public void setPlayerInfoDialog(String output) {
+    JOptionPane.showMessageDialog(null, output);
   }
 
 }

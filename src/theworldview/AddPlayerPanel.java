@@ -272,7 +272,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
 
     this.computerType = new JRadioButton("Computer");
-    this.humanType.setActionCommand("Computer");
+    this.computerType.setActionCommand("Computer");
     this.computerType.setBackground(new Color(137, 207, 240));
     this.computerType.setFont(computerType.getFont().deriveFont(18.0f));
 
