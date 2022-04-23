@@ -59,7 +59,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.setLayout(new BorderLayout());
     this.welcomePanel = new WelcomePanel(model, this);
     this.add(welcomePanel, BorderLayout.CENTER);
-    this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
+    //this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
 
     this.menuBar = new JMenuBar();
@@ -89,7 +89,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.currentWorldItem.addActionListener(actionListener);
     this.newWorldItem.addActionListener(actionListener);
     this.quit.addActionListener(new ButtonListener());
-    this.addPlayerPanel.addActionListener(actionListener);
+   // this.addPlayerPanel.addActionListener(actionListener);
     this.listener = actionListener;
   }
 
