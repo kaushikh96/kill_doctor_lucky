@@ -6,8 +6,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -67,15 +65,14 @@ public class GamePanel extends JPanel implements MouseListener {
     this.outputMessage = outputMessage;
 
     this.setLayout(new BorderLayout(20, 15));
-    //this.setBackground(new Color(137, 207, 240));
-    
+    // this.setBackground(new Color(137, 207, 240));
+
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
 
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
 
     this.imageLabel.setLayout(null);
-   
 
     this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
@@ -128,18 +125,18 @@ public class GamePanel extends JPanel implements MouseListener {
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-   // this.gamePanel.setMinimumSize(getMinimumSize())
+    // this.gamePanel.setMinimumSize(getMinimumSize())
     JScrollPane imagePane = new JScrollPane(this.gamePanel);
     this.add(imagePane, BorderLayout.CENTER);
 
     this.infoPanel = new JPanel();
     this.infoPanel.setLayout(new BoxLayout(this.infoPanel, BoxLayout.Y_AXIS));
     this.infoPanel.setMaximumSize(new Dimension(500, 500));
-    
+
     this.playersArea = new JTextArea();
     this.playersArea.setLineWrap(true);
     this.playersArea.setWrapStyleWord(true);
-    
+
     this.playersArea.setText("PLAYERS INDEX:");
 
     Font font = new Font("Segoe Script", Font.BOLD, 20);
@@ -156,9 +153,9 @@ public class GamePanel extends JPanel implements MouseListener {
 //    this.game.weighty = 3.0;
 //    this.game.anchor = GridBagConstraints.NORTHEAST;
 //    this.game.insets = new Insets(20, 5, 10, 10);
-    
+
     JScrollPane infoPane = new JScrollPane(this.playersArea);
-    this.infoPanel.add(infoPane);    
+    this.infoPanel.add(infoPane);
 
     this.turnInfoArea = new JTextArea();
     String playerInfo = this.turnMessage.split("Items:")[0];
@@ -169,27 +166,27 @@ public class GamePanel extends JPanel implements MouseListener {
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setLineWrap(true);
     this.turnInfoArea.setWrapStyleWord(true);
-    //this.turnInfoArea.setDisabledTextColor(Color.BLUE);
-    //this.turnInfoArea.setEnabled(false);
+    // this.turnInfoArea.setDisabledTextColor(Color.BLUE);
+    // this.turnInfoArea.setEnabled(false);
     this.turnInfoArea.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
     this.turnInfoArea.setPreferredSize(new Dimension(500, 500));
-    
-    //this.turnInfoArea.setMaximumSize(new Dimension(50, 50));
+
+    // this.turnInfoArea.setMaximumSize(new Dimension(50, 50));
     this.turnInfoArea.setMinimumSize(new Dimension(100, 100));
-    
+
     JScrollPane turnInfoPane = new JScrollPane(this.turnInfoArea);
     this.infoPanel.add(turnInfoPane);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(String.format("PREVIOUS TURN RESULT:\n %s", this.outputMessage));
+    this.turnResultArea.setText(String.format("RESULT OF THE ACTION:\n %s", this.outputMessage));
     this.turnResultArea.setFont(font);
     this.turnResultArea.setLineWrap(true);
     this.turnResultArea.setWrapStyleWord(true);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.turnResultArea.setBackground(new Color(37, 190, 175));
-    
+
     this.turnResultArea.setPreferredSize(new Dimension(500, 500));
-    //this.turnResultArea.setMaximumSize(new Dimension(50, 50));
+    // this.turnResultArea.setMaximumSize(new Dimension(50, 50));
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
     JScrollPane turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
@@ -211,17 +208,16 @@ public class GamePanel extends JPanel implements MouseListener {
         player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
     return playerLabel;
   }
-  
+
   public String setPlayerIndexText() {
-    
+
     StringBuilder sb = new StringBuilder();
-    
-   
-      sb.append(new JLabel(new ImageIcon(new ImageIcon(String.format("res/Icon1.png"))
-          .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH))))
-    
+
+    sb.append(new JLabel(new ImageIcon(new ImageIcon(String.format("res/Icon1.png")).getImage()
+        .getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH))));
+
     return outputMessage;
-    
+
   }
 
 //  public void showPickDialog() {

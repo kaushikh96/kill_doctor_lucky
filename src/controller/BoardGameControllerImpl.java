@@ -49,7 +49,13 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       cmd.execute(model);
     } catch (IllegalStateException ise) {
     }
+  }
 
+  @Override
+  public String playComputerPlayer(String playerName) {
+    GameController cmd = new ComputerPlayerTurn(playerName);
+    cmd.execute(model);
+    return cmd.getOutput();
   }
 
   @Override
@@ -101,6 +107,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
 
     buttonClickedMap.put("New World", () -> {
       this.view.showFileUploadDialog();
+      this.view.displayAddPlayerScreen();
     });
 
     buttonClickedMap.put("Quit", () -> {

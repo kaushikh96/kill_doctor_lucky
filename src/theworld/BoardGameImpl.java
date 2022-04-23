@@ -42,6 +42,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   private String neighbourinfo;
   private boolean isBackTrack;
   private String currentPlayerTurn;
+  private int turns;
 
   /**
    * Construct a BoardGameImpl object that has the provided targetcharacter, name,
@@ -56,7 +57,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param randomref        the variable of the type Random
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
-      List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref) {
+      List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
     if (target == null) {
       throw new IllegalArgumentException("Target character entity cannot be null");
     }
@@ -75,6 +76,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     if (randomref == null) {
       throw new IllegalArgumentException("Random Variable cannot be null");
     }
+    if (turns < 0) {
+      throw new IllegalArgumentException("Turns cannot be negative");
+    }
     this.targetcharacter = target;
     this.targetpet = targetpet;
     this.name = name;
@@ -87,6 +91,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
 //    int height = worldcoordinates.get(0);
 //    int width = worldcoordinates.get(1);
     this.isBackTrack = false;
+    this.turns = turns;
 //    this.bufferedimage = new BufferedImage(width * 60, height * 30, BufferedImage.TYPE_INT_RGB);
 //    this.graphics2d = (Graphics2D) this.bufferedimage.getGraphics();
 //    this.graphics2d.setColor(Color.WHITE);
@@ -130,6 +135,11 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   @Override
   public String getCurrentPlayerTurn() {
     return this.currentPlayerTurn;
+  }
+
+  @Override
+  public int getTurns() {
+    return this.turns;
   }
 
   @Override
@@ -361,7 +371,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       player.movePlayer(neighbours, roomToBeMovedTo);
       this.getNextTargetCharacterRoom();
       this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      return String.format("Executed Move: \n%s has been \n moved to %s", player.getName(),
+      return String.format("Executed Move: \n%s has been moved to %s", player.getName(),
           roomToBeMovedTo);
     }
   }
@@ -523,40 +533,42 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           int r;
           List<ItemImpl> itemlist = player.getCurrentRoom().getItems();
           if (itemlist != null && itemlist.size() > 0
-              && player.getItemCapacity() == player.getItems().size()) {
-            r = randomref.next(4);
-          } else {
+              && player.getItemCapacity() != player.getItems().size()) {
             r = randomref.next(3);
+          } else {
+            r = randomref.next(2);
           }
           List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
           compplayerneighbours.stream().filter(d -> d.equals(this.targetpet.getCurrentRoom()))
               .collect(Collectors.toList());
           if (r == 0) {
-            this.compdisplaymessage = this.lookAround(playername);
+            this.compdisplaymessage = String.format("Turn of %s\n%s", playername,
+                this.lookAround(playername));
           } else if (r == 1) {
             int chooseroom = randomref.next(compplayerneighbours.size());
             String selectedroom = compplayerneighbours.get(chooseroom).getName();
             player.movePlayer(compplayerneighbours, selectedroom);
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+            this.getNextTargetCharacterRoom();
             this.compdisplaymessage = String.format(
-                "Executed Move: %s has moved to %s\nTarget Character Current Room: %s\n",
-                playername, selectedroom, this.getNextTargetCharacterRoom());
-          } else if (r == 2) {
-            List<SpaceImpl> copyspacelist = this.getSpaceList();
-            copyspacelist.remove(this.targetpet.getCurrentRoom());
-            int chooseroom = randomref.next(copyspacelist.size());
-            this.targetpet.movepet(this.getSpaceList().get(chooseroom));
-            this.compdisplaymessage = String.format(
-                "Executed Move Pet: Pet has been moved to %s\nTarget Character Current Room: %s\n",
-                this.getSpaceList().get(chooseroom).getName(), this.getNextTargetCharacterRoom());
+                "Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", playername, selectedroom);
+//          } else if (r == 2) {
+//            List<SpaceImpl> copyspacelist = this.getSpaceList();
+//            copyspacelist.remove(this.targetpet.getCurrentRoom());
+//            int chooseroom = randomref.next(copyspacelist.size());
+//            this.targetpet.movepet(this.getSpaceList().get(chooseroom));
+//            this.compdisplaymessage = String.format(
+//                "Executed Move Pet: Pet has been moved to %s\nTarget Character Current Room: %s\n",
+//                this.getSpaceList().get(chooseroom).getName(), this.getNextTargetCharacterRoom());
           } else {
             int chosenitem = randomref.next(itemlist.size());
             String selecteditem = itemlist.get(chosenitem).getName();
             player.pickItem(selecteditem);
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+            this.getNextTargetCharacterRoom();
             this.compdisplaymessage = String.format(
-                "Executed Pick Item: %s has picked up %s\nTarget Character Current Room: %s\n",
-                playername, selecteditem, this.getNextTargetCharacterRoom());
+                "Turn of %s\nExecuted Pick Item:\nPlayer has picked up %s\n", playername,
+                selecteditem);
           }
         }
         return this.compdisplaymessage;
@@ -572,7 +584,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       throw new IllegalArgumentException("Invalid player name or item name");
     } else {
       try {
-        return this.attackTarget(playername, itemname);
+        return String.format("Turn of %s\n%s", playername, this.attackTarget(playername, itemname));
       } catch (IllegalStateException ise) {
         return "False";
       }
@@ -631,7 +643,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           } else {
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
             this.getNextTargetCharacterRoom();
-            String stopmessage = "Target Character attack stopped\n as the attack is being seen\n";
+            String stopmessage = "Target Character attack stopped as the \nattack is being seen";
             return String.format("%s by other players", stopmessage);
           }
         } else {
@@ -650,7 +662,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           if (players.size() > 1) {
             this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
             this.getNextTargetCharacterRoom();
-            String stopmessage = "Target Character attack stopped\n as the attack is being seen";
+            String stopmessage = "Target Character attack stopped as the \nattack is being seen";
             return String.format("%s by other players.\n", stopmessage);
           } else {
             String hitmessage = this.decreaseTargetHealth(playercurrent, itemname);
@@ -793,6 +805,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         int currplayerindex = this.getPlayerList().indexOf(currentplayerinfo.get(0));
         if (currplayerindex == (this.getPlayerList().size() - 1)) {
           this.currentPlayerTurn = this.getPlayerList().get(0).getName();
+          this.turns--;
           return String.format("%s, PlayerType: %s; Target Current Location: %s",
               this.getPlayerInfo(this.getPlayerList().get(0).getName()).replace(
                   "Player Info (Name:", "Turn of"),
@@ -800,6 +813,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
               this.targetcharacter.getCurrentRoom().getName());
         } else {
           this.currentPlayerTurn = this.getPlayerList().get(currplayerindex + 1).getName();
+          this.turns--;
           return String.format("%s, PlayerType: %s; Target Current Location: %s",
               this.getPlayerInfo(this.getPlayerList().get(currplayerindex + 1).getName())
                   .replace("Player Info (Name:", "Turn of:"),
@@ -892,16 +906,12 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             roomlist.get(Integer.parseInt(itemattr[0])).getItems().add(demoitem);
           }
         }
-        TargetCharacterImpl target = new TargetCharacterImpl(worldattributes2[1],
-            Integer.parseInt(worldattributes2[0]), roomlist.get(0));
-        PetImpl targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
-        RandomClass randomref = new RandomClass();
-        BoardGameImpl world;
-        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
-            targetpet, randomref);
+//        BoardGameImpl world;
+//        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
+//            targetpet, randomref);
         this.targetcharacter = new TargetCharacterImpl(worldattributes2[1],
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
-        this.name = name;
+        this.name = worldattributes1[2];
         this.spacelist = roomlist;
         this.worldcoordinates = worldcoordinates;
         this.targetpet = new PetImpl(worldattributes[2], roomlist.get(0));

@@ -22,7 +22,7 @@ public class Builder {
    * @param inputdata data read from the text file for the world.
    * @return the BoardgameImpl entity
    */
-  public static BoardGameImpl readfile(String inputdata) {
+  public static BoardGameImpl readfile(String inputdata, int turns) {
     try {
       if (inputdata == null || "".equals(inputdata.trim())) {
         throw new IllegalArgumentException("Not a valid parameter");
@@ -107,7 +107,7 @@ public class Builder {
         RandomClass randomref = new RandomClass();
         BoardGameImpl world;
         world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
-            targetpet, randomref);
+            targetpet, randomref, turns);
 
         return world;
       }

@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -150,7 +151,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     String labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
     this.coloredLabelSpaceName = new JLabel(labelTextSpaceName, SwingConstants.LEFT);
-
+    
     this.cname.gridx = 0;
     this.cname.gridy = 1;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
@@ -202,6 +203,19 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
 
     this.itemLimitText = new JTextField(20);
+//    this.itemLimitText.addKeyListener(new KeyAdapter() {
+//      public void keyPressed(KeyEvent ke) {
+//        String value = this.itemLimitText.getText();
+//        int l = value.length();
+//        if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+//          this.itemLimitText.setEditable(true);
+//           //label.setText("");
+//        } else {
+//          this.itemLimitText.setEditable(false);
+//          // label.setText("* Enter only numeric digits(0-9)");
+//        }
+//     }
+//    });
     itemLimitText.setPreferredSize(new Dimension(20, 30));
 
     this.cname.gridx = 1;
@@ -272,7 +286,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
 
     this.computerType = new JRadioButton("Computer");
-    this.humanType.setActionCommand("Computer");
+    this.computerType.setActionCommand("Computer");
     this.computerType.setBackground(new Color(137, 207, 240));
     this.computerType.setFont(computerType.getFont().deriveFont(18.0f));
 
