@@ -14,8 +14,8 @@ public class PetImpl implements PetInterface {
 
   /**
    * Constructor for PetImpl.
-   * 
-   * @param name        name of the pet
+   *
+   * @param name the name of the pet
    * @param currentRoom entity of the space the pet is currently in
    */
   public PetImpl(String name, SpaceImpl currentRoom) {

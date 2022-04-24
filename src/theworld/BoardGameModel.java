@@ -15,7 +15,6 @@ public interface BoardGameModel {
    * Adds a player to the Board game.
    *
    * @param name             target character name
-   * @param health           health of the target character
    * @param itemcapacity     list of spaces
    * @param isComputerPlayer world coordinates
    * @param playeritems      list of items on the player
@@ -25,14 +24,14 @@ public interface BoardGameModel {
       List<ItemImpl> playeritems, boolean isComputerPlayer);
 
   /**
-   * Moves a player to a space.
+   * Moves a player to a space based on the coordinates.
    *
-   * @param playername      name of the player
-   * @param roomtobemovedto room name to be moved to
+   * @param xcoordinate the xcoordinate of the space the player needs to be move to.
+   * @param ycoordinate the ycoordinate of the space the player needs to be move to.
    * 
    * @return the room that the target character has moved to
    */
-  public String movePlayer(int x_coordinate, int y_coordinate) throws IllegalStateException;
+  public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException;
 
   /**
    * Allows a player to pick an item from the space.
@@ -63,10 +62,9 @@ public interface BoardGameModel {
   public String getPlayerInfo(String playername) throws IllegalStateException;
 
   /**
-   * Gets the room related information.
-   * 
-   * @param spacename the room name
-   * 
+   * Gets the room related information based on the given space name.
+   *
+   * @param spacename the name of the space
    * @return information of a room in the form of a string
    */
   public String getRoomInfo(String spacename);
@@ -78,9 +76,8 @@ public interface BoardGameModel {
 
   /**
    * Method for execution of computer player turn.
-   * 
-   * @param playername name of the player
-   * @param randomref  random class reference
+   *
+   * @param playername the name of the player
    * 
    * @return description about the computer player execution
    */
@@ -88,8 +85,8 @@ public interface BoardGameModel {
 
   /**
    * Method for movement of pet during a player's turn turn.
-   * 
-   * @param spacename name of the space
+   *
+   * @param spacename the name of the space
    * 
    * @return room that the target character has moved to
    */
@@ -97,7 +94,7 @@ public interface BoardGameModel {
 
   /**
    * Method for execution of attacking the target character.
-   * 
+   *
    * @param playername name of the player
    * @param itemname   name of the item
    * 
@@ -107,7 +104,7 @@ public interface BoardGameModel {
 
   /**
    * Method for execution of attacking the target character.
-   * 
+   *
    * @param currentplayername name of the player
    * 
    * @return description of the next player's turn

@@ -6,22 +6,21 @@ import theworld.BoardGameModel;
 import theworld.ItemImpl;
 
 /**
- * This class is a part of command design pattern to add a human player to the
+ * This class is a part of command design pattern to add a human player with player details to the
  * world.
  */
 public class AddPlayer implements GameController {
 
-  private String name;
-  private String currentRoom;
-  private int itemcapacity;
-  private boolean isComputerPlayer;
+  private final String name;
+  private final String currentRoom;
+  private final int itemcapacity;
+  private final boolean isComputerPlayer;
   private List<ItemImpl> playeritems;
   private String outputMessage;
 
   /**
    * Construct a AddHumanPlayer object that has the provided name , currentRoom,
    * itemcapacity, isComputerPlayer.
-   * 
    *
    * @param name             target character name
    * @param currentRoom      name of the world
@@ -40,6 +39,7 @@ public class AddPlayer implements GameController {
     if (itemcapacity < 0) {
       throw new IllegalArgumentException("Item Capacity for a player cannot be negative \n");
     }
+    
     
     this.name = name;
     this.currentRoom = currentRoom;

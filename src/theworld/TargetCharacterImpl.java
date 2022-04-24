@@ -16,7 +16,7 @@ public class TargetCharacterImpl implements TargetCharacterInterface {
 
   /**
    * Constructor for TargetCharacterImpl.
-   * 
+   *
    * @param name        name of the target character
    * @param health      health of the target character
    * @param currentRoom current space of the target character

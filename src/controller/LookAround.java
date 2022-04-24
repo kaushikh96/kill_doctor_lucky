@@ -7,12 +7,12 @@ import theworld.BoardGameModel;
  * around.
  */
 public class LookAround implements GameController {
-  private String playername;
+  private final String playername;
   private String outputmessage;
 
   /**
-   * Construct a LookAround object that has the playername.
-   * 
+   * Construct a LookAround object that has the name of the player.
+   *
    * @param playername name of the player
    */
   public LookAround(String playername) throws IllegalArgumentException {

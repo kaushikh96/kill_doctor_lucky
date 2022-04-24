@@ -80,7 +80,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Method to decrease the target character's health.
-   * 
+   *
    * @param playercurrent data of the current player
    * @param itemname      name of the item
    * 
@@ -90,7 +90,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Method to play computerplayer attack target.
-   * 
+   *
    * @param playername name of the player
    * @param itemname   name of the item
    * 
@@ -100,19 +100,42 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Method to move pet using Depth First Traversal logic.
-   * 
+   *
    * @param petcurrentroom name of the player
    * 
    * @return the next room of the pet movement in DFS.
    */
   public String petMovementDfs(String petcurrentroom);
+  
+  /**
+   * This method gets the reference of the random class for computer player
+   * functionality.
+   *
+   * @return the onject of the Random Class
+   */
 
   public RandomClass getRandomClassRef();
 
+  /**
+   * This method gets the current turn of the player.
+   *
+   * @return the name of current player.
+   */
   public String getCurrentPlayerTurn();
 
+  /**
+   * This method creates a new world based on the uploaded text file.
+   *
+   * @param inputdata the input world data needed for creating the world.
+   * @return the object of the BoardGameImpl with new world specifications.
+   */
   public BoardGameImpl updateWorld(String inputdata);
 
+  /**
+   * This method returns the remaining turns in the game.
+   *
+   * @return the remaining number of turns in the game.
+   */
   public int getTurns();
 
 }

@@ -7,13 +7,14 @@ import theworld.BoardGameModel;
  */
 public class DisplayPlayerInfo implements GameController {
 
-  private String playername;
+  private final String playername;
   private String outputMessage;
 
   /**
-   * Construct a DisplayPlayerInfo object that has the playername.
-   * 
-   * @param playername name of the player
+   * Construct a DisplayPlayerInfo object that initializes the player name for which
+   * the player information needs to be displayes.
+   *
+   * @param playername the name of the player for displayer information.
    */
   public DisplayPlayerInfo(String playername) {
     if (playername == null || "".equals(playername.trim())) {

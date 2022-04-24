@@ -16,7 +16,7 @@ public interface GameController {
   void execute(BoardGameModel b);
 
   /**
-   * Gets the message we get after the command gets executed.
+   * Gets the message we get after the respective command gets executed.
    *
    * @return the message after execution of the command
    */

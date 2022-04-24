@@ -1,6 +1,5 @@
 package controller;
 
-import driver.RandomClass;
 import theworld.BoardGameModel;
 
 /**
@@ -8,7 +7,7 @@ import theworld.BoardGameModel;
  * the world.
  */
 public class ComputerPlayerTurn implements GameController {
-  private String playername;
+  private final String playername;
   private String outputMessage;
 
   /**

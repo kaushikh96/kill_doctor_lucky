@@ -8,22 +8,22 @@ import theworld.BoardGameModel;
  */
 public class MovePlayer implements GameController {
 
-  private int x_coordinate;
-  private int y_coordinate;
+  private int xcoordinate;
+  private int ycoordinate;
   private String outputMessage;
 
   /**
-   * Construct a MoveSpace object that has the playername, roomtobemovedto.
-   * 
-   * @param playername      name of the player
-   * @param roomtobemovedto name of the room to be moved to
+   * Construct a MoveSpace object that has the name of the player, roomtobemovedto.
+   *
+   * @param x the xcoordinate of the space the player needs to be move to.
+   * @param y the ycoordinate of the space the player needs to be move to.
    */
   public MovePlayer(int x, int y) {
     if (x < 0 || y < 0) {
       throw new IllegalArgumentException("value of coordinate cannot be negative");
     }
-    this.x_coordinate = x;
-    this.y_coordinate = y;
+    this.xcoordinate = x;
+    this.ycoordinate = y;
     this.outputMessage = "";
   }
 
@@ -32,7 +32,7 @@ public class MovePlayer implements GameController {
     if (b == null) {
       throw new IllegalArgumentException("model cannot be null");
     }
-    this.outputMessage = b.movePlayer(this.x_coordinate, this.y_coordinate);
+    this.outputMessage = b.movePlayer(this.xcoordinate, this.ycoordinate);
   }
 
   @Override

@@ -18,7 +18,7 @@ public class PlayerImpl implements PlayerInterface {
 
   /**
    * Constructor for PlayerImpl.
-   * 
+   *
    * @param name             name of the player
    * @param currentRoom      current space of the player
    * @param items            Items it carries
