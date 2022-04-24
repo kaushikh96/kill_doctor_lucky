@@ -6,14 +6,15 @@ import theworld.BoardGameModel;
  * This class is a part of command design pattern to display room information.
  */
 public class DisplayRoomInfo implements GameController {
-  private String spacename;
+  private final String spacename;
   private String outputMessage;
 
   /**
-   * Construct a DisplayRoomInfo object that has the spacename.
+   * Construct a DisplayRoomInfo object that has the spacename 
+   * for displaying space information.
    * 
    *
-   * @param spacename name of the name
+   * @param spacename the name of the space to display its information.
    */
   public DisplayRoomInfo(String spacename) {
     if (spacename == null || "".equals(spacename.trim())) {

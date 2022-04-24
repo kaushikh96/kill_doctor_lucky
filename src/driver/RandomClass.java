@@ -11,7 +11,7 @@ public class RandomClass {
   private int[] arr;
 
   /**
-   * Constructor initialize random variable.
+   * Constructor initializes the random variable.
    */
   public RandomClass() {
     random = new Random();

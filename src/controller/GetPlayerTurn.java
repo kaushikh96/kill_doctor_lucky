@@ -7,7 +7,7 @@ import theworld.BoardGameModel;
  * player in the order.
  */
 public class GetPlayerTurn implements GameController {
-  private String currentplayername;
+  private final String currentplayername;
   private String outputMessage;
 
   /**

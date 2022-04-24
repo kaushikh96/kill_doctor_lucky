@@ -54,7 +54,10 @@ The project consists of the following features:
 25. If no items exists on a player he could as well poke the target character in the eye which does a health damage of 1.
 26. Player can use the items on him to attack the target character. The item is then removed from the game.
 27. Computer Player would automatically choose the item on him with the highest damage.
-
+28. A welcome screen that allows the player to start the game using a start button.
+29. A world selction screen that allows the player to choose a world in which the player would like to play.
+30. An add player screen that allows the user to add the player provided player details and is displayed on the table in the screen.
+31. The main game panel screen that provides the graphical represntation of world where the player plays and the status of the game is displayed. This screen is reposnbile for the game play show.
 
 ### How to Run
 
@@ -70,32 +73,29 @@ execution.
 
 The program demonstrates all the combined features. We have to just make sure that the input text file is present. We run the generated Runnable jar file which in this case is theworld.jar with 2 command line arguments 
 
-The program uses a dedicated command design pattern to execute all of the features of the current project. Commands are given through the command line and the corresponding actions are performed.
+The view representation of screen allows the user to provide the input on the Screen. Once the input is provided by the user, the controller contacts the model for the functionality and then passes the result to the view for further input on the game. In this way, the game proceeds and results are displayed on the screen by the view. 
 
 
 ### Example Runs
 
-There are 9 example run files submitted: 
-
-1. examplerun_computerplayerattempt.txt - It demonstrates the computer player's attempt to attack the target character
-2. examplerun_computerplayerwinning.txt - It demonstrates computer player's Win
-3. examplerun_computerplayerwinning2.txt - It is another run of Computer player's Win
-4. examplerun_humanplayerattempt.txt - It demonstrates the human player's attempt to attack the target character
-5. examplerun_humanplayerwins.txt - It demonstrates human player winning
-6. examplerun_playermovingpet.txt - It demonstrates how player moves a pet
-7. examplerun_targetcharacterescapes.txt - It demonstrates that target character escapes after maximum turns are done
-8. examplerun_targetpetexistencevisibility.txt - It demonstrates how spaces are not visible by the presence of target pet in them
-9. examplerun_wanderingpetmovement.txt - It demonstrates the functioning of wandering pet movement using DFS alogrithm.
-
 ### Design/Model Changes
 
-1. Implemented all the features of the model requirements in the Board Game Interface class itself.
-2. Clubbed the AddHumanPlayer and AddComputerPlayer method into one method for Adding a player as a whole.
-3. Also created a new command design class to execute when it is ComputerPlayer's Turn.
-4. Created a new Facade Interface to be used for mocking during the testing of the controller.
-5. Player Information has been moved to model.
-6. Added an additional method for Depth first traversal and computer player execution.
-7. Pet Entity has been added to store pet information.
+1.Turn of each player is now moved to model where we have information about whose turn it is
+and his current room.
+2.Number of turns calculation is being done in the model. After each turn gets executed the
+reduction of turns is now happening in the model.
+3.I have added methods to check for Winner getWinner(), if target character health reduces to
+zero.
+4.I have added getIfTurnsExhausted() method to return the string when the turns reduces to zero.
+5.In the controller, I am now making the specific action be performed based on the action
+performed by the user via click or keypress as per the milestone requirements and I would call
+the command based classes based on the input from the view.
+6.Added a resetworld() method to reset the world.
+7.The logic to execute computer player’s turn has been moved to getPlayerNextTurn() method
+when it is the turn of the computer player.
+8.We are initializing both turns and random variable used for computer player as soon as the world
+object gets created previously we were passing the random variable only during computer
+player’s turn through the controller.
 
 ### Assumptions
 1. Player should be knowing the space names.
@@ -104,6 +104,7 @@ There are 9 example run files submitted:
 4. As the target character movement is being tracked in each turn, it is not included in the DisplayRoomInfo.
 5. During DFS after all the rooms are traversed it automatically starts mvoing from the first place it has started.
 6. Once a player executes the move pet turn, it automatically starts DFS from the current space for the subsequent turns.
+7. 
 
 
 ### Limitations
@@ -114,4 +115,8 @@ There are 9 example run files submitted:
 ### Citations
 
 Took references from stackoverflow for design related implementations. Also, GeeksforGeeks was a great source of information.
+https://www.geeksforgeeks.org/
+https://stackoverflow.com/
+https://docs.oracle.com/
+https://www.geeksforgeeks.org/creating-frames-using-swings-java/
 

@@ -8,15 +8,16 @@ import theworld.BoardGameModel;
  */
 public class PickUpItem implements GameController {
 
-  private String playername;
-  private String itemname;
+  private final String playername;
+  private final String itemname;
   private String outputMessage;
 
   /**
-   * Constructor of a PickupItem command class.
-   * 
-   * @param playername name of the player
-   * @param itemname   name of the item
+   * Constructor of a PickupItem command class that initializes the 
+   * name of the player and the name of the item to be picked.
+   *
+   * @param playername name of the current player
+   * @param itemname   name of the item selected to pick.
    */
   public PickUpItem(String playername, String itemname) {
     if (playername == null || "".equals(playername.trim())) {

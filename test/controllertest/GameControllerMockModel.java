@@ -69,8 +69,8 @@ public class GameControllerMockModel implements BoardGameFacade {
   }
 
   @Override
-  public String playTurnComputerPlayer(String playername, RandomClass randomref) {
-    log.append(String.format("%s %s", playername, randomref));
+  public String playTurnComputerPlayer(String playername) {
+    log.append(String.format("%s %s", playername));
     return Integer.toString(uniquecode);
   }
 
@@ -90,5 +90,11 @@ public class GameControllerMockModel implements BoardGameFacade {
   public String getPlayerNextTurn(String currentplayername) {
     log.append(String.format("%s", currentplayername));
     return Integer.toString(uniquecode);
+  }
+
+  @Override
+  public String playTurnComputerPlayer(String arg0, theworld.RandomClass arg1) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

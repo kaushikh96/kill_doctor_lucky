@@ -44,6 +44,8 @@ public class WelcomePanel extends JPanel {
   private JLabel coloredLabel;
   private String kaushikText;
   private JLabel kaushikLabel;
+  private StringBuilder sb1;
+  private StringBuilder sb2;
 
   /**
    * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel to get
@@ -82,8 +84,13 @@ public class WelcomePanel extends JPanel {
     this.welcome.insets = new Insets(80, 10, 10, 10);
     this.welcomePanel.add(coloredLabel1, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
+    
+    this.sb1 = new StringBuilder();
+    
+    this.sb1.append("<html><font color=blue size=15>LET'S START THE GAME PLAY !!!");
+    this.sb1.append("</font><br></html>");
 
-    this.labelText = "<html><font color=blue size=15>LET'S START THE GAME PLAY !!!</font><br></html>";
+    this.labelText = this.sb1.toString();
     this.coloredLabel = new JLabel(labelText, JLabel.CENTER);
 
     this.welcome.gridx = 0;
@@ -111,17 +118,16 @@ public class WelcomePanel extends JPanel {
     this.welcomePanel.add(startButton, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
 
-    this.kaushikText = "<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>SANJANA KANDUNOORI</font></html>";
+    this.sb2 = new StringBuilder();
+    this.sb2.append("<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>");
+    this.sb2.append("SANJANA KANDUNOORI</font></html>");
+    this.kaushikText = this.sb2.toString();
     this.kaushikLabel = new JLabel(kaushikText);
     this.kaushikLabel.setBorder(new EmptyBorder(10, 30, 40, 10));
 
     this.add(kaushikLabel, BorderLayout.SOUTH);
   }
   
-
-//  public void addActionListener(ActionListener listener) {
-//    this.startButton.addActionListener(listener);
-//  }
 
   /**
    * This method implements the functionalities for different events so that
@@ -138,7 +144,7 @@ public class WelcomePanel extends JPanel {
     this.startButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        features.moveToAddPlayerScreen();
+        features.moveToWorldSelectionScreen();
       }
     });
   }

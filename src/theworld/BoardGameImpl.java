@@ -54,7 +54,11 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param worldcoordinates world coordinates
    * @param targetpet        details of the target character pet
    * @param randomref        the variable of the type Random
+<<<<<<< HEAD
+   * @param turns            the maximum turns of the game
+=======
    * @param turns            the maximum number of turns
+>>>>>>> 8897d048e5da4533380c6f7e7177e443732955c7
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
       List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
@@ -82,20 +86,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.targetcharacter = target;
     this.targetpet = targetpet;
     this.name = name;
-    this.spacelist = spacelist;
+    this.spacelist = new ArrayList<>(spacelist);
     this.worldcoordinates = worldcoordinates;
     this.playerlist = new ArrayList<>();
     this.randomref = randomref;
     this.listvisitednodes = new ArrayList<>();
     this.roomstack = new Stack<SpaceImpl>();
-//    int height = worldcoordinates.get(0);
-//    int width = worldcoordinates.get(1);
     this.isBackTrack = false;
     this.turns = turns;
-//    this.bufferedimage = new BufferedImage(width * 60, height * 30, BufferedImage.TYPE_INT_RGB);
-//    this.graphics2d = (Graphics2D) this.bufferedimage.getGraphics();
-//    this.graphics2d.setColor(Color.WHITE);
-//    this.graphics2d.fillRect(0, 0, width * 60, height * 30);
     this.neighboursstring = "";
     this.itemsstring = "";
     this.roomstring = "";
@@ -332,13 +330,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   @Override
   public void createGraphicalRepresentation() {
     try {
-      List<SpaceImpl> roomlist = getSpaceList();
+      
       this.bufferedimage = new BufferedImage(worldcoordinates.get(1) * 60,
           worldcoordinates.get(0) * 30, BufferedImage.TYPE_INT_RGB);
       this.graphics2d = (Graphics2D) this.bufferedimage.getGraphics();
       this.graphics2d.setColor(Color.WHITE);
       this.graphics2d.fillRect(0, 0, worldcoordinates.get(1) * 60, worldcoordinates.get(0) * 30);
       this.graphics2d.setColor(Color.BLACK);
+      List<SpaceImpl> roomlist = getSpaceList();
       roomlist.stream().forEach(s -> {
         List<Integer> coord = s.getRoomLocation();
         this.graphics2d.drawRect(coord.get(1) * 60, coord.get(0) * 30,
@@ -353,15 +352,15 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   }
 
   @Override
-  public String movePlayer(int x_coordinate, int y_coordinate) throws IllegalStateException {
-    if (x_coordinate < 0 || y_coordinate < 0) {
+  public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException {
+    if (xcoordinate < 0 || ycoordinate < 0) {
       throw new IllegalStateException("Invalid coordinates");
     } else {
       PlayerImpl player = this.playerlist.stream()
           .filter(s -> s.getName().trim().equalsIgnoreCase(this.currentPlayerTurn.trim()))
           .collect(Collectors.toList()).get(0);
       List<SpaceImpl> neighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
-      String roomToBeMovedTo = this.getSpaceFromCoordinates(x_coordinate, y_coordinate);
+      String roomToBeMovedTo = this.getSpaceFromCoordinates(xcoordinate, ycoordinate);
       if (neighbours.stream()
           .filter(s -> s.getName().trim().equalsIgnoreCase(roomToBeMovedTo.trim()))
           .collect(Collectors.toList()).isEmpty()) {
@@ -376,16 +375,16 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
-  private String getSpaceFromCoordinates(int x_coordinate, int y_coordinate) {
-    if (x_coordinate < 0 || y_coordinate < 0) {
+  private String getSpaceFromCoordinates(int xcoordinate, int ycoordinate) {
+    if (xcoordinate < 0 || ycoordinate < 0) {
       throw new IllegalStateException("Invalid coordinates");
     } else {
       List<SpaceImpl> spaces = this.getSpaceList();
       List<SpaceImpl> toBeMoved = spaces.stream()
-          .filter(r -> r.getRoomLocation().get(0) <= x_coordinate
-              && r.getRoomLocation().get(2) >= x_coordinate
-              && r.getRoomLocation().get(3) >= y_coordinate
-              && r.getRoomLocation().get(1) <= y_coordinate)
+          .filter(r -> r.getRoomLocation().get(0) <= xcoordinate
+              && r.getRoomLocation().get(2) >= xcoordinate
+              && r.getRoomLocation().get(3) >= ycoordinate
+              && r.getRoomLocation().get(1) <= ycoordinate)
           .collect(Collectors.toList());
       return toBeMoved.get(0).getName();
     }
@@ -903,6 +902,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             roomlist.get(Integer.parseInt(itemattr[0])).getItems().add(demoitem);
           }
         }
+        
         if (spaceOverlap(roomlist)) {
           throw new IllegalStateException("Invalid Space dimensions as arguments");
         }

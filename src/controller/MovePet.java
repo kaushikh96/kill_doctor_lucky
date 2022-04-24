@@ -7,14 +7,14 @@ import theworld.BoardGameModel;
  * a pet.
  */
 public class MovePet implements GameController {
-  private String playername;
-  private String roomtobemovedto;
+  private final String playername;
+  private final String roomtobemovedto;
   private String outputMessage;
 
   /**
    * Construct a MovePet object that has the playername, roomtobemovedto.
-   * 
-   * @param playername      name of the player
+   *
+   * @param playername the name of the current player
    * @param roomtobemovedto name of the room to be moved to
    */
   public MovePet(String playername, String roomtobemovedto) {

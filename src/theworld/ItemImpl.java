@@ -11,7 +11,7 @@ public class ItemImpl implements ItemInterface {
 
   /**
    * Constructor for ItemImpl.
-   * 
+   *
    * @param itemdamage Damage of the Item
    * @param name       Name of room
    */

@@ -3,20 +3,20 @@ package controller;
 import theworld.BoardGameModel;
 
 /**
- * This class is a part of command design pattern to attack the target
+ * This class is a part of command design pattern to make an attempt to attack the target
  * character.
  */
 public class AttackTarget implements GameController {
 
-  private String playername;
-  private String itemname;
+  private final String playername;
+  private final String itemname;
   private String outputMessage;
 
   /**
-   * Construct a AttackTarget object that has the playername, itemname.
-   * 
-   * @param playername name of the player
-   * @param itemname   name of the item
+   * Construct a AttackTarget object that has the name of the player and name of the item.
+   *
+   * @param playername the name of the current player
+   * @param itemname the name of the item
    */
   public AttackTarget(String playername, String itemname) {
     if (playername == null || "".equals(playername.trim())) {
