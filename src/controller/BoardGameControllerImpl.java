@@ -92,8 +92,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String handleKeyPressEvent(String action, String playerName, String itemName)
-      throws IllegalStateException {
+  public void handleKeyPressEvent(String action, String playerName, String itemName) {
     
     if (action == null 
         || "".equals(action)) {
@@ -104,19 +103,28 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
         || "".equals(playerName)) {
       throw new IllegalArgumentException("playerName cannot be null");
     }
-    
-    if ("Attack".equalsIgnoreCase(action)) {
-      GameController cmd = new AttackTarget(playerName, itemName);
-      cmd.execute(model);
-      return cmd.getOutput();
-    } else if ("pickItem".equalsIgnoreCase(action)) {
-      GameController cmd = new PickUpItem(playerName, itemName);
-      cmd.execute(model);
-      return cmd.getOutput();
-    } else {
-      GameController cmd = new LookAround(playerName);
-      cmd.execute(model);
-      return cmd.getOutput();
+    try {
+      if ("Attack".equalsIgnoreCase(action)) {
+        GameController cmd = new AttackTarget(playerName, itemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else if ("pickItem".equalsIgnoreCase(action)) {
+        GameController cmd = new PickUpItem(playerName, itemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else if ("lookAround".equalsIgnoreCase(action)) {
+        GameController cmd = new LookAround(playerName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else {
+        GameController cmd = new MovePet(playerName, itemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      }
+      this.view.setIfTurnExecuted(true);
+    } catch (IllegalStateException ise) {
+      this.view.setOutputMessage(ise.getMessage());
+      this.view.setIfTurnExecuted(false);
     }
   }
 

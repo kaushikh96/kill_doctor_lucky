@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+
+import driver.RandomClass;
 import theworld.BoardGameImpl;
 import theworld.ItemImpl;
 import theworld.PetImpl;
@@ -130,8 +132,9 @@ public class PlayerImplTest {
     TargetCharacterImpl target = new TargetCharacterImpl(worldattributes2[1],
         Integer.parseInt(worldattributes2[0]), roomlist.get(0));
     PetImpl targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
+    RandomClass randomref = new RandomClass(1);
     BoardGameImpl world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
-        targetpet);
+        targetpet, randomref, 10);
     return world;
   }
 

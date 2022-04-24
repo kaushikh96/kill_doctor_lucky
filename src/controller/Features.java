@@ -40,9 +40,8 @@ public interface Features {
    * @param action the name of the action to be performed.
    * @param playername the current name of the player in the game.
    * @param itemName the name of the item.
-   * @return the result of the action performed in the form of a string.
    */
-  public String handleKeyPressEvent(String action, String playername, String itemName);
+  public void handleKeyPressEvent(String action, String playername, String itemName);
 
   /**
    * This method handles the mouse click event for the move player action and creates a respective

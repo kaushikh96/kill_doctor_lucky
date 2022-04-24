@@ -353,8 +353,8 @@ public class GamePanel extends JPanel {
    * This method displays the indexing of the player i.e., this provides user with
    * the information of which colored icon is what player.
    *
-   * @return the text information of the player indexing to be displayed on the text area
-   in the panel
+   * @return the text information of the player indexing to be displayed on the
+   *         text area in the panel
    */
 
   public String setPlayerIndexText() {
