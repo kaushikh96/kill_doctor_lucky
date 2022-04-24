@@ -178,11 +178,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.worldSelectionPanel.setFeatures(features);
     this.addPlayerPanel.setFeatures(features);
     this.gamePanel.setFeatures(features);
-    this.currentWorldItem.addActionListener(l -> displayAddPlayerScreen());
+    this.currentWorldItem.addActionListener(l -> features.moveToAddPlayerScreen());
     this.newWorldItem.addActionListener(l -> {
       String fileMessage = showFileUploadDialog();
       if (!fileMessage.contains("Invalid")) {
-        displayAddPlayerScreen();
+        features.moveToAddPlayerScreen();
       }
     });
     this.quit.addActionListener(l -> closeWindow());

@@ -12,43 +12,42 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Gets the target character entity.
-   * 
+   *
    * @return the object of the target character
    */
   public TargetCharacterInterface getTargetCharacterImpl();
 
   /**
    * Gets the target pet entity.
-   * 
+   *
    * @return the object of the target pet
    */
   public PetInterface getTargetPetImpl();
 
   /**
    * Gets the world name.
-   * 
-   * 
+   *
    * @return the world name.
    */
   public String getName();
 
   /**
    * Gets the list of spaces in the world.
-   * 
+   *
    * @return the List of spaces
    */
   public List<SpaceImpl> getSpaceList();
 
   /**
    * Gets the world coordinates in the form of a list.
-   * 
+   *
    * @return the List of Integers
    */
   public List<Integer> getWorldCoordinates();
 
   /**
    * Gets the neighbours of the room in the space.
-   * 
+   *
    * @param space the space object
    * @return list of spaces in the world
    */
@@ -56,21 +55,21 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Gets the players of the room in the space.
-   * 
+   *
    * @return list of players in the world
    */
   public List<PlayerImpl> getPlayerList();
 
   /**
    * Gets the next location for the target character to move.
-   * 
+   *
    * @return string of the room the target character has moved to
    */
   public String getNextTargetCharacterRoom() throws IllegalStateException;
 
   /**
    * Method to determine whether playerA can see playerB.
-   * 
+   *
    * @param playerA name of the first player
    * @param playerB name of the second whose visibility is to be determined
    * 

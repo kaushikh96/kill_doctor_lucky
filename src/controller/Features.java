@@ -82,4 +82,9 @@ public interface Features {
    * and adds the GamePanel to the frame.
    */
   public void moveToGameScreen();
+  
+  /**
+   * 
+   */
+  public void moveToAddPlayerScreen();
 }

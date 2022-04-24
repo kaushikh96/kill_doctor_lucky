@@ -21,13 +21,15 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * @param model the BoardGameModel type object that is responsible for the actual
    functionality of the game.
    */
-  public BoardGameControllerImpl(BoardGameView view, BoardGameModel model) {
+  public BoardGameControllerImpl(BoardGameModel model, BoardGameView view) {
     
-    if (view == null || model == null) {
+    if (model == null || view == null) {
       throw new IllegalArgumentException("BoardGame model or BoardGameView can't be null");
     }
-    this.view = view;
+    
     this.model = model;
+    this.view = view;
+    
   }
 
   /**
@@ -155,6 +157,11 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   @Override
   public void moveToWorldSelectionScreen() {
     this.view.displayWorldSelectionScreen();
+  }
+  
+  @Override
+  public void moveToAddPlayerScreen() {
+    this.view.displayAddPlayerScreen();
   }
 
   @Override

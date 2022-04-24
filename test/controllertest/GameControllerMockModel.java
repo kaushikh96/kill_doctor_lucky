@@ -4,19 +4,20 @@ import java.util.List;
 
 import driver.RandomClass;
 import theworld.BoardGameFacade;
+import theworld.BoardGameModel;
 import theworld.ItemImpl;
 
 /**
  * This is GameControllerMockMode class which acts as a mock model for
  * controller testing.
  */
-public class GameControllerMockModel implements BoardGameFacade {
+public class GameControllerMockModel implements BoardGameModel {
   private StringBuilder log;
   private final int uniquecode;
 
   /**
    * Constructor of GameControllerMockModel.
-   * 
+   *
    * @param log        to log the output
    * @param uniquecode to show the unique code of the test
    */
@@ -26,22 +27,8 @@ public class GameControllerMockModel implements BoardGameFacade {
   }
 
   @Override
-  public void addPlayer(String name, int health, String currentRoom, int itemcapacity,
-      List<ItemImpl> playeritems, boolean isComputerPlayer) {
-    log.append(String.format("%s %d %s %d %s %s %b %s", name, health, currentRoom, itemcapacity,
-        playeritems.toString(), isComputerPlayer, uniquecode));
-  }
-
-  @Override
-  public String movePlayer(String playername, String roomtobemovedto) {
-    log.append(String.format("%s %s %s", playername, roomtobemovedto, uniquecode));
-    return Integer.toString(uniquecode);
-
-  }
-
-  @Override
   public String pickItem(String playername, String itemname) {
-    log.append(String.format("%s %s %s", playername, itemname, uniquecode));
+    log.append(String.format("%s %s %d", playername, itemname, uniquecode));
     return Integer.toString(uniquecode);
   }
 
@@ -70,7 +57,7 @@ public class GameControllerMockModel implements BoardGameFacade {
 
   @Override
   public String playTurnComputerPlayer(String playername) {
-    log.append(String.format("%s %s", playername));
+    log.append(String.format("%s", playername));
     return Integer.toString(uniquecode);
   }
 
@@ -93,8 +80,16 @@ public class GameControllerMockModel implements BoardGameFacade {
   }
 
   @Override
-  public String playTurnComputerPlayer(String arg0, theworld.RandomClass arg1) {
-    // TODO Auto-generated method stub
-    return null;
+  public void addPlayer(String name, String currentRoom, int itemcapacity,
+      List<ItemImpl> playeritems, boolean isComputerPlayer) {
+    
+    log.append(String.format("%s %s %d %s %b %d", name, currentRoom, itemcapacity,
+        playeritems.toString(), isComputerPlayer, uniquecode));
+  }
+
+  @Override
+  public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException {
+    log.append(String.format("%d %d %d", xcoordinate, xcoordinate, uniquecode));
+    return Integer.toString(uniquecode);
   }
 }
