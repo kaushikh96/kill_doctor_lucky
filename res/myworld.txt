@@ -1,5 +1,5 @@
 25 16 Max's Villa
-40 Dr.Max
+1 Dr.Max
 Fortune the cat
 20
 0 4 7 5 Drawing Room

@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.Stack;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-
 import driver.RandomClass;
 
 /**
@@ -578,8 +577,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
-  @Override
-  public String playComputerPlayerAttackTarget(String playername, String itemname) {
+  private String playComputerPlayerAttackTarget(String playername, String itemname) {
     if (playername == null || itemname == null || "".equals(itemname) || "".equals(playername)) {
       throw new IllegalArgumentException("Invalid player name or item name");
     } else {
@@ -605,7 +603,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           this.listvisitednodes = new ArrayList<>();
           this.roomstack = new Stack<SpaceImpl>();
           this.getNextTargetCharacterRoom();
-          return String.format("Executed Move Pet:%s\n", this.targetpet.movepet(petspace.get(0)));
+          return String.format("Executed Move Pet:\n%s\n", this.targetpet.movepet(petspace.get(0)));
         }
       } else {
         throw new IllegalStateException("Space doesn't exist\n");
@@ -736,8 +734,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
-  @Override
-  public boolean ifPlayerSeen(String playerA, String playerB) {
+  private boolean ifPlayerSeen(String playerA, String playerB) {
     if (playerA == null || playerB == null) {
       throw new IllegalArgumentException("Invalid player name");
     } else {
@@ -752,8 +749,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
-  @Override
-  public String decreaseTargetHealth(PlayerImpl playercurrent, String itemname)
+  private String decreaseTargetHealth(PlayerImpl playercurrent, String itemname)
       throws IllegalStateException {
     if (playercurrent == null || itemname == null || "".equals(itemname.trim())) {
       throw new IllegalArgumentException("Not a valid player entity or item name");
@@ -827,7 +823,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   }
 
   @Override
-  public BoardGameImpl updateWorld(String inputdata) {
+  public String updateWorld(String inputdata) {
     try {
       if (inputdata == null || "".equals(inputdata.trim())) {
         throw new IllegalArgumentException("Not a valid parameter");
@@ -910,6 +906,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         if (spaceOverlap(roomlist)) {
           throw new IllegalStateException("Invalid Space dimensions as arguments");
         }
+        this.createGraphicalRepresentation();
         this.targetcharacter = new TargetCharacterImpl(worldattributes2[1],
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
         this.name = worldattributes1[2];
@@ -918,10 +915,8 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         this.targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
         this.randomref = new RandomClass();
         this.playerlist = new ArrayList<>();
-        this.createGraphicalRepresentation();
-        return this;
+        return String.format("World successfully updated");
       }
-
     } catch (ArrayIndexOutOfBoundsException iob) {
       throw new IllegalStateException("Invalid File Format.");
     } catch (NumberFormatException nfe) {
@@ -974,7 +969,8 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.getName(), this.getTargetCharacterImpl(), this.worldcoordinates);
+    return Objects.hash(this.getName(), this.getTargetCharacterImpl(), this.worldcoordinates,
+        this.getTargetPetImpl(), this.getTurns(), this.getRandomClassRef());
   }
 
   @Override

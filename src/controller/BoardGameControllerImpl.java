@@ -28,23 +28,14 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * @param model the BoardGameModel type object that is responsible for the
    *              actual functionality of the game.
    */
-<<<<<<< HEAD
   public BoardGameControllerImpl(BoardGameModel model, BoardGameView view) {
-    
-    if (model == null || view == null) {
-=======
-  public BoardGameControllerImpl(BoardGameView view, BoardGameModel model) {
 
     if (view == null || model == null) {
->>>>>>> 7604aa943ba99da3ca0ae6c90f6e9d02c92120b5
       throw new IllegalArgumentException("BoardGame model or BoardGameView can't be null");
     }
     
     this.model = model;
-<<<<<<< HEAD
     this.view = view;
-    
-=======
     this.actionMap = new HashMap<String, BiConsumer<String, String>>();
     this.actionMap.put(Action.ATTACK.toString(), (playerName, itemName) -> {
       GameController cmd = new AttackTarget(playerName, itemName);
@@ -66,7 +57,6 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       cmd.execute(model);
       this.view.setOutputMessage(cmd.getOutput());
     });
->>>>>>> 7604aa943ba99da3ca0ae6c90f6e9d02c92120b5
   }
 
   /**

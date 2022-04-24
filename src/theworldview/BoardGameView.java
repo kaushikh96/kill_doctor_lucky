@@ -50,12 +50,13 @@ public interface BoardGameView {
    * This method is used for quitting the game by closing the current window.
    */
   public void closeWindow();
-  
+
   /**
-   * This is to force the view to have a method to set up actions for events and respond to 
-   * them accordingly.
+   * This is to force the view to have a method to set up actions for events and
+   * respond to them accordingly.
    *
-   * @param actionListener is the listener to listen to the events in the view to perform actions.
+   * @param actionListener is the listener to listen to the events in the view to
+   *                       perform actions.
    */
 
   /**
@@ -123,4 +124,6 @@ public interface BoardGameView {
    * @param output the player information to be shown in the Dialog box.
    */
   public void setPlayerInfoDialog(String output);
+
+  public void ifPlayerAdded();
 }

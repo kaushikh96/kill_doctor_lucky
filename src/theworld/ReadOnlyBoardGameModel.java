@@ -2,8 +2,6 @@ package theworld;
 
 import java.util.List;
 
-import driver.RandomClass;
-
 /**
  * A Board Game Interface represents the data of the world and contains the list
  * of methods to related to the World operation.
@@ -68,36 +66,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public String getNextTargetCharacterRoom() throws IllegalStateException;
 
   /**
-   * Method to determine whether playerA can see playerB.
-   *
-   * @param playerA name of the first player
-   * @param playerB name of the second whose visibility is to be determined
-   * 
-   * @return the boolean value if playerA can be playerB
-   */
-  public boolean ifPlayerSeen(String playerA, String playerB);
-
-  /**
-   * Method to decrease the target character's health.
-   *
-   * @param playercurrent data of the current player
-   * @param itemname      name of the item
-   * 
-   * @return the health data of the target character
-   */
-  public String decreaseTargetHealth(PlayerImpl playercurrent, String itemname);
-
-  /**
-   * Method to play computerplayer attack target.
-   *
-   * @param playername name of the player
-   * @param itemname   name of the item
-   * 
-   * @return the health data of the target character
-   */
-  public String playComputerPlayerAttackTarget(String playername, String itemname);
-
-  /**
    * Method to move pet using Depth First Traversal logic.
    *
    * @param petcurrentroom name of the player
@@ -105,7 +73,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * @return the next room of the pet movement in DFS.
    */
   public String petMovementDfs(String petcurrentroom);
-  
+
   /**
    * This method gets the reference of the random class for computer player
    * functionality.
@@ -126,9 +94,9 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * This method creates a new world based on the uploaded text file.
    *
    * @param inputdata the input world data needed for creating the world.
-   * @return the object of the BoardGameImpl with new world specifications.
+   * @return the string if the new wolrd has been created.
    */
-  public BoardGameImpl updateWorld(String inputdata);
+  public String updateWorld(String inputdata);
 
   /**
    * This method returns the remaining turns in the game.

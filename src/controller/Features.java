@@ -84,4 +84,7 @@ public interface Features {
   public void moveToGameScreen();
 
   public void updateWorld(String inputFileData);
+  
+  public void moveToAddPlayerScreen();
 }
+

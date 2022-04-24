@@ -2,8 +2,6 @@ package theworld;
 
 import java.util.List;
 
-import driver.RandomClass;
-
 /**
  * A Board Game Facade Interface represents the data of the world and contains
  * the list of methods to related to the World operation. All these methods
@@ -110,4 +108,6 @@ public interface BoardGameModel {
    * @return description of the next player's turn
    */
   public String getPlayerNextTurn(String currentplayername);
+
+  public String updateWorld(String inputdata);
 }
