@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -27,14 +28,17 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
 
 /**
- * This panel adds the components that takes in the player information for adding 
- * the player and displays the added player information in a JTable which is displayed
- * in the panel.
+ * This panel adds the components that takes in the player information for
+ * adding the player and displays the added player information in a JTable which
+ * is displayed in the panel.
  *
  */
 public class AddPlayerPanel extends JPanel implements ItemListener {
@@ -65,6 +69,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private String space;
   private List<PlayerImpl> playerlist;
   private DefaultTableModel model;
+  private Features features;
   private String labelTextAdd;
   private String labelPlayerDetails;
   private String labelTextName;
@@ -80,17 +85,13 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
    * @param readOnlyModel
    * @param view
    */
-  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
+  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
-    if (view == null) {
-      throw new IllegalArgumentException("View cannot be null.\n");
-    }
 
     this.readOnlyModel = readOnlyModel;
-    this.view = view;
 
     this.setLayout(new BorderLayout());
 
@@ -164,7 +165,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     this.labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
     this.coloredLabelSpaceName = new JLabel(labelTextSpaceName, SwingConstants.LEFT);
-    
+
     this.cname.gridx = 0;
     this.cname.gridy = 1;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
@@ -357,9 +358,9 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.playerTable.setBackground(new Color(137, 207, 240));
 
     this.playerTable.setBorder(new EmptyBorder(30, 100, 50, 70));
-    
+
     tablePanel.add(pane);
-    
+
     this.add(tablePanel, BorderLayout.CENTER);
 
   }
@@ -375,10 +376,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
       this.space = (String) itemEvent.getItem();
     }
   }
-  
+
   /**
-   * This method provides the name of the player as text entered in the textfield while
-   * providing player details in the panel.
+   * This method provides the name of the player as text entered in the textfield
+   * while providing player details in the panel.
    *
    * @return the text enteres in the textfield that is equated to playerName.
    */
@@ -386,9 +387,9 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   public String getPlayerName() {
     return this.nameText.getText();
   }
-  
+
   /**
-   * This method gets the selected spaceName by the user in the ComboBox while 
+   * This method gets the selected spaceName by the user in the ComboBox while
    * providing player details in the panel.
    *
    * @return the selected spaceName of the player.
@@ -399,20 +400,23 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   }
 
   /**
-   * This method gives the maximum number of items that a player can carry 
-   * as entered in the item Capacity text field while providing player details in the panel.
+   * This method gives the maximum number of items that a player can carry as
+   * entered in the item Capacity text field while providing player details in the
+   * panel.
    *
    * @return the entered number indicating the number of items a player can carry.
    */
   public int itemCapacity() {
     return Integer.parseInt(itemLimitText.getText());
   }
-  
+
   /**
-   * This method gives the provided player type i.e., either human or computer by selecting the
-   * respective radio button while providing player details in the panel.
+   * This method gives the provided player type i.e., either human or computer by
+   * selecting the respective radio button while providing player details in the
+   * panel.
    *
-   * @return the boolean False if the selcted radio button is Human else returns True.
+   * @return the boolean False if the selcted radio button is Human else returns
+   *         True.
    */
 
   public boolean getPlayerType() {
@@ -422,7 +426,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
       return true;
     }
   }
-  
+
   /**
    * This method resets the fields that has player information entered.
    */
@@ -434,36 +438,32 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.itemLimitText.setText("");
     this.groupType.clearSelection();
   }
-  
+
   /**
-   * This method adds data to the Table row-wise on adding each player after the player
-   * details have been provided in the screen.
+   * This method adds data to the Table row-wise on adding each player after the
+   * player details have been provided in the screen.
    */
-  
   public void addDataToTable() {
-    
-    this.model.addRow(new Object[] {
-        this.nameText.getText(),
-        this.spaceName.getSelectedItem(),
-        this.itemLimitText.getText(),
-        this.groupType.getSelection().getActionCommand()
-    });
+
+    this.model.addRow(new Object[] { this.nameText.getText(), this.spaceName.getSelectedItem(),
+        this.itemLimitText.getText(), this.groupType.getSelection().getActionCommand() });
   }
-  
+
   /**
-   * This method attaches the action listeners to the buttons present in the panel 
-   * for performing respective events.
-   *
-   * @param listener used to listen to events for responding accordingly.
+   * 
+   * @param features
    */
 
-  public void addActionListener(ActionListener listener) {
-    
-    if (listener == null) {
-      throw new IllegalArgumentException("Listener cannot be null");
-    }
-    this.addButton.addActionListener(listener);
-    this.nextButton.addActionListener(listener);
+  public void setFeatures(Features features) {
+    this.features = features;
+    this.addButton.addActionListener(l -> {
+      features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),
+          Integer.parseInt(itemLimitText.getText()),
+          "Human".equalsIgnoreCase(groupType.getSelection().getActionCommand()) ? false : true);
+      addDataToTable();
+      resetFields();
+    });
+    this.nextButton.addActionListener(l -> features.moveToGameScreen());
   }
 
 }

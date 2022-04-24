@@ -22,32 +22,29 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import controller.Features;
 import theworld.ReadOnlyBoardGameModel;
 
 public class WelcomePanel extends JPanel {
 
   private ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
-  private JButton b;
+  private JButton startButton;
   private BoardGameView view;
   private GridBagConstraints welcome;
   private JPanel welcomePanel;
+  private Features features;
 
   /**
    * Constructor for PanelImpl class.
    * 
    * @param readonlymodel the ReadonlyTttModel type
    */
-  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel, BoardGameView view) {
+  public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
     if (readonlymodel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
-    if (view == null) {
-      throw new IllegalArgumentException("View cannot be null.\n");
-    }
-
     this.readonlymodel = readonlymodel;
-    this.view = view;
     // this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
     this.setLayout(new BorderLayout());
@@ -86,12 +83,12 @@ public class WelcomePanel extends JPanel {
     this.welcomePanel.add(coloredLabel, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
 
-    b = new JButton("START");
-    b.setBackground(new Color(59, 89, 182));
-    b.setForeground(Color.WHITE);
-    b.setFocusPainted(false);
-    b.setFont(new Font("Tahoma", Font.BOLD, 12));
-    b.setPreferredSize(new Dimension(80, 40));
+    startButton = new JButton("START");
+    startButton.setBackground(new Color(59, 89, 182));
+    startButton.setForeground(Color.WHITE);
+    startButton.setFocusPainted(false);
+    startButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+    startButton.setPreferredSize(new Dimension(80, 40));
 
     this.welcome.gridx = 0;
     this.welcome.gridy = 2;
@@ -99,7 +96,7 @@ public class WelcomePanel extends JPanel {
     this.welcome.weightx = 5.0;
     this.welcome.weighty = 5.0;
     this.welcome.insets = new Insets(50, 10, 10, 10);
-    this.welcomePanel.add(b, welcome);
+    this.welcomePanel.add(startButton, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
 
     String kaushikText = "<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>SANJANA KANDUNOORI</font></html>";
@@ -124,6 +121,16 @@ public class WelcomePanel extends JPanel {
   }
 
   public void addActionListener(ActionListener listener) {
-    this.b.addActionListener(listener);
+    this.startButton.addActionListener(listener);
+  }
+
+  public void setFeatures(Features features) {
+    this.features = features;
+    this.startButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        features.moveToAddPlayerScreen();
+      }
+    });
   }
 }

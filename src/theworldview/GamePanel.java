@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,10 +17,13 @@ import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
@@ -73,7 +78,7 @@ public class GamePanel extends JPanel {
    * @param features the features interface that responds to the actions done on the view.
    */
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
-      String turnMessage, Features features) {
+      String turnMessage) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
@@ -105,7 +110,7 @@ public class GamePanel extends JPanel {
 
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
-    //this.gamePanel.revalidate();
+    // this.gamePanel.revalidate();
 
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
 
@@ -126,52 +131,72 @@ public class GamePanel extends JPanel {
         this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
-        this.addPlayerListener(this.playerLabel1, this.features, 0);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel1, this.features);
+        }
       } else if (playerIteration == 2) {
         this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
-        this.addPlayerListener(this.playerLabel2, this.features, 1);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel2, this.features);
+        }
       } else if (playerIteration == 3) {
         this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
-        this.addPlayerListener(this.playerLabel3, this.features, 2);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel3, this.features);
+        }
       } else if (playerIteration == 4) {
         this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
-        this.addPlayerListener(this.playerLabel4, this.features, 3);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel4, this.features);
+        }
       } else if (playerIteration == 5) {
         this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
-        this.addPlayerListener(this.playerLabel5, this.features, 4);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel5, this.features);
+        }
       } else if (playerIteration == 6) {
         this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
-        this.addPlayerListener(this.playerLabel6, this.features, 5);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel6, this.features);
+        }
       } else if (playerIteration == 7) {
         this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
-        this.addPlayerListener(this.playerLabel7, this.features, 6);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel7, this.features);
+        }
       } else if (playerIteration == 8) {
         this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
-        this.addPlayerListener(this.playerLabel8, this.features, 7);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel8, this.features);
+        }
       } else if (playerIteration == 9) {
         this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
-        this.addPlayerListener(this.playerLabel9, this.features, 8);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel9, this.features);
+        }
       } else if (playerIteration == 10) {
         this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
-        this.addPlayerListener(this.playerLabel10, this.features, 9);
+        if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
+          this.addPlayerListener(this.playerLabel10, this.features);
+        }
       }
       playerIteration++;
     });
@@ -206,11 +231,13 @@ public class GamePanel extends JPanel {
     this.infoPanel.add(infoPane);
 
     this.turnInfoArea = new JTextArea();
-    this.playerInfo = this.turnMessage.split("Items:")[0];
-    this.targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
+    if (!"".equals(this.turnMessage)) {
+      playerInfo = this.turnMessage.split("Items:")[0];
+      targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
 
-    this.turnInfoArea.setText(
-        String.format("CURRENT TURN INFO:\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+      this.turnInfoArea.setText(
+          String.format("CURRENT TURN INFO:\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
+    }
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setLineWrap(true);
     this.turnInfoArea.setWrapStyleWord(true);
@@ -238,10 +265,11 @@ public class GamePanel extends JPanel {
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
     this.turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
-    //this.infoPanel.revalidate();
     this.add(infoPanel, BorderLayout.EAST);
     this.repaint();
-    // this.revalidate();
+    this.resetFocus();
+    this.gamePanel.setFocusable(true);
+    this.gamePanel.requestFocus();
   }
 
   /**
@@ -305,7 +333,6 @@ public class GamePanel extends JPanel {
 
   public String setPlayerIndexText() {
     StringBuilder sb = new StringBuilder();
-
     sb.append("PLAYER INDEX: \n");
     sb.append("T -> ");
     sb.append(readOnlyModel.getTargetCharacterImpl().getName());
@@ -317,16 +344,72 @@ public class GamePanel extends JPanel {
       sb.append(this.colorList.get(i));
       sb.append("\n");
     }
-
     return sb.toString();
   }
 
-  public void addPlayerListener(JLabel label, Features f, int index) {
-    label.addMouseListener((MouseListener) new MouseAdapter() {
+  public void addPlayerListener(JLabel label, Features f) {
+    label.removeMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        f.handlePlayerMouseClickEvent(readOnlyModel.getPlayerList().get(index).getName());
+        f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
       }
     });
+    label.addMouseListener((MouseListener) new MouseAdapter() {
+      public void mouseClicked(MouseEvent me) {
+        f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+      }
+    });
+  }
+
+  public String showPickDialog() {
+    String itemName = null;
+
+    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
+        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
+        .collect(Collectors.toList()).get(0);
+
+    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
+        .collect(Collectors.toList()).toArray(new String[0]);
+
+    JComboBox items = new JComboBox(itemList);
+    items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
+
+    int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
+        JOptionPane.DEFAULT_OPTION);
+
+    if (result == JOptionPane.OK_OPTION) {
+      itemName = (String) items.getSelectedItem();
+    }
+
+    return itemName;
+
+  }
+
+  public String showAttackDialog() {
+    String itemName = null;
+
+    List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
+        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
+        .collect(Collectors.toList()).get(0).getItems();
+    if (itemsOnPlayer.stream().filter(s -> "Poke".equals(s.getName())).collect(Collectors.toList())
+        .isEmpty()) {
+      itemsOnPlayer.add(new ItemImpl(1, "Poke"));
+    }
+    String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
+        .toArray(new String[0]);
+
+    JComboBox items = new JComboBox(itemList);
+    items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
+
+    int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
+        JOptionPane.DEFAULT_OPTION);
+
+    if (result == JOptionPane.OK_OPTION) {
+      itemName = (String) items.getSelectedItem();
+    }
+
+    return itemName;
   }
 
   public void resetFocus() {

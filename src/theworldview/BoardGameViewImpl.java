@@ -3,13 +3,18 @@ package theworldview;
 import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +24,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import controller.AttackTarget;
+import controller.GameController;
+import controller.LookAround;
+import controller.PickUpItem;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
@@ -54,10 +63,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.readOnlyModel = model;
     this.setLayout(new BorderLayout());
-    this.welcomePanel = new WelcomePanel(model, this);
+    this.welcomePanel = new WelcomePanel(model);
     this.add(welcomePanel, BorderLayout.CENTER);
-    // this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
-    this.worldSelectionPanel = new WorldSelectionPanel(model, this);
+    this.worldSelectionPanel = new WorldSelectionPanel(model);
+    this.addPlayerPanel = new AddPlayerPanel(model);
+    this.outputMessage = "Game Starts !! Execute the first turn !";
+    this.gamePanel = new GamePanel(model, this, this.outputMessage, "");
 
     this.menuBar = new JMenuBar();
 
@@ -84,10 +95,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void addActionListener(ActionListener actionListener) {
-    this.welcomePanel.addActionListener(actionListener);
-    this.currentWorldItem.addActionListener(actionListener);
-    this.newWorldItem.addActionListener(actionListener);
-    this.quit.addActionListener(actionListener);
+    // this.welcomePanel.addActionListener(actionListener);
+
     // this.addPlayerPanel.addActionListener(actionListener);
     this.listener = actionListener;
   }
@@ -106,8 +115,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.remove(worldSelectionPanel);
     this.currentWorldItem.setEnabled(false);
     this.newWorldItem.setEnabled(false);
-    this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
-    this.addPlayerPanel.addActionListener(this.listener);
+    this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel);
+    this.addPlayerPanel.setFeatures(features);
+    // this.addPlayerPanel.addActionListener(this.listener);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
   }
@@ -133,10 +143,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
         this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
       }
     }
-    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
-        this.features);
+    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
     this.gamePanel.setFeatures(features);
-    setFocusable(true);
+    this.setFocusable(true);
+    this.requestFocus();
     this.add(gamePanel, BorderLayout.CENTER);
     gamePanel.revalidate();
   }
@@ -168,13 +178,73 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void closeWindow() {
     this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-//    this.setVisible(false);
-//    this.dispose();
   }
 
   @Override
-  public void setFeatures(Features f) {
-    this.features = f;
+  public void setFeatures(Features features) {
+    this.features = features;
+    this.welcomePanel.setFeatures(features);
+    this.worldSelectionPanel.setFeatures(features);
+    this.addPlayerPanel.setFeatures(features);
+    this.gamePanel.setFeatures(features);
+    this.currentWorldItem.addActionListener(l -> displayAddPlayerScreen());
+    this.newWorldItem.addActionListener(l -> {
+      showFileUploadDialog();
+      displayAddPlayerScreen();
+    });
+    this.quit.addActionListener(l -> closeWindow());
+
+    Map<Character, Runnable> keyTypes = new HashMap<>();
+    Map<Integer, Runnable> keyPresses = new HashMap<>();
+    Map<Integer, Runnable> keyReleases = new HashMap<>();
+
+    keyPresses.put(KeyEvent.VK_P, () -> {
+      try {
+        String itemName = this.showPickDialog();
+        this.outputMessage = features.handleKeyPressEvent("pickItem",
+            readOnlyModel.getCurrentPlayerTurn(), itemName);
+        this.displayGameScreen();
+        this.ifTurnsExecuted = true;
+      } catch (IllegalStateException ise) {
+        this.outputMessage = ise.getMessage();
+        this.ifTurnsExecuted = false;
+        this.displayGameScreen();
+      }
+    });
+
+    keyPresses.put(KeyEvent.VK_L, () -> {
+      try {
+        this.outputMessage = features.handleKeyPressEvent("lookAround",
+            readOnlyModel.getCurrentPlayerTurn(), "");
+        this.ifTurnsExecuted = true;
+        this.displayGameScreen();
+      } catch (IllegalStateException ise) {
+        this.outputMessage = ise.getMessage();
+        this.ifTurnsExecuted = false;
+        this.displayGameScreen();
+      }
+    });
+
+    keyPresses.put(KeyEvent.VK_A, () -> {
+      try {
+        String itemname = this.showAttackDialog();
+        this.outputMessage = features.handleKeyPressEvent("Attack",
+            readOnlyModel.getCurrentPlayerTurn(), itemname);
+        this.ifTurnsExecuted = true;
+        this.displayGameScreen();
+      } catch (IllegalStateException ise) {
+        this.outputMessage = ise.getMessage();
+        this.ifTurnsExecuted = false;
+        this.displayGameScreen();
+      }
+    });
+
+    KeyboardListener kbd = new KeyboardListener();
+    kbd.setKeyTypedMap(keyTypes);
+    kbd.setKeyPressedMap(keyPresses);
+    kbd.setKeyReleasedMap(keyReleases);
+
+    this.addKeyListener(kbd);
   }
 
   @Override
@@ -224,9 +294,14 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     } catch (FileNotFoundException fnf) {
       throw new IllegalStateException("File not Found");
     } catch (IOException io) {
-      throw new IllegalStateException("Invalid Read");
+      this.showErrorPopup();
+    } catch (IllegalStateException ise) {
+      this.showErrorPopup();
     }
+  }
 
+  private void showErrorPopup() {
+    JOptionPane.showMessageDialog(null, "Specified file is in Invalid format");
   }
 
   @Override
@@ -281,8 +356,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setPlayerInfoDialog(String output) {
     
-    if(output == null) {
-      throw new IllegalArgumentException("Output")
+    if (output == null) {
+      throw new IllegalArgumentException("Output");
     }
     JOptionPane.showMessageDialog(null, output);
   }
