@@ -2,8 +2,6 @@ package theworldview;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import controller.BoardGameController;
 import controller.Features;
 
 public class MouseClickEvent extends MouseAdapter {

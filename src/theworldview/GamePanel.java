@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,8 +24,6 @@ import javax.swing.JTextArea;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
-
-
 
 public class GamePanel extends JPanel {
 
@@ -53,29 +49,29 @@ public class GamePanel extends JPanel {
   private JTextArea turnResultArea;
   private String outputMessage;
   private String turnMessage;
-  private int playerIteration = 1;
+  private int playerIteration;
   private List<String> colorList;
   private Features features;
   private List<PlayerImpl> playerList;
   private JScrollPane imagePane;
   private Font font;
-  private  JScrollPane infoPane;
+  private JScrollPane infoPane;
   private String playerInfo;
   private String targetInfo;
   private JScrollPane turnInfoPane;
   private JScrollPane turnResultPane;
 
   /**
-   * This constructor initializes the readOnlyBoardGameModel for getting the functionality, the 
-   * BoardGameView to display and the information about the current player and the action to display
-   * on the panel.
+   * This constructor initializes the readOnlyBoardGameModel for getting the
+   * functionality, the BoardGameView to display and the information about the
+   * current player and the action to display on the panel.
    *
    * @param readOnlyModel the readOnlyModel that has the functionality.
-   * @param view the view that holds the panel and displays the panel to the user.
+   * @param view          the view that holds the panel and displays the panel to
+   *                      the user.
    * @param outputMessage the message of the action performed during the turn.
-   * @param turnMessage the message of the current turn including player location 
-   and target location.
-   * @param features the features interface that responds to the actions done on the view.
+   * @param turnMessage   the message of the current turn including player
+   *                      location and target location.
    */
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
       String turnMessage) {
@@ -92,7 +88,6 @@ public class GamePanel extends JPanel {
     this.view = view;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
-    this.features = features;
 
     this.colorList = new ArrayList<>();
     this.colorList.add("Dark Blue");
@@ -125,73 +120,73 @@ public class GamePanel extends JPanel {
         20, 20);
 
     this.playerList = new ArrayList<>(readOnlyModel.getPlayerList());
-
+    this.playerIteration = 1;
     this.playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
+        this.playerLabel1 = getPlayerJLabel(this.playerLabel1, s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel1, this.features);
         }
       } else if (playerIteration == 2) {
-        this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png",
+        this.playerLabel2 = getPlayerJLabel(this.playerLabel2, s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel2, this.features);
         }
       } else if (playerIteration == 3) {
-        this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png",
+        this.playerLabel3 = getPlayerJLabel(this.playerLabel3, s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel3, this.features);
         }
       } else if (playerIteration == 4) {
-        this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png",
+        this.playerLabel4 = getPlayerJLabel(this.playerLabel4, s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel4, this.features);
         }
       } else if (playerIteration == 5) {
-        this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png",
+        this.playerLabel5 = getPlayerJLabel(this.playerLabel5, s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel5, this.features);
         }
       } else if (playerIteration == 6) {
-        this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png",
+        this.playerLabel6 = getPlayerJLabel(this.playerLabel6, s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel6, this.features);
         }
       } else if (playerIteration == 7) {
-        this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png",
+        this.playerLabel7 = getPlayerJLabel(this.playerLabel7, s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel7, this.features);
         }
       } else if (playerIteration == 8) {
-        this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png",
+        this.playerLabel8 = getPlayerJLabel(this.playerLabel8, s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel8, this.features);
         }
       } else if (playerIteration == 9) {
-        this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png",
+        this.playerLabel9 = getPlayerJLabel(this.playerLabel9, s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel9, this.features);
         }
       } else if (playerIteration == 10) {
-        this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png",
+        this.playerLabel10 = getPlayerJLabel(this.playerLabel10, s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
@@ -278,7 +273,7 @@ public class GamePanel extends JPanel {
    * @param f the features interface to handle the functionality of the event.
    */
   public void setFeatures(Features f) {
-    
+
     if (f == null) {
       throw new IllegalArgumentException("Features passed cannot be null.\n");
     }
@@ -286,22 +281,24 @@ public class GamePanel extends JPanel {
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
   }
-  
+
   /**
-   * This method sets the icon of the player added and positions the player in the space.
+   * This method sets the icon of the player added and positions the player in the
+   * space.
    *
-   * @param player the 
+   * @param player          the
    * @param iconUrl
    * @param ifAnotherPlayer
    * @return
    */
 
-  private JLabel getPlayerJLabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
-    
+  private JLabel getPlayerJLabel(JLabel playerLabel, PlayerImpl player, String iconUrl,
+      boolean ifAnotherPlayer) {
+
     if (player == null || iconUrl == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }
-    JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
+    playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
         .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
     if (ifAnotherPlayer) {
       playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
@@ -358,58 +355,6 @@ public class GamePanel extends JPanel {
         f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
       }
     });
-  }
-
-  public String showPickDialog() {
-    String itemName = null;
-
-    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
-        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
-        .collect(Collectors.toList()).get(0);
-
-    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
-        .collect(Collectors.toList()).toArray(new String[0]);
-
-    JComboBox items = new JComboBox(itemList);
-    items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
-
-    int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
-        JOptionPane.DEFAULT_OPTION);
-
-    if (result == JOptionPane.OK_OPTION) {
-      itemName = (String) items.getSelectedItem();
-    }
-
-    return itemName;
-
-  }
-
-  public String showAttackDialog() {
-    String itemName = null;
-
-    List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
-        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
-        .collect(Collectors.toList()).get(0).getItems();
-    if (itemsOnPlayer.stream().filter(s -> "Poke".equals(s.getName())).collect(Collectors.toList())
-        .isEmpty()) {
-      itemsOnPlayer.add(new ItemImpl(1, "Poke"));
-    }
-    String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
-        .toArray(new String[0]);
-
-    JComboBox items = new JComboBox(itemList);
-    items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
-
-    int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
-        JOptionPane.DEFAULT_OPTION);
-
-    if (result == JOptionPane.OK_OPTION) {
-      itemName = (String) items.getSelectedItem();
-    }
-
-    return itemName;
   }
 
   public void resetFocus() {

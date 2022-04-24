@@ -3,10 +3,7 @@ package theworldview;
 import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,10 +20,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import controller.AttackTarget;
-import controller.GameController;
-import controller.LookAround;
-import controller.PickUpItem;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
@@ -39,16 +31,15 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private GamePanel gamePanel;
   private WorldSelectionPanel worldSelectionPanel;
   private Features features;
-  private JButton button;
   private JMenuBar menuBar;
   private JMenu menu;
   private JMenuItem currentWorldItem;
   private JMenuItem newWorldItem;
+  private JComboBox items;
   private JMenuItem quit;
   private String outputMessage;
   private String turnMessage;
   private boolean ifTurnsExecuted;
-  private ActionListener listener;
 
   /**
    * Constructor for TicTacToeViewImpl.
@@ -83,22 +74,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.menu.add(this.quit);
 
     this.menuBar.add(this.menu);
-
     this.add(menuBar, BorderLayout.NORTH);
     this.currentWorldItem.setEnabled(false);
     this.newWorldItem.setEnabled(false);
     this.ifTurnsExecuted = true;
-    this.listener = null;
     pack();
     setVisible(true);
-  }
-
-  @Override
-  public void addActionListener(ActionListener actionListener) {
-    // this.welcomePanel.addActionListener(actionListener);
-
-    // this.addPlayerPanel.addActionListener(actionListener);
-    this.listener = actionListener;
   }
 
   @Override
@@ -117,7 +98,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.newWorldItem.setEnabled(false);
     this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel);
     this.addPlayerPanel.setFeatures(features);
-    // this.addPlayerPanel.addActionListener(this.listener);
     this.add(addPlayerPanel, BorderLayout.CENTER);
     addPlayerPanel.revalidate();
   }
@@ -127,20 +107,20 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.remove(addPlayerPanel);
     this.currentWorldItem.setEnabled(false);
     this.newWorldItem.setEnabled(false);
-    if (readOnlyModel.getTurns() == -1) {
-      this.ifTurnsExecuted = false;
-      this.outputMessage = "Turns Exhausted ! Target Character Escapes !!";
-    }
-    if (this.ifTurnsExecuted) {
-      if (this.gamePanel != null) {
-        this.remove(this.gamePanel);
-      }
-      this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
-      String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
-      if ("true".equalsIgnoreCase(turnmessage)) {
-        this.outputMessage = String.format("%s\n\n%s", this.outputMessage,
-            features.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
+    if (this.outputMessage.contains("Wins")) {
+      this.showGameEndPopUp();
+    } else {
+      if (this.ifTurnsExecuted) {
+        if (this.gamePanel != null) {
+          this.remove(this.gamePanel);
+        }
         this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+        String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
+        if ("true".equalsIgnoreCase(turnmessage)) {
+          this.outputMessage = String.format("%s\n\n%s", this.outputMessage,
+              features.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
+          this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+        }
       }
     }
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
@@ -149,15 +129,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.requestFocus();
     this.add(gamePanel, BorderLayout.CENTER);
     gamePanel.revalidate();
-  }
-
-  @Override
-  public void addPlayers() {
-    this.features.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
-        this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
-
-    this.addPlayerPanel.addDataToTable();
-    this.addPlayerPanel.resetFields();
+    if (readOnlyModel.getTurns() == -1) {
+      this.outputMessage = String.format("Turns Exhausted ! Target Character Escapes !!");
+      this.showGameEndPopUp();
+    }
   }
 
   @Override
@@ -189,8 +164,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.gamePanel.setFeatures(features);
     this.currentWorldItem.addActionListener(l -> displayAddPlayerScreen());
     this.newWorldItem.addActionListener(l -> {
-      showFileUploadDialog();
-      displayAddPlayerScreen();
+      String fileMessage = showFileUploadDialog();
+      if (!fileMessage.contains("Invalid")) {
+        displayAddPlayerScreen();
+      }
     });
     this.quit.addActionListener(l -> closeWindow());
 
@@ -257,14 +234,18 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
         .collect(Collectors.toList()).toArray(new String[0]);
-
+    if (itemList == null || itemList.length == 0) {
+      this.outputMessage = String.format("No items in the room", itemList);
+    }
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
+    items.setSelectedIndex(0);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
         JOptionPane.DEFAULT_OPTION);
-
+    if (items.getSelectedItem() == null) {
+      this.showPickDialog();
+    }
     if (result == JOptionPane.OK_OPTION) {
       itemName = (String) items.getSelectedItem();
     }
@@ -274,7 +255,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
-  public void showFileUploadDialog() {
+  public String showFileUploadDialog() {
     try {
       JFileChooser chooser = new JFileChooser();
       chooser.showOpenDialog(null);
@@ -291,12 +272,15 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
         inputdata.append((char) data);
       }
       this.readOnlyModel = readOnlyModel.updateWorld(inputdata.toString());
+      return String.format("File Successfully Uploaded");
     } catch (FileNotFoundException fnf) {
       throw new IllegalStateException("File not Found");
     } catch (IOException io) {
       this.showErrorPopup();
+      return io.getMessage();
     } catch (IllegalStateException ise) {
       this.showErrorPopup();
+      return ise.getMessage();
     }
   }
 
@@ -334,18 +318,21 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
         .toArray(new String[0]);
 
-    JComboBox items = new JComboBox(itemList);
+    items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
+    items.setSelectedIndex(0);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
         JOptionPane.DEFAULT_OPTION);
-
     if (result == JOptionPane.OK_OPTION) {
       itemName = (String) items.getSelectedItem();
     }
-
     return itemName;
+  }
+
+  private void showGameEndPopUp() {
+    JOptionPane.showMessageDialog(null, this.outputMessage);
+    this.closeWindow();
   }
 
   @Override
@@ -355,7 +342,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setPlayerInfoDialog(String output) {
-    
     if (output == null) {
       throw new IllegalArgumentException("Output");
     }
