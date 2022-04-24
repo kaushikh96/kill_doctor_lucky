@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
+/**
+ * This method listens to button click events and performs actions according to the 
+ * respective button click.
+ */
 public class ButtonListener implements ActionListener {
 
   private Map<String, Runnable> buttonClickedActions;

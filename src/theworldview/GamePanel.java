@@ -1,14 +1,17 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,14 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class GamePanel extends JPanel {
 
@@ -52,7 +51,27 @@ public class GamePanel extends JPanel {
   private int playerIteration = 1;
   private List<String> colorList;
   private Features features;
+  private List<PlayerImpl> playerList;
+  private JScrollPane imagePane;
+  private Font font;
+  private  JScrollPane infoPane;
+  private String playerInfo;
+  private String targetInfo;
+  private JScrollPane turnInfoPane;
+  private JScrollPane turnResultPane;
 
+  /**
+   * This constructor initializes the readOnlyBoardGameModel for getting the functionality, the 
+   * BoardGameView to display and the information about the current player and the action to display
+   * on the panel.
+   *
+   * @param readOnlyModel the readOnlyModel that has the functionality.
+   * @param view the view that holds the panel and displays the panel to the user.
+   * @param outputMessage the message of the action performed during the turn.
+   * @param turnMessage the message of the current turn including player location 
+   and target location.
+   * @param features the features interface that responds to the actions done on the view.
+   */
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
       String turnMessage, Features features) {
 
@@ -83,7 +102,6 @@ public class GamePanel extends JPanel {
     this.colorList.add("Light Blue");
 
     this.setLayout(new BorderLayout(20, 15));
-    // this.setBackground(new Color(137, 207, 240));
 
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
@@ -101,9 +119,9 @@ public class GamePanel extends JPanel {
         readOnlyModel.getTargetCharacterImpl().getCurrentRoom().getRoomLocation().get(0) * 30 + 5,
         20, 20);
 
-    List<PlayerImpl> playerList = readOnlyModel.getPlayerList();
+    this.playerList = new ArrayList<>(readOnlyModel.getPlayerList());
 
-    playerList.forEach(s -> {
+    this.playerList.forEach(s -> {
       if (playerIteration == 1) {
         this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
@@ -160,7 +178,7 @@ public class GamePanel extends JPanel {
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-    JScrollPane imagePane = new JScrollPane(this.gamePanel);
+    this.imagePane = new JScrollPane(this.gamePanel);
     this.add(imagePane, BorderLayout.CENTER);
 
     this.infoPanel = new JPanel();
@@ -176,7 +194,7 @@ public class GamePanel extends JPanel {
     this.playersArea.setText("PLAYERS INDEX:");
     this.playersArea.setText(this.setPlayerIndexText());
 
-    Font font = new Font("Segoe Script", Font.BOLD, 20);
+    this.font = new Font("Segoe Script", Font.BOLD, 20);
     this.playersArea.setFont(font);
     this.playersArea.setForeground(Color.WHITE);
     this.playersArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
@@ -184,12 +202,12 @@ public class GamePanel extends JPanel {
     this.playersArea.setMinimumSize(new Dimension(100, 100));
     this.playersArea.setPreferredSize(new Dimension(500, 500));
 
-    JScrollPane infoPane = new JScrollPane(this.playersArea);
+    this.infoPane = new JScrollPane(this.playersArea);
     this.infoPanel.add(infoPane);
 
     this.turnInfoArea = new JTextArea();
-    String playerInfo = this.turnMessage.split("Items:")[0];
-    String targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
+    this.playerInfo = this.turnMessage.split("Items:")[0];
+    this.targetInfo = this.turnMessage.split("Items:")[1].split(";")[1];
 
     this.turnInfoArea.setText(
         String.format("CURRENT TURN INFO:\n%s\n%s", playerInfo.replace(";", "\n"), targetInfo));
@@ -202,7 +220,7 @@ public class GamePanel extends JPanel {
 
     this.turnInfoArea.setMinimumSize(new Dimension(100, 100));
 
-    JScrollPane turnInfoPane = new JScrollPane(this.turnInfoArea);
+    this.turnInfoPane = new JScrollPane(this.turnInfoArea);
     this.infoPanel.add(turnInfoPane);
 
     this.turnResultArea = new JTextArea();
@@ -218,21 +236,40 @@ public class GamePanel extends JPanel {
 
     this.turnResultArea.setPreferredSize(new Dimension(500, 500));
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
-    JScrollPane turnResultPane = new JScrollPane(this.turnResultArea);
+    this.turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
     //this.infoPanel.revalidate();
     this.add(infoPanel, BorderLayout.EAST);
     this.repaint();
-   // this.revalidate();
+    // this.revalidate();
   }
 
+  /**
+   * This method handles the listeners to events registered from the view.
+   *
+   * @param f the features interface to handle the functionality of the event.
+   */
   public void setFeatures(Features f) {
+    
+    if (f == null) {
+      throw new IllegalArgumentException("Features passed cannot be null.\n");
+    }
     MouseListener mouse = new MouseClickEvent(f, view);
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
   }
+  
+  /**
+   * This method sets the icon of the player added and positions the player in the space.
+   *
+   * @param player the 
+   * @param iconUrl
+   * @param ifAnotherPlayer
+   * @return
+   */
 
   private JLabel getPlayerJLabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
+    
     if (player == null || iconUrl == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }

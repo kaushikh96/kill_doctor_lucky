@@ -1,5 +1,6 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -8,10 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -20,8 +19,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
-import controller.Features;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
@@ -32,8 +29,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private AddPlayerPanel addPlayerPanel;
   private GamePanel gamePanel;
   private WorldSelectionPanel worldSelectionPanel;
-  private Features f;
-  private JButton b;
+  private Features features;
+  private JButton button;
   private JMenuBar menuBar;
   private JMenu menu;
   private JMenuItem currentWorldItem;
@@ -132,13 +129,13 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
       String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
       if ("true".equalsIgnoreCase(turnmessage)) {
         this.outputMessage = String.format("%s\n\n%s", this.outputMessage,
-            f.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
+            features.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
         this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
       }
     }
     this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
-        this.f);
-    this.gamePanel.setFeatures(f);
+        this.features);
+    this.gamePanel.setFeatures(features);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
     gamePanel.revalidate();
@@ -146,7 +143,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void addPlayers() {
-    this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
+    this.features.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
         this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
 
     this.addPlayerPanel.addDataToTable();
@@ -155,7 +152,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public String getTurnsofPlayers(String playerName) {
-    return f.getTurns(playerName);
+    return features.getTurns(playerName);
   }
 
   @Override
@@ -177,9 +174,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setFeatures(Features f) {
-    this.f = f;
+    this.features = f;
   }
 
+  @Override
   public String showPickDialog() {
     String itemName = null;
 
@@ -205,7 +203,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   }
 
-  public String showFileUploadDialog() {
+  @Override
+  public void showFileUploadDialog() {
     try {
       JFileChooser chooser = new JFileChooser();
       chooser.showOpenDialog(null);
@@ -227,8 +226,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     } catch (IOException io) {
       throw new IllegalStateException("Invalid Read");
     }
-
-    return "";
 
   }
 
@@ -283,6 +280,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setPlayerInfoDialog(String output) {
+    
+    if(output == null) {
+      throw new IllegalArgumentException("Output")
+    }
     JOptionPane.showMessageDialog(null, output);
   }
 

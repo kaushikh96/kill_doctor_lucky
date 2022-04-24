@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,7 +13,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -28,9 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
@@ -80,6 +75,11 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private JPanel tablePanel;
   private JScrollPane pane;
 
+  /**
+   * 
+   * @param readOnlyModel
+   * @param view
+   */
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
     if (readOnlyModel == null) {
@@ -366,6 +366,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
   @Override
   public void itemStateChanged(ItemEvent itemEvent) {
+    
+    if (itemEvent == null) {
+      throw new IllegalArgumentException("ItemEvent cannot be null");
+    }
 
     if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
       this.space = (String) itemEvent.getItem();
@@ -454,6 +458,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
    */
 
   public void addActionListener(ActionListener listener) {
+    
+    if (listener == null) {
+      throw new IllegalArgumentException("Listener cannot be null");
+    }
     this.addButton.addActionListener(listener);
     this.nextButton.addActionListener(listener);
   }
