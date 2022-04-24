@@ -1,10 +1,5 @@
 package controller;
 
-import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
-import theworldview.ButtonListener;
-import theworldview.KeyboardListener;
 import theworld.BoardGameModel;
 import theworldview.BoardGameView;
 
@@ -92,98 +87,6 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     cmd.execute(model);
     return cmd.getOutput();
   }
-//
-//  private void configureButtonListener() {
-//    Map<String, Runnable> buttonClickedMap = new HashMap<>();
-//    ButtonListener buttonListener = new ButtonListener();
-//
-////    buttonClickedMap.put("START", () -> {
-////      this.view.displayWorldSelectionScreen();
-////    });
-//
-////    buttonClickedMap.put("Current World", () -> {
-////      this.view.displayAddPlayerScreen();
-////    });
-////
-////    buttonClickedMap.put("New World", () -> {
-////      this.view.showFileUploadDialog();
-////      this.view.displayAddPlayerScreen();
-////    });
-////
-////    buttonClickedMap.put("Quit", () -> {
-////      this.view.closeWindow();
-////    });
-//
-////    buttonClickedMap.put("ADD", () -> {
-////      this.view.addPlayers();
-////    });
-//
-////    buttonClickedMap.put("CONTINUE", () -> {
-////      this.view.setOutputMessage(String.format("Game Starts !! Execute the first turn !"));
-////      this.view.displayGameScreen();
-////    });
-//    buttonListener.setButtonClickedActionMap(buttonClickedMap);
-//    this.view.addActionListener(buttonListener);
-//  }
-
-//  private void configureKeyBoardListener() {
-//    Map<Character, Runnable> keyTypes = new HashMap<>();
-//    Map<Integer, Runnable> keyPresses = new HashMap<>();
-//    Map<Integer, Runnable> keyReleases = new HashMap<>();
-//
-//    keyPresses.put(KeyEvent.VK_P, () -> {
-//      try {
-//        String playerName = this.view.getCurrentPlayerName();
-//        String itemName = view.showPickDialog();
-//        GameController cmd = new PickUpItem(playerName, itemName);
-//        cmd.execute(model);
-//        view.setOutputMessage(cmd.getOutput());
-//        view.displayGameScreen();
-//      } catch (IllegalStateException ise) {
-//        view.setIfTurnExecuted(false);
-//        view.setOutputMessage(ise.getMessage());
-//        view.displayGameScreen();
-//      }
-//    });
-//
-//    keyPresses.put(KeyEvent.VK_L, () -> {
-//      try {
-//        String playerName = view.getCurrentPlayerName();
-//        GameController cmd = new LookAround(playerName);
-//        cmd.execute(model);
-//        view.setOutputMessage(cmd.getOutput());
-//        view.setIfTurnExecuted(true);
-//        view.displayGameScreen();
-//      } catch (IllegalStateException ise) {
-//        view.setIfTurnExecuted(false);
-//        view.setOutputMessage(ise.getMessage());
-//        view.displayGameScreen();
-//      }
-//    });
-//
-//    keyPresses.put(KeyEvent.VK_A, () -> {
-//      try {
-//        String playerName = view.getCurrentPlayerName();
-//        String itemName = view.showAttackDialog();
-//        GameController cmd = new AttackTarget(playerName, itemName);
-//        cmd.execute(model);
-//        view.setOutputMessage(cmd.getOutput());
-//        view.setIfTurnExecuted(true);
-//        view.displayGameScreen();
-//      } catch (IllegalStateException ise) {
-//        view.setIfTurnExecuted(false);
-//        view.setOutputMessage(ise.getMessage());
-//        view.displayGameScreen();
-//      }
-//    });
-//
-//    KeyboardListener kbd = new KeyboardListener();
-//    kbd.setKeyTypedMap(keyTypes);
-//    kbd.setKeyPressedMap(keyPresses);
-//    kbd.setKeyReleasedMap(keyReleases);
-//
-//    view.addKeyListener(kbd);
-//  }
 
   @Override
   public void handlePlayerMouseClickEvent(String playerName) {

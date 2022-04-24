@@ -906,6 +906,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             roomlist.get(Integer.parseInt(itemattr[0])).getItems().add(demoitem);
           }
         }
+        if (spaceOverlap(roomlist)) {
+          throw new IllegalStateException("Invalid Space dimensions as arguments");
+        }
 //        BoardGameImpl world;
 //        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
 //            targetpet, randomref);
@@ -923,9 +926,38 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
 
     } catch (ArrayIndexOutOfBoundsException iob) {
       throw new IllegalStateException("Invalid File Format.");
-    } catch (NumberFormatException nfes) {
+    } catch (NumberFormatException nfe) {
       throw new IllegalStateException("Invalid File Format.");
     }
+  }
+
+  private boolean spaceOverlap(List<SpaceImpl> spaceList) {
+
+    if (spaceList == null) {
+      throw new IllegalArgumentException("Space list cannot be null");
+    }
+
+    boolean isOverlapping = false;
+
+    for (int i = 0; i < spaceList.size(); i++) {
+      for (int j = 0; j < spaceList.size(); j++) {
+
+        if (spaceList.get(i).getRoomId() == spaceList.get(j).getRoomId()) {
+          continue;
+        }
+
+        if (spaceList.get(i).getRoomLocation().get(1) < spaceList.get(j).getRoomLocation().get(3)
+            && spaceList.get(i).getRoomLocation().get(3) > spaceList.get(j).getRoomLocation().get(1)
+            && spaceList.get(i).getRoomLocation().get(0) < spaceList.get(j).getRoomLocation().get(2)
+            && spaceList.get(i).getRoomLocation().get(2) > spaceList.get(j).getRoomLocation()
+                .get(0)) {
+
+          isOverlapping = true;
+          break;
+        }
+      }
+    }
+    return isOverlapping;
   }
 
   @Override

@@ -18,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -326,13 +327,13 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.playerlist = readOnlyModel.getPlayerList();
 
     this.col = new String[] { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
-   
+
     this.tablePanel = new JPanel();
     this.tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
-    
+
     this.model = new DefaultTableModel(col, 0);
     this.playerTable = new JTable(model);
-    
+
     this.pane = new JScrollPane(this.playerTable);
 
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -353,7 +354,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
   @Override
   public void itemStateChanged(ItemEvent itemEvent) {
-    
+
     if (itemEvent == null) {
       throw new IllegalArgumentException("ItemEvent cannot be null");
     }
@@ -448,14 +449,31 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
       throw new IllegalArgumentException("Features object cannot be null\n");
     }
     this.features = features;
+
     this.addButton.addActionListener(l -> {
-      features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),
-          Integer.parseInt(itemLimitText.getText()),
-          "Human".equalsIgnoreCase(groupType.getSelection().getActionCommand()) ? false : true);
-      addDataToTable();
-      resetFields();
+      try {
+        if (!readOnlyModel.getPlayerList().stream()
+            .filter(s -> s.getName().equals(nameText.getText())).collect(Collectors.toList())
+            .isEmpty()) {
+          this.showErrorPopUp("Player already exists in the space");
+          resetFields();
+        } else {
+          features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),
+              Integer.parseInt(itemLimitText.getText()),
+              "Human".equalsIgnoreCase(groupType.getSelection().getActionCommand()) ? false : true);
+          addDataToTable();
+          resetFields();
+        }
+      } catch (NumberFormatException nfe) {
+        this.showErrorPopUp("Invalid Item Capacity");
+        resetFields();
+      }
     });
     this.nextButton.addActionListener(l -> features.moveToGameScreen());
+  }
+
+  private void showErrorPopUp(String message) {
+    JOptionPane.showMessageDialog(null, message);
   }
 
 }

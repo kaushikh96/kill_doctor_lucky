@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -58,28 +56,29 @@ public class GamePanel extends JPanel {
   private JTextArea turnResultArea;
   private String outputMessage;
   private String turnMessage;
-  private int playerIteration = 1;
+  private int playerIteration;
   private List<String> colorList;
   private Features features;
   private List<PlayerImpl> playerList;
   private JScrollPane imagePane;
   private Font font;
-  private  JScrollPane infoPane;
+  private JScrollPane infoPane;
   private String playerInfo;
   private String targetInfo;
   private JScrollPane turnInfoPane;
   private JScrollPane turnResultPane;
 
   /**
-   * This constructor initializes the readOnlyBoardGameModel for getting the functionality, the 
-   * BoardGameView to display and the information about the current player and the action to display
-   * on the panel.
+   * This constructor initializes the readOnlyBoardGameModel for getting the
+   * functionality, the BoardGameView to display and the information about the
+   * current player and the action to display on the panel.
    *
    * @param readOnlyModel the readOnlyModel that has the functionality.
-   * @param view the view that holds the panel and displays the panel to the user.
+   * @param view          the view that holds the panel and displays the panel to
+   *                      the user.
    * @param outputMessage the message of the action performed during the turn.
-   * @param turnMessage the message of the current turn including player location 
-   and target location.
+   * @param turnMessage   the message of the current turn including player
+   *                      location and target location.
    */
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
       String turnMessage) {
@@ -128,73 +127,73 @@ public class GamePanel extends JPanel {
         20, 20);
 
     this.playerList = new ArrayList<>(readOnlyModel.getPlayerList());
-
+    this.playerIteration = 1;
     this.playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = getPlayerJlabel(s, "playerIcon1.png",
+        this.playerLabel1 = getPlayerJlabel(this.playerLabel1, s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel1, this.features);
         }
       } else if (playerIteration == 2) {
-        this.playerLabel2 = getPlayerJlabel(s, "playerIcon2.png",
+        this.playerLabel2 = getPlayerJlabel(this.playerLabel2, s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel2, this.features);
         }
       } else if (playerIteration == 3) {
-        this.playerLabel3 = getPlayerJlabel(s, "playerIcon3.png",
+        this.playerLabel3 = getPlayerJlabel(this.playerLabel3, s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel3, this.features);
         }
       } else if (playerIteration == 4) {
-        this.playerLabel4 = getPlayerJlabel(s, "playerIcon4.png",
+        this.playerLabel4 = getPlayerJlabel(this.playerLabel4, s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel4, this.features);
         }
       } else if (playerIteration == 5) {
-        this.playerLabel5 = getPlayerJlabel(s, "playerIcon5.png",
+        this.playerLabel5 = getPlayerJlabel(this.playerLabel5, s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel5, this.features);
         }
       } else if (playerIteration == 6) {
-        this.playerLabel6 = getPlayerJlabel(s, "playerIcon6.png",
+        this.playerLabel6 = getPlayerJlabel(this.playerLabel6, s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel6, this.features);
         }
       } else if (playerIteration == 7) {
-        this.playerLabel7 = getPlayerJlabel(s, "playerIcon7.png",
+        this.playerLabel7 = getPlayerJlabel(this.playerLabel7, s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel7, this.features);
         }
       } else if (playerIteration == 8) {
-        this.playerLabel8 = getPlayerJlabel(s, "playerIcon8.png",
+        this.playerLabel8 = getPlayerJlabel(this.playerLabel8, s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel8, this.features);
         }
       } else if (playerIteration == 9) {
-        this.playerLabel9 = getPlayerJlabel(s, "playerIcon9.png",
+        this.playerLabel9 = getPlayerJlabel(this.playerLabel9, s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel9, this.features);
         }
       } else if (playerIteration == 10) {
-        this.playerLabel10 = getPlayerJlabel(s, "playerIcon10.png",
+        this.playerLabel10 = getPlayerJlabel(this.playerLabel10, s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
@@ -281,7 +280,7 @@ public class GamePanel extends JPanel {
    * @param f the features interface to handle the functionality of the event.
    */
   public void setFeatures(Features f) {
-    
+
     if (f == null) {
       throw new IllegalArgumentException("Features passed cannot be null.\n");
     }
@@ -289,9 +288,10 @@ public class GamePanel extends JPanel {
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
   }
-  
+
   /**
-   * This method sets the icon of the player added and positions the player in the space.
+   * This method sets the icon of the player added and positions the player in the
+   * space.
    *
    * @param player the playerImpl object to the room coordinates the player is currently at 
    for positioning.
@@ -301,13 +301,13 @@ public class GamePanel extends JPanel {
    * @return the label that positions the player icon and adds it to the label.
    */
 
-  private JLabel getPlayerJlabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
-    
+  private JLabel getPlayerJlabel(JLabel playerLabel, PlayerImpl player, String iconUrl,
+      boolean ifAnotherPlayer) {
+
     if (player == null || iconUrl == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }
-    
-    JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
+    playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
         .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
     if (ifAnotherPlayer) {
       playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
