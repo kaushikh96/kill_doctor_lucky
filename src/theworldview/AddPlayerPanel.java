@@ -31,15 +31,19 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
 
+/**
+ * This panel adds the components that takes in the player information for adding 
+ * the player and displays the added player information in a JTable which is displayed
+ * in the panel.
+ *
+ */
 public class AddPlayerPanel extends JPanel implements ItemListener {
 
-  private ReadOnlyBoardGameModel readOnlyModel;
+  private final ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
   private JPanel addP;
   private JLabel coloredLabelAdd;
@@ -51,7 +55,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private JTextField nameText;
   private JComboBox spaceName;
   private JTextField itemLimitText;
-  private GridBagConstraints cAdd;
+  private GridBagConstraints add;
   private JPanel name;
   private GridBagConstraints cname;
   private JButton addButton;
@@ -65,6 +69,15 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private String space;
   private List<PlayerImpl> playerlist;
   private DefaultTableModel model;
+  private String labelTextAdd;
+  private String labelPlayerDetails;
+  private String labelTextName;
+  private String labelTextSpaceName;
+  private String labelTextItemLimit;
+  private String labelTextPlayerType;
+  private String[] col;
+  private JPanel tablePanel;
+  private JScrollPane pane;
 
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
 
@@ -81,34 +94,34 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.setLayout(new BorderLayout());
 
     this.addP = new JPanel(new GridBagLayout());
-    this.cAdd = new GridBagConstraints();
+    this.add = new GridBagConstraints();
     this.addP.setBackground(new Color(137, 207, 240));
 
-    String labelTextAdd = "<html><font color=#000000 size=20>ADD PLAYER</font><br></html>";
+    this.labelTextAdd = "<html><font color=#000000 size=20>ADD PLAYER</font><br></html>";
     this.coloredLabelAdd = new JLabel(labelTextAdd, SwingConstants.LEFT);
 
-    this.cAdd.gridx = 0;
-    this.cAdd.gridy = 0;
-    this.cAdd.anchor = GridBagConstraints.NORTHWEST;
-    this.cAdd.weightx = 0.1;
-    this.cAdd.weighty = 0.1;
-    this.cAdd.insets = new Insets(35, 160, 15, 15);
+    this.add.gridx = 0;
+    this.add.gridy = 0;
+    this.add.anchor = GridBagConstraints.NORTHWEST;
+    this.add.weightx = 0.1;
+    this.add.weighty = 0.1;
+    this.add.insets = new Insets(35, 160, 15, 15);
 
-    this.addP.add(coloredLabelAdd, cAdd);
+    this.addP.add(coloredLabelAdd, add);
 
     this.add(addP, BorderLayout.NORTH);
 
-    String labelTextPlayerDetails = "<html><font color=#000000 size=20>Player Details</font><br></html>";
-    this.coloredLabelPlayerDetails = new JLabel(labelTextPlayerDetails, SwingConstants.LEFT);
+    this.labelPlayerDetails = "<html><font color=#000000 size=20>Player Details</font><br></html>";
+    this.coloredLabelPlayerDetails = new JLabel(labelPlayerDetails, SwingConstants.LEFT);
 
-    this.cAdd.gridx = 1;
-    this.cAdd.gridy = 0;
-    this.cAdd.anchor = GridBagConstraints.NORTHWEST;
-    this.cAdd.weightx = 0.1;
-    this.cAdd.weighty = 0.1;
-    this.cAdd.insets = new Insets(35, 160, 35, 15);
+    this.add.gridx = 1;
+    this.add.gridy = 0;
+    this.add.anchor = GridBagConstraints.NORTHWEST;
+    this.add.weightx = 0.1;
+    this.add.weighty = 0.1;
+    this.add.insets = new Insets(35, 160, 35, 15);
 
-    this.addP.add(coloredLabelPlayerDetails, cAdd);
+    this.addP.add(coloredLabelPlayerDetails, add);
 
     this.add(addP, BorderLayout.NORTH);
 
@@ -116,7 +129,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.cname = new GridBagConstraints();
     this.name.setBackground(new Color(137, 207, 240));
 
-    String labelTextName = "<html><font color=#000000 size=7>Name</font><br></html>";
+    this.labelTextName = "<html><font color=#000000 size=7>Name</font><br></html>";
     this.coloredLabelName = new JLabel(labelTextName);
 
     this.cname.gridx = 0;
@@ -148,7 +161,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     this.add(name, BorderLayout.WEST);
 
-    String labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
+    this.labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
     this.coloredLabelSpaceName = new JLabel(labelTextSpaceName, SwingConstants.LEFT);
 
     this.cname.gridx = 0;
@@ -185,7 +198,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
     this.spaceName.addItemListener(this);
 
-    String labelTextItemLimit = "<html><font color=#000000 size=7>Item Limit</font><br></html>";
+    this.labelTextItemLimit = "<html><font color=#000000 size=7>Item Limit</font><br></html>";
     this.coloredLabelItemLimit = new JLabel(labelTextItemLimit, SwingConstants.LEFT);
 
     this.cname.gridx = 0;
@@ -217,7 +230,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     this.add(name, BorderLayout.WEST);
 
-    String labelTextPlayerType = "<html><font color=#000000 size=7>Type</font><br></html>";
+    this.labelTextPlayerType = "<html><font color=#000000 size=7>Type</font><br></html>";
     this.coloredLabelPlayerType = new JLabel(labelTextPlayerType, SwingConstants.LEFT);
 
     this.cname.gridx = 0;
@@ -315,26 +328,15 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
     this.playerlist = readOnlyModel.getPlayerList();
 
-
-//    String[][] data = this.playerlist.stream()
-//        .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
-//            Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
-//        .toArray(String[][]::new);
-    
-    String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
-
-
-//    this.playerTable = new JTable(data, col);
-//    JTableHeader header = this.playerTable.getTableHeader();
-    //header.setBackground(Color.YELLOW);
-    
-    JPanel tablePanel = new JPanel();
-    tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
+    this.col = new String[] { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
+   
+    this.tablePanel = new JPanel();
+    this.tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
     
     this.model = new DefaultTableModel(col, 0);
     this.playerTable = new JTable(model);
     
-    JScrollPane pane = new JScrollPane(this.playerTable);
+    this.pane = new JScrollPane(this.playerTable);
 
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     this.playerTable.setRowHeight(this.playerTable.getRowHeight() + 30);
@@ -349,41 +351,51 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   }
 
   @Override
-  public void paintComponent(Graphics graphics) {
-    if (graphics == null) {
-      throw new IllegalArgumentException("Graphics cannot be null.\n");
-    }
-    super.paintComponent(graphics);
-    Graphics2D graphics2d = (Graphics2D) graphics;
-    Border border = new LineBorder(Color.BLUE, 4, true);
-    this.setBorder(border);
-    this.setMinimumSize(new Dimension(600, 600));
-    graphics2d.setColor(new Color(137, 207, 240));
-    graphics2d.fillRect(0, 0, getWidth(), getHeight());
-    graphics2d.setColor(Color.BLACK);
-
-    graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
-  }
-
-  @Override
   public void itemStateChanged(ItemEvent itemEvent) {
 
     if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
       this.space = (String) itemEvent.getItem();
     }
   }
+  
+  /**
+   * This method provides the name of the player as text entered in the textfield while
+   * providing player details in the panel.
+   *
+   * @return the text enteres in the textfield that is equated to playerName.
+   */
 
   public String getPlayerName() {
     return this.nameText.getText();
   }
+  
+  /**
+   * This method gets the selected spaceName by the user in the ComboBox while 
+   * providing player details in the panel.
+   *
+   * @return the selected spaceName of the player.
+   */
 
   public String getSpace() {
     return this.space;
   }
 
+  /**
+   * This method gives the maximum number of items that a player can carry 
+   * as entered in the item Capacity text field while providing player details in the panel.
+   *
+   * @return the entered number indicating the number of items a player can carry.
+   */
   public int itemCapacity() {
     return Integer.parseInt(itemLimitText.getText());
   }
+  
+  /**
+   * This method gives the provided player type i.e., either human or computer by selecting the
+   * respective radio button while providing player details in the panel.
+   *
+   * @return the boolean False if the selcted radio button is Human else returns True.
+   */
 
   public boolean getPlayerType() {
     if ("Human".equals(this.groupType.getSelection().getActionCommand())) {
@@ -392,6 +404,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
       return true;
     }
   }
+  
+  /**
+   * This method resets the fields that has player information entered.
+   */
 
   public void resetFields() {
     this.nextButton.setEnabled(true);
@@ -400,6 +416,11 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.itemLimitText.setText("");
     this.groupType.clearSelection();
   }
+  
+  /**
+   * This method adds data to the Table row-wise on adding each player after the player
+   * details have been provided in the screen.
+   */
   
   public void addDataToTable() {
     
@@ -410,6 +431,13 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
         this.groupType.getSelection().getActionCommand()
     });
   }
+  
+  /**
+   * This method attaches the action listeners to the buttons present in the panel 
+   * for performing respective events.
+   *
+   * @param listener used to listen to events for responding accordingly.
+   */
 
   public void addActionListener(ActionListener listener) {
     this.addButton.addActionListener(listener);

@@ -266,6 +266,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
   public void resetFocus() {
     this.setFocusable(true);
+    this.requestFocus();
   }
 
   @Override
