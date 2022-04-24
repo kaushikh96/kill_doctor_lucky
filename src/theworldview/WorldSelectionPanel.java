@@ -1,5 +1,6 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,21 +9,30 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import controller.Features;
 import theworld.ReadOnlyBoardGameModel;
 
+/**
+ * This class displays the panel with information that allows user to choose a world for
+ * the game.
+ *
+ */
 public class WorldSelectionPanel extends JPanel {
 
-  private ReadOnlyBoardGameModel readOnlyModel;
+  private final ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
   private GridBagConstraints worldScreen;
   private JLabel imageLabel;
   private JLabel fileLabel;
   private JButton currentWorld;
   private JButton newWorld;
-  private Features f;
+  private Features features;
 
+  /**
+   * The constructor for the class that initializes the ReadOnlyBoardGameModel for the 
+   * functionality.
+   *
+   * @param readOnlyModel the ReadOnlyBoardGameModel to get the functionality for the events.
+   */
   public WorldSelectionPanel(ReadOnlyBoardGameModel readOnlyModel) {
 
     if (readOnlyModel == null) {
@@ -30,7 +40,6 @@ public class WorldSelectionPanel extends JPanel {
     }
 
     this.readOnlyModel = readOnlyModel;
-    this.view = view;
 
     this.setLayout(new GridBagLayout());
     this.setBackground(new Color(137, 207, 240));
@@ -59,7 +68,16 @@ public class WorldSelectionPanel extends JPanel {
     this.add(imageLabel, worldScreen);
   }
 
+  /**
+   * This method sets the call back for the features object.
+   *
+   * @param f the features object for callbacks from the view.
+   */
   public void setFeatures(Features f) {
-    this.f = f;
+    
+    if (f == null) {
+      throw new IllegalArgumentException("Features object cannot be null\n");
+    }
+    this.features = f;
   }
 }

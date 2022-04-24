@@ -24,14 +24,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import controller.AttackTarget;
-import controller.GameController;
-import controller.LookAround;
-import controller.PickUpItem;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
+/**
+ * This class is the view implementation which gives the user a visual representation of the board
+ * and listens to events and performs callbacks using features interface.
+ *
+ */
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private ReadOnlyBoardGameModel readOnlyModel;
   private WelcomePanel welcomePanel;
@@ -51,10 +52,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private ActionListener listener;
 
   /**
-   * Constructor for TicTacToeViewImpl.
-   * 
+   * Constructor that initializes the readOnlyBoardGameModel to get the functionality
+   * to handle an event.
+   *
    * @param caption the caption for the view
-   * @param model   the ReadonlyTttModel type
+   * @param model the ReadOnlyBoardGameModel to perform a callabck 
+   functionality when an event is triggered.
    */
   public BoardGameViewImpl(String caption, ReadOnlyBoardGameModel model) {
     super(caption);
@@ -162,6 +165,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public String getTurnsofPlayers(String playerName) {
+    
+    if (playerName == null
+        || "".equals(playerName)) {
+      throw new IllegalArgumentException("Current Player Name is null\n");
+    }
     return features.getTurns(playerName);
   }
 
@@ -182,6 +190,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setFeatures(Features features) {
+    
+    if (features == null) {
+      throw new IllegalArgumentException("Features object cannot be null\n");
+    }
     this.features = features;
     this.welcomePanel.setFeatures(features);
     this.worldSelectionPanel.setFeatures(features);
@@ -356,8 +368,9 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   @Override
   public void setPlayerInfoDialog(String output) {
     
-    if (output == null) {
-      throw new IllegalArgumentException("Output");
+    if (output == null
+        || "".equals(output)) {
+      throw new IllegalArgumentException("Output Message is null\n");
     }
     JOptionPane.showMessageDialog(null, output);
   }

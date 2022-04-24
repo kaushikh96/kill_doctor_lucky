@@ -1,5 +1,6 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,7 +13,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,24 +21,35 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-import controller.Features;
 import theworld.ReadOnlyBoardGameModel;
 
+/**
+ * The Panel that is the welcome screen for the game which provides us with 
+ * the button to start the game.
+ *
+ */
 public class WelcomePanel extends JPanel {
 
-  private ReadOnlyBoardGameModel readonlymodel;
+  private final ReadOnlyBoardGameModel readonlymodel;
   private JLabel title;
   private JButton startButton;
   private BoardGameView view;
   private GridBagConstraints welcome;
   private JPanel welcomePanel;
   private Features features;
+  private String labelText1;
+  private JLabel coloredLabel1;
+  private  Border border;
+  private String labelText;
+  private JLabel coloredLabel;
+  private String kaushikText;
+  private JLabel kaushikLabel;
 
   /**
-   * Constructor for PanelImpl class.
-   * 
-   * @param readonlymodel the ReadonlyTttModel type
+   * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel to get
+   * the functionality.
+   *
+   * @param readonlymodel the ReadOnlyBoardModel type for getting the functionality.
    */
   public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
     if (readonlymodel == null) {
@@ -53,12 +64,12 @@ public class WelcomePanel extends JPanel {
     this.welcomePanel.setBackground(new Color(137, 207, 240));
     this.welcome = new GridBagConstraints();
 
-    String labelText1 = "<html><font color=#8B8000 size=500>KILL DOCTOR LUCKY</font><br></html>";
-    JLabel coloredLabel1 = new JLabel(labelText1, JLabel.CENTER);
-    coloredLabel1.setPreferredSize(new Dimension(550, 80));
-    coloredLabel1.setBackground(Color.YELLOW);
+    this.labelText1 = "<html><font color=#8B8000 size=500>KILL DOCTOR LUCKY</font><br></html>";
+    this.coloredLabel1 = new JLabel(labelText1, JLabel.CENTER);
+    this.coloredLabel1.setPreferredSize(new Dimension(550, 80));
+    this.coloredLabel1.setBackground(Color.YELLOW);
     // create a line border with the specified color and width
-    Border border = BorderFactory.createLineBorder(Color.YELLOW, 2);
+    this.border = BorderFactory.createLineBorder(Color.YELLOW, 2);
 
     // set the border of this component
     coloredLabel1.setBorder(border);
@@ -71,8 +82,8 @@ public class WelcomePanel extends JPanel {
     this.welcomePanel.add(coloredLabel1, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
 
-    String labelText = "<html><font color=blue size=15>LET'S START THE GAME PLAY !!!</font><br></html>";
-    JLabel coloredLabel = new JLabel(labelText, JLabel.CENTER);
+    this.labelText = "<html><font color=blue size=15>LET'S START THE GAME PLAY !!!</font><br></html>";
+    this.coloredLabel = new JLabel(labelText, JLabel.CENTER);
 
     this.welcome.gridx = 0;
     this.welcome.gridy = 1;
@@ -99,32 +110,29 @@ public class WelcomePanel extends JPanel {
     this.welcomePanel.add(startButton, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
 
-    String kaushikText = "<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>SANJANA KANDUNOORI</font></html>";
-    JLabel kaushikLabel = new JLabel(kaushikText);
-    kaushikLabel.setBorder(new EmptyBorder(10, 30, 40, 10));
+    this.kaushikText = "<html><font color=#00008b size=6>KAUSHIK KOMANDURI<br>SANJANA KANDUNOORI</font></html>";
+    this.kaushikLabel = new JLabel(kaushikText);
+    this.kaushikLabel.setBorder(new EmptyBorder(10, 30, 40, 10));
 
     this.add(kaushikLabel, BorderLayout.SOUTH);
   }
+  
 
-  @Override
-  public void paintComponent(Graphics graphics) {
-    super.paintComponent(graphics);
-    Graphics2D graphics2d = (Graphics2D) graphics;
-    Border border = new LineBorder(Color.BLUE, 4, true);
-    this.setBorder(border);
-    this.setMinimumSize(new Dimension(600, 600));
-    graphics2d.setColor(new Color(137, 207, 240));
-    graphics2d.fillRect(0, 0, getWidth(), getHeight());
-    graphics2d.setColor(Color.BLACK);
+//  public void addActionListener(ActionListener listener) {
+//    this.startButton.addActionListener(listener);
+//  }
 
-    graphics2d.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
-  }
-
-  public void addActionListener(ActionListener listener) {
-    this.startButton.addActionListener(listener);
-  }
-
+  /**
+   * This method implements the functionalities for different events so that
+   * the listener responds accordingly.
+   *
+   * @param features the callbacks sent as a feature object.
+   */
   public void setFeatures(Features features) {
+    
+    if (features == null) {
+      throw new IllegalArgumentException("Features object cannot be null\n");
+    }
     this.features = features;
     this.startButton.addActionListener(new ActionListener() {
       @Override

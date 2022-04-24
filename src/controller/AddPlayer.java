@@ -32,9 +32,15 @@ public class AddPlayer implements GameController {
     if (name == null || "".equals(name.trim())) {
       throw new IllegalArgumentException("Invalid Player name");
     }
+    
     if (currentRoom == null || "".equals(currentRoom.trim())) {
       throw new IllegalArgumentException("Invalid space name");
     }
+    
+    if (itemcapacity < 0) {
+      throw new IllegalArgumentException("Item Capacity for a player cannot be negative \n");
+    }
+    
     this.name = name;
     this.currentRoom = currentRoom;
     this.itemcapacity = itemcapacity;

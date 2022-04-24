@@ -1,29 +1,42 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import controller.BoardGameController;
-import controller.Features;
-
+/**
+ * This method handles the mouse click event for performing the 
+ * actions accordingly.
+ *
+ */
 public class MouseClickEvent extends MouseAdapter {
   public final int width;
   public final int height;
-  public final Features listener;
-  public String Result;
+  public Features listener;
+  public String result;
   public BoardGameView view;
 
   /**
-   * Constructor for ClickEventMouse class.
-   * 
-   * @param listener the TicTacToeController type.
+   * Constructor for ClickEventMouse class the initializes the features object
+   * for set a callbacks from view and also initializes the BoardGameView.
+   *
+   * @param listener the features object for the set of callbacks from the view.
+   * @param view the BoardGameView to get the functionality from view panel.
    */
   public MouseClickEvent(Features listener, BoardGameView view) {
+    
+    if (listener == null) {
+      throw new IllegalArgumentException("Features object cannot be null\n");
+    }
+    
+    if (view == null) {
+      throw new IllegalArgumentException("The View object cannot be null\n");
+    }
     height = 600;
     width = 600;
     this.listener = listener;
     this.view = view;
-    this.Result = "";
+    this.result = "";
   }
 
   @Override

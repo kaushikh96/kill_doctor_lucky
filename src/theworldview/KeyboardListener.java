@@ -35,7 +35,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * Set the map for key typed events. Key typed events in Java Swing are
    * characters.
-   * 
+   *
    * @param map the actions for keys typed
    */
   public void setKeyTypedMap(Map<Character, Runnable> map) {
@@ -45,7 +45,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * Set the map for key pressed events. Key pressed events in Java Swing are
    * integer codes.
-   * 
+   *
    * @param map the actions for keys pressed
    */
   public void setKeyPressedMap(Map<Integer, Runnable> map) {
@@ -55,7 +55,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * Set the map for key released events. Key released events in Java Swing are
    * integer codes.
-   * 
+   *
    * @param map the actions for keys released
    */
   public void setKeyReleasedMap(Map<Integer, Runnable> map) {
@@ -65,7 +65,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * This is called when the view detects that a key has been typed. Find if
    * anything has been mapped to this key character and if so, execute it
-   * 
+   *
    * @param e information on the key event that triggered this callback
    */
 
@@ -80,7 +80,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * This is called when the view detects that a key has been pressed. Find if
    * anything has been mapped to this key code and if so, execute it
-   * 
+   *
    * @param e information on the key event that triggered this callback
    */
 
@@ -94,7 +94,7 @@ public class KeyboardListener implements KeyListener {
   /**
    * This is called when the view detects that a key has been released. Find if
    * anything has been mapped to this key code and if so, execute it
-   * 
+   *
    * @param e information on the key event that triggered this callback
    */
 

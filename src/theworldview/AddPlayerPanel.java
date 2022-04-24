@@ -1,5 +1,6 @@
 package theworldview;
 
+import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,11 +8,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
@@ -29,8 +27,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
@@ -44,7 +40,6 @@ import theworld.SpaceImpl;
 public class AddPlayerPanel extends JPanel implements ItemListener {
 
   private final ReadOnlyBoardGameModel readOnlyModel;
-  private BoardGameView view;
   private JPanel addP;
   private JLabel coloredLabelAdd;
   private JLabel coloredLabelPlayerDetails;
@@ -217,19 +212,6 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
 
     this.itemLimitText = new JTextField(20);
-//    this.itemLimitText.addKeyListener(new KeyAdapter() {
-//      public void keyPressed(KeyEvent ke) {
-//        String value = this.itemLimitText.getText();
-//        int l = value.length();
-//        if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
-//          this.itemLimitText.setEditable(true);
-//           //label.setText("");
-//        } else {
-//          this.itemLimitText.setEditable(false);
-//          // label.setText("* Enter only numeric digits(0-9)");
-//        }
-//     }
-//    });
     itemLimitText.setPreferredSize(new Dimension(20, 30));
 
     this.cname.gridx = 1;
@@ -364,6 +346,10 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(tablePanel, BorderLayout.CENTER);
 
   }
+  
+  /**
+   * This method gives the space selected by the user from the JComboBox.
+   */
 
   @Override
   public void itemStateChanged(ItemEvent itemEvent) {
@@ -450,11 +436,17 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   }
 
   /**
-   * 
-   * @param features
+   * This method implements the functionalities for different events so that
+   * the listener responds accordingly.
+   *
+   * @param features the callbacks sent as a feature object.
    */
 
   public void setFeatures(Features features) {
+    
+    if (features == null) {
+      throw new IllegalArgumentException("Features object cannot be null\n");
+    }
     this.features = features;
     this.addButton.addActionListener(l -> {
       features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),

@@ -27,11 +27,16 @@ import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 
-
+/**
+ * This panel consists of visual representation of world image and the information
+ * of the game including game status, the result of action in the form of 
+ * text areas in the panel.
+ *
+ */
 
 public class GamePanel extends JPanel {
 
-  private ReadOnlyBoardGameModel readOnlyModel;
+  private final ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
   private JLabel imageLabel;
   private JLabel playerLabel1;
@@ -75,7 +80,6 @@ public class GamePanel extends JPanel {
    * @param outputMessage the message of the action performed during the turn.
    * @param turnMessage the message of the current turn including player location 
    and target location.
-   * @param features the features interface that responds to the actions done on the view.
    */
   public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
       String turnMessage) {
@@ -92,7 +96,6 @@ public class GamePanel extends JPanel {
     this.view = view;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
-    this.features = features;
 
     this.colorList = new ArrayList<>();
     this.colorList.add("Dark Blue");
@@ -128,70 +131,70 @@ public class GamePanel extends JPanel {
 
     this.playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
+        this.playerLabel1 = getPlayerJlabel(s, "playerIcon1.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel1, this.features);
         }
       } else if (playerIteration == 2) {
-        this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png",
+        this.playerLabel2 = getPlayerJlabel(s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel2, this.features);
         }
       } else if (playerIteration == 3) {
-        this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png",
+        this.playerLabel3 = getPlayerJlabel(s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel3, this.features);
         }
       } else if (playerIteration == 4) {
-        this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png",
+        this.playerLabel4 = getPlayerJlabel(s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel4, this.features);
         }
       } else if (playerIteration == 5) {
-        this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png",
+        this.playerLabel5 = getPlayerJlabel(s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel5, this.features);
         }
       } else if (playerIteration == 6) {
-        this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png",
+        this.playerLabel6 = getPlayerJlabel(s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel6, this.features);
         }
       } else if (playerIteration == 7) {
-        this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png",
+        this.playerLabel7 = getPlayerJlabel(s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel7, this.features);
         }
       } else if (playerIteration == 8) {
-        this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png",
+        this.playerLabel8 = getPlayerJlabel(s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel8, this.features);
         }
       } else if (playerIteration == 9) {
-        this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png",
+        this.playerLabel9 = getPlayerJlabel(s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
           this.addPlayerListener(this.playerLabel9, this.features);
         }
       } else if (playerIteration == 10) {
-        this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png",
+        this.playerLabel10 = getPlayerJlabel(s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
@@ -290,17 +293,20 @@ public class GamePanel extends JPanel {
   /**
    * This method sets the icon of the player added and positions the player in the space.
    *
-   * @param player the 
-   * @param iconUrl
-   * @param ifAnotherPlayer
-   * @return
+   * @param player the playerImpl object to the room coordinates the player is currently at 
+   for positioning.
+   * @param iconUrl the url that consits of the icon image that represnts the player.
+   * @param ifAnotherPlayer this checks if another player is there in the current space to
+   adjust the player's positioning without overlap.
+   * @return the label that positions the player icon and adds it to the label.
    */
 
-  private JLabel getPlayerJLabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
+  private JLabel getPlayerJlabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
     
     if (player == null || iconUrl == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }
+    
     JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
         .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
     if (ifAnotherPlayer) {
@@ -312,10 +318,19 @@ public class GamePanel extends JPanel {
     }
     return playerLabel;
   }
+  
+  /**
+   * This method checks if there is another player in the space of the current player.
+   *
+   * @param playerName the current name of the player playing the game.
+   * @param spaceName the space that the current player is at.
+   * @return the boolean true if there is another player else returns false.
+   */
 
   private boolean ifAnotherPlayer(String playerName, String spaceName) {
-    if (spaceName == null || playerName == null) {
-      throw new IllegalArgumentException("Player name cannot be null");
+    
+    if (playerName == null || spaceName == null) {
+      throw new IllegalArgumentException("Player name and the space name passed cannot be null");
     }
     List<PlayerImpl> sameRoomPlayers = readOnlyModel.getPlayerList().stream()
         .filter(s -> s.getCurrentRoom().getName().equalsIgnoreCase(spaceName))
@@ -330,6 +345,14 @@ public class GamePanel extends JPanel {
       }
     }
   }
+  
+  /**
+   * This method displays the indexing of the player i.e., this provides user with
+   * the information of which colored icon is what player.
+   *
+   * @return the text information of the player indexing to be displayed on the text area
+   in the panel
+   */
 
   public String setPlayerIndexText() {
     StringBuilder sb = new StringBuilder();
@@ -346,8 +369,26 @@ public class GamePanel extends JPanel {
     }
     return sb.toString();
   }
+  
+  /**
+   * This method handles the Mosue CLick events for moving the player and
+   * displaying player information when clicked on the player graphical representation
+   * using a set of call backs from features interface.
+   *
+   * @param label the JLabel to which the listener should listen to for mouse clicks.
+   * @param f the features object for set of callbacks from the view.
+   */
 
   public void addPlayerListener(JLabel label, Features f) {
+    
+    if (label == null) {
+      throw new IllegalArgumentException("Label cannot be null\n");
+    }
+    
+    if (f == null) {
+      throw new IllegalArgumentException("feature object cannot be null\n");
+    }
+    
     label.removeMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
         f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
@@ -360,58 +401,9 @@ public class GamePanel extends JPanel {
     });
   }
 
-  public String showPickDialog() {
-    String itemName = null;
-
-    PlayerImpl player = this.readOnlyModel.getPlayerList().stream()
-        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
-        .collect(Collectors.toList()).get(0);
-
-    String[] itemList = player.getCurrentRoom().getItems().stream().map(ItemImpl::getName)
-        .collect(Collectors.toList()).toArray(new String[0]);
-
-    JComboBox items = new JComboBox(itemList);
-    items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
-
-    int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
-        JOptionPane.DEFAULT_OPTION);
-
-    if (result == JOptionPane.OK_OPTION) {
-      itemName = (String) items.getSelectedItem();
-    }
-
-    return itemName;
-
-  }
-
-  public String showAttackDialog() {
-    String itemName = null;
-
-    List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
-        .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
-        .collect(Collectors.toList()).get(0).getItems();
-    if (itemsOnPlayer.stream().filter(s -> "Poke".equals(s.getName())).collect(Collectors.toList())
-        .isEmpty()) {
-      itemsOnPlayer.add(new ItemImpl(1, "Poke"));
-    }
-    String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
-        .toArray(new String[0]);
-
-    JComboBox items = new JComboBox(itemList);
-    items.setPreferredSize(new Dimension(200, 30));
-    items.setSelectedIndex(-1);
-
-    int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
-        JOptionPane.DEFAULT_OPTION);
-
-    if (result == JOptionPane.OK_OPTION) {
-      itemName = (String) items.getSelectedItem();
-    }
-
-    return itemName;
-  }
-
+  /**
+   * This sets the focus of the panel for the user.
+   */
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();

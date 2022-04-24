@@ -51,6 +51,13 @@ public interface BoardGameView {
    * This method is used for quitting the game by closing the current window.
    */
   public void closeWindow();
+  
+  /**
+   * This is to force the view to have a method to set up actions for events and respond to 
+   * them accordingly.
+   *
+   * @param actionListener is the listener to listen to the events in the view to perform actions.
+   */
 
   public void addActionListener(ActionListener actionListener);
 
@@ -90,7 +97,7 @@ public interface BoardGameView {
   public void showFileUploadDialog();
 
   /**
-   * This method checks if a turn is executed or not.
+   * This method checks if a turn is executed or not in the game.
    *
    * @param ifTurnExecuted the boolean value that is true if a turn is performed else false.
    */
