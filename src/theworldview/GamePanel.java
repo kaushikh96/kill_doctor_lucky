@@ -134,70 +134,70 @@ public class GamePanel extends JPanel {
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel1, this.features);
+          this.addPlayerListener(this.playerLabel1);
         }
       } else if (playerIteration == 2) {
         this.playerLabel2 = getPlayerJlabel(this.playerLabel2, s, "playerIcon2.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel2, this.features);
+          this.addPlayerListener(this.playerLabel2);
         }
       } else if (playerIteration == 3) {
         this.playerLabel3 = getPlayerJlabel(this.playerLabel3, s, "playerIcon3.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel3, this.features);
+          this.addPlayerListener(this.playerLabel3);
         }
       } else if (playerIteration == 4) {
         this.playerLabel4 = getPlayerJlabel(this.playerLabel4, s, "playerIcon4.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel4, this.features);
+          this.addPlayerListener(this.playerLabel4);
         }
       } else if (playerIteration == 5) {
         this.playerLabel5 = getPlayerJlabel(this.playerLabel5, s, "playerIcon5.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel5, this.features);
+          this.addPlayerListener(this.playerLabel5);
         }
       } else if (playerIteration == 6) {
         this.playerLabel6 = getPlayerJlabel(this.playerLabel6, s, "playerIcon6.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel6, this.features);
+          this.addPlayerListener(this.playerLabel6);
         }
       } else if (playerIteration == 7) {
         this.playerLabel7 = getPlayerJlabel(this.playerLabel7, s, "playerIcon7.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel7, this.features);
+          this.addPlayerListener(this.playerLabel7);
         }
       } else if (playerIteration == 8) {
         this.playerLabel8 = getPlayerJlabel(this.playerLabel8, s, "playerIcon8.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel8, this.features);
+          this.addPlayerListener(this.playerLabel8);
         }
       } else if (playerIteration == 9) {
         this.playerLabel9 = getPlayerJlabel(this.playerLabel9, s, "playerIcon9.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel9, this.features);
+          this.addPlayerListener(this.playerLabel9);
         }
       } else if (playerIteration == 10) {
         this.playerLabel10 = getPlayerJlabel(this.playerLabel10, s, "playerIcon10.png",
             this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
         if (s.getName().equals(readOnlyModel.getCurrentPlayerTurn())) {
-          this.addPlayerListener(this.playerLabel10, this.features);
+          this.addPlayerListener(this.playerLabel10);
         }
       }
       playerIteration++;
@@ -272,6 +272,7 @@ public class GamePanel extends JPanel {
     this.resetFocus();
     this.gamePanel.setFocusable(true);
     this.gamePanel.requestFocus();
+    this.revalidate();
   }
 
   /**
@@ -284,6 +285,8 @@ public class GamePanel extends JPanel {
     if (f == null) {
       throw new IllegalArgumentException("Features passed cannot be null.\n");
     }
+    
+    this.features = f;
     MouseListener mouse = new MouseClickEvent(f, view);
     this.gamePanel.addMouseListener(mouse);
     setFocusable(true);
@@ -376,27 +379,22 @@ public class GamePanel extends JPanel {
    * using a set of call backs from features interface.
    *
    * @param label the JLabel to which the listener should listen to for mouse clicks.
-   * @param f the features object for set of callbacks from the view.
    */
 
-  public void addPlayerListener(JLabel label, Features f) {
+  public void addPlayerListener(JLabel label) {
     
     if (label == null) {
       throw new IllegalArgumentException("Label cannot be null\n");
     }
     
-    if (f == null) {
-      throw new IllegalArgumentException("feature object cannot be null\n");
-    }
-    
     label.removeMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
       }
     });
     label.addMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
       }
     });
   }

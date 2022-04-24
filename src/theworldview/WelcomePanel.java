@@ -57,6 +57,7 @@ public class WelcomePanel extends JPanel {
     }
     this.readonlymodel = readonlymodel;
     // this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    this.setBackground(new Color(137, 207, 240));
 
     this.setLayout(new BorderLayout());
 
