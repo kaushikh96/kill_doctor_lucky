@@ -922,7 +922,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       }
 
     } catch (ArrayIndexOutOfBoundsException iob) {
-      throw new IllegalArgumentException("Invalid File Format.");
+      throw new IllegalStateException("Invalid File Format.");
+    } catch (NumberFormatException nfes) {
+      throw new IllegalStateException("Invalid File Format.");
     }
   }
 

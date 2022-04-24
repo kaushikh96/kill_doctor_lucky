@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -34,6 +35,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import controller.Features;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
 import theworld.SpaceImpl;
@@ -66,18 +68,15 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private String space;
   private List<PlayerImpl> playerlist;
   private DefaultTableModel model;
+  private Features features;
 
-  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view) {
+  public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
-    if (view == null) {
-      throw new IllegalArgumentException("View cannot be null.\n");
-    }
 
     this.readOnlyModel = readOnlyModel;
-    this.view = view;
 
     this.setLayout(new BorderLayout());
 
@@ -151,7 +150,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
 
     String labelTextSpaceName = "<html><font color=#000000 size=7>Space Name</font><br></html>";
     this.coloredLabelSpaceName = new JLabel(labelTextSpaceName, SwingConstants.LEFT);
-    
+
     this.cname.gridx = 0;
     this.cname.gridy = 1;
     this.cname.anchor = GridBagConstraints.NORTHWEST;
@@ -329,25 +328,23 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(name, BorderLayout.WEST);
     this.playerlist = readOnlyModel.getPlayerList();
 
-
 //    String[][] data = this.playerlist.stream()
 //        .map(e -> new String[] { e.getName(), e.getCurrentRoom().getName(),
 //            Integer.toString(e.getItemCapacity()), e.isComputerPlayer() ? "Computer" : "Human" })
 //        .toArray(String[][]::new);
-    
-    String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
 
+    String col[] = { "Name", "Initial Space", "Item Capacity", "Human/Computer" };
 
 //    this.playerTable = new JTable(data, col);
 //    JTableHeader header = this.playerTable.getTableHeader();
-    //header.setBackground(Color.YELLOW);
-    
+    // header.setBackground(Color.YELLOW);
+
     JPanel tablePanel = new JPanel();
     tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
-    
+
     this.model = new DefaultTableModel(col, 0);
     this.playerTable = new JTable(model);
-    
+
     JScrollPane pane = new JScrollPane(this.playerTable);
 
     this.playerTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -355,9 +352,9 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.playerTable.setBackground(new Color(137, 207, 240));
 
     this.playerTable.setBorder(new EmptyBorder(30, 100, 50, 70));
-    
+
     tablePanel.add(pane);
-    
+
     this.add(tablePanel, BorderLayout.CENTER);
 
   }
@@ -414,20 +411,23 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.itemLimitText.setText("");
     this.groupType.clearSelection();
   }
-  
+
   public void addDataToTable() {
-    
-    this.model.addRow(new Object[] {
-        this.nameText.getText(),
-        this.spaceName.getSelectedItem(),
-        this.itemLimitText.getText(),
-        this.groupType.getSelection().getActionCommand()
-    });
+
+    this.model.addRow(new Object[] { this.nameText.getText(), this.spaceName.getSelectedItem(),
+        this.itemLimitText.getText(), this.groupType.getSelection().getActionCommand() });
   }
 
-  public void addActionListener(ActionListener listener) {
-    this.addButton.addActionListener(listener);
-    this.nextButton.addActionListener(listener);
+  public void setFeatures(Features features) {
+    this.features = features;
+    this.addButton.addActionListener(l -> {
+      features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),
+          Integer.parseInt(itemLimitText.getText()),
+          "Human".equalsIgnoreCase(groupType.getSelection().getActionCommand()) ? false : true);
+      addDataToTable();
+      resetFields();
+    });
+    this.nextButton.addActionListener(l -> features.moveToGameScreen());
   }
 
 }

@@ -30,14 +30,13 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * Starts the game and sends and process requests for the actions the user
    * inputs.
    * 
-   * @param boardgameimpl the boardgame facade interface type
+   * @param boardgameimpl the boardGame facade interface type
    */
   public void start() throws IllegalStateException {
-    // view.addClickListener(this);
     view.setFeatures(this);
     view.makeVisible();
-    configureButtonListener();
-    configureKeyBoardListener();
+    // configureButtonListener();
+    // configureKeyBoardListener();
 
   }
 
@@ -70,7 +69,8 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String handleKeyPressEvent(String action, String playerName, String roomOrItemName) {
+  public String handleKeyPressEvent(String action, String playerName, String roomOrItemName)
+      throws IllegalStateException {
     if ("Attack".equalsIgnoreCase(action)) {
       GameController cmd = new AttackTarget(playerName, roomOrItemName);
       cmd.execute(model);
@@ -92,104 +92,113 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     cmd.execute(model);
     return cmd.getOutput();
   }
+//
+//  private void configureButtonListener() {
+//    Map<String, Runnable> buttonClickedMap = new HashMap<>();
+//    ButtonListener buttonListener = new ButtonListener();
+//
+////    buttonClickedMap.put("START", () -> {
+////      this.view.displayWorldSelectionScreen();
+////    });
+//
+////    buttonClickedMap.put("Current World", () -> {
+////      this.view.displayAddPlayerScreen();
+////    });
+////
+////    buttonClickedMap.put("New World", () -> {
+////      this.view.showFileUploadDialog();
+////      this.view.displayAddPlayerScreen();
+////    });
+////
+////    buttonClickedMap.put("Quit", () -> {
+////      this.view.closeWindow();
+////    });
+//
+////    buttonClickedMap.put("ADD", () -> {
+////      this.view.addPlayers();
+////    });
+//
+////    buttonClickedMap.put("CONTINUE", () -> {
+////      this.view.setOutputMessage(String.format("Game Starts !! Execute the first turn !"));
+////      this.view.displayGameScreen();
+////    });
+//    buttonListener.setButtonClickedActionMap(buttonClickedMap);
+//    this.view.addActionListener(buttonListener);
+//  }
 
-  private void configureButtonListener() {
-    Map<String, Runnable> buttonClickedMap = new HashMap<>();
-    ButtonListener buttonListener = new ButtonListener();
-
-    buttonClickedMap.put("START", () -> {
-      this.view.displayWorldSelectionScreen();
-    });
-
-    buttonClickedMap.put("Current World", () -> {
-      this.view.displayAddPlayerScreen();
-    });
-
-    buttonClickedMap.put("New World", () -> {
-      this.view.showFileUploadDialog();
-      this.view.displayAddPlayerScreen();
-    });
-
-    buttonClickedMap.put("Quit", () -> {
-      this.view.closeWindow();
-    });
-
-    buttonClickedMap.put("ADD", () -> {
-      this.view.addPlayers();
-    });
-
-    buttonClickedMap.put("CONTINUE", () -> {
-      this.view.setOutputMessage(String.format("Game Starts !! Execute the first turn !"));
-      this.view.displayGameScreen();
-    });
-    buttonListener.setButtonClickedActionMap(buttonClickedMap);
-    this.view.addActionListener(buttonListener);
-
-  }
-
-  private void configureKeyBoardListener() {
-    Map<Character, Runnable> keyTypes = new HashMap<>();
-    Map<Integer, Runnable> keyPresses = new HashMap<>();
-    Map<Integer, Runnable> keyReleases = new HashMap<>();
-
-    keyPresses.put(KeyEvent.VK_P, () -> {
-      try {
-        String playerName = this.view.getCurrentPlayerName();
-        String itemName = view.showPickDialog();
-        GameController cmd = new PickUpItem(playerName, itemName);
-        cmd.execute(model);
-        view.setOutputMessage(cmd.getOutput());
-        view.displayGameScreen();
-      } catch (IllegalStateException ise) {
-        view.setIfTurnExecuted(false);
-        view.setOutputMessage(ise.getMessage());
-        view.displayGameScreen();
-      }
-    });
-
-    keyPresses.put(KeyEvent.VK_L, () -> {
-      try {
-        String playerName = view.getCurrentPlayerName();
-        GameController cmd = new LookAround(playerName);
-        cmd.execute(model);
-        view.setOutputMessage(cmd.getOutput());
-        view.setIfTurnExecuted(true);
-        view.displayGameScreen();
-      } catch (IllegalStateException ise) {
-        view.setIfTurnExecuted(false);
-        view.setOutputMessage(ise.getMessage());
-        view.displayGameScreen();
-      }
-    });
-
-    keyPresses.put(KeyEvent.VK_A, () -> {
-      try {
-        String playerName = view.getCurrentPlayerName();
-        String itemName = view.showAttackDialog();
-        GameController cmd = new AttackTarget(playerName, itemName);
-        cmd.execute(model);
-        view.setOutputMessage(cmd.getOutput());
-        view.setIfTurnExecuted(true);
-        view.displayGameScreen();
-      } catch (IllegalStateException ise) {
-        view.setIfTurnExecuted(false);
-        view.setOutputMessage(ise.getMessage());
-        view.displayGameScreen();
-      }
-    });
-
-    KeyboardListener kbd = new KeyboardListener();
-    kbd.setKeyTypedMap(keyTypes);
-    kbd.setKeyPressedMap(keyPresses);
-    kbd.setKeyReleasedMap(keyReleases);
-
-    view.addKeyListener(kbd);
-  }
+//  private void configureKeyBoardListener() {
+//    Map<Character, Runnable> keyTypes = new HashMap<>();
+//    Map<Integer, Runnable> keyPresses = new HashMap<>();
+//    Map<Integer, Runnable> keyReleases = new HashMap<>();
+//
+//    keyPresses.put(KeyEvent.VK_P, () -> {
+//      try {
+//        String playerName = this.view.getCurrentPlayerName();
+//        String itemName = view.showPickDialog();
+//        GameController cmd = new PickUpItem(playerName, itemName);
+//        cmd.execute(model);
+//        view.setOutputMessage(cmd.getOutput());
+//        view.displayGameScreen();
+//      } catch (IllegalStateException ise) {
+//        view.setIfTurnExecuted(false);
+//        view.setOutputMessage(ise.getMessage());
+//        view.displayGameScreen();
+//      }
+//    });
+//
+//    keyPresses.put(KeyEvent.VK_L, () -> {
+//      try {
+//        String playerName = view.getCurrentPlayerName();
+//        GameController cmd = new LookAround(playerName);
+//        cmd.execute(model);
+//        view.setOutputMessage(cmd.getOutput());
+//        view.setIfTurnExecuted(true);
+//        view.displayGameScreen();
+//      } catch (IllegalStateException ise) {
+//        view.setIfTurnExecuted(false);
+//        view.setOutputMessage(ise.getMessage());
+//        view.displayGameScreen();
+//      }
+//    });
+//
+//    keyPresses.put(KeyEvent.VK_A, () -> {
+//      try {
+//        String playerName = view.getCurrentPlayerName();
+//        String itemName = view.showAttackDialog();
+//        GameController cmd = new AttackTarget(playerName, itemName);
+//        cmd.execute(model);
+//        view.setOutputMessage(cmd.getOutput());
+//        view.setIfTurnExecuted(true);
+//        view.displayGameScreen();
+//      } catch (IllegalStateException ise) {
+//        view.setIfTurnExecuted(false);
+//        view.setOutputMessage(ise.getMessage());
+//        view.displayGameScreen();
+//      }
+//    });
+//
+//    KeyboardListener kbd = new KeyboardListener();
+//    kbd.setKeyTypedMap(keyTypes);
+//    kbd.setKeyPressedMap(keyPresses);
+//    kbd.setKeyReleasedMap(keyReleases);
+//
+//    view.addKeyListener(kbd);
+//  }
 
   @Override
   public void handlePlayerMouseClickEvent(String playerName) {
     GameController cmd = new DisplayPlayerInfo(playerName);
     cmd.execute(model);
     this.view.setPlayerInfoDialog(cmd.getOutput());
+  }
+
+  @Override
+  public void moveToAddPlayerScreen() {
+    this.view.displayWorldSelectionScreen();
+  }
+
+  @Override
+  public void moveToGameScreen() {
+    this.view.displayGameScreen();
   }
 }

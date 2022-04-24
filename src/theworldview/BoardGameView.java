@@ -2,11 +2,7 @@ package theworldview;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.util.List;
-
-import controller.BoardGameController;
 import controller.Features;
-import theworld.PlayerImpl;
 
 public interface BoardGameView {
 
@@ -47,7 +43,7 @@ public interface BoardGameView {
 
   public String showAttackDialog();
 
-  public String showFileUploadDialog();
+  public void showFileUploadDialog();
 
   public void setIfTurnExecuted(boolean ifTurnExecuted);
 
