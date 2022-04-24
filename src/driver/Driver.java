@@ -36,7 +36,7 @@ public class Driver {
       while ((data = fr.read()) != -1) {
         inputdata.append((char) data);
       }
-      BoardGameImpl world = Builder.readfile(inputdata.toString());
+      BoardGameImpl world = Builder.readfile(inputdata.toString(), turns);
       // BoardGameModel boardGameModel = world;
 //      ReadOnlyBoardGameModel readOnlyModel = new BoardGameImpl(world.getTargetCharacterImpl(),
 //          world.getName(), world.getSpaceList(), world.getWorldCoordinates(),

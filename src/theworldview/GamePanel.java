@@ -6,8 +6,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,8 +23,9 @@ import theworld.ReadOnlyBoardGameModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class GamePanel extends JPanel implements MouseListener {
+public class GamePanel extends JPanel {
 
   private ReadOnlyBoardGameModel readOnlyModel;
   private BoardGameView view;
@@ -70,8 +69,7 @@ public class GamePanel extends JPanel implements MouseListener {
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
     this.features = features;
-    
-    
+
     this.colorList = new ArrayList<>();
     this.colorList.add("Dark Blue");
     this.colorList.add("Green");
@@ -85,15 +83,15 @@ public class GamePanel extends JPanel implements MouseListener {
     this.colorList.add("Light Blue");
 
     this.setLayout(new BorderLayout(20, 15));
-    //this.setBackground(new Color(137, 207, 240));
-    
+    // this.setBackground(new Color(137, 207, 240));
+
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
+    //this.gamePanel.revalidate();
 
     this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
 
     this.imageLabel.setLayout(null);
-   
 
     this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
@@ -107,84 +105,87 @@ public class GamePanel extends JPanel implements MouseListener {
 
     playerList.forEach(s -> {
       if (playerIteration == 1) {
-        this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png");
+        this.playerLabel1 = getPlayerJLabel(s, "playerIcon1.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel1);
-        this.addPlayerListener(this.playerLabel1, this.features);
+        this.addPlayerListener(this.playerLabel1, this.features, 0);
       } else if (playerIteration == 2) {
-        this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png");
+        this.playerLabel2 = getPlayerJLabel(s, "playerIcon2.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel2);
-        this.addPlayerListener(this.playerLabel2, this.features);
+        this.addPlayerListener(this.playerLabel2, this.features, 1);
       } else if (playerIteration == 3) {
-        this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png");
+        this.playerLabel3 = getPlayerJLabel(s, "playerIcon3.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel3);
-        this.addPlayerListener(this.playerLabel3, this.features);
+        this.addPlayerListener(this.playerLabel3, this.features, 2);
       } else if (playerIteration == 4) {
-        this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png");
+        this.playerLabel4 = getPlayerJLabel(s, "playerIcon4.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel4);
-        this.addPlayerListener(this.playerLabel4, this.features);
+        this.addPlayerListener(this.playerLabel4, this.features, 3);
       } else if (playerIteration == 5) {
-        this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png");
+        this.playerLabel5 = getPlayerJLabel(s, "playerIcon5.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel5);
-        this.addPlayerListener(this.playerLabel5, this.features);
+        this.addPlayerListener(this.playerLabel5, this.features, 4);
       } else if (playerIteration == 6) {
-        this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png");
+        this.playerLabel6 = getPlayerJLabel(s, "playerIcon6.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel6);
-        this.addPlayerListener(this.playerLabel6, this.features);
+        this.addPlayerListener(this.playerLabel6, this.features, 5);
       } else if (playerIteration == 7) {
-        this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png");
+        this.playerLabel7 = getPlayerJLabel(s, "playerIcon7.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel7);
-        this.addPlayerListener(this.playerLabel7, this.features);
+        this.addPlayerListener(this.playerLabel7, this.features, 6);
       } else if (playerIteration == 8) {
-        this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png");
+        this.playerLabel8 = getPlayerJLabel(s, "playerIcon8.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel8);
-        this.addPlayerListener(this.playerLabel8, this.features);
+        this.addPlayerListener(this.playerLabel8, this.features, 7);
       } else if (playerIteration == 9) {
-        this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png");
+        this.playerLabel9 = getPlayerJLabel(s, "playerIcon9.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel9);
-        this.addPlayerListener(this.playerLabel9, this.features);
+        this.addPlayerListener(this.playerLabel9, this.features, 8);
       } else if (playerIteration == 10) {
-        this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png");
+        this.playerLabel10 = getPlayerJLabel(s, "playerIcon10.png",
+            this.ifAnotherPlayer(s.getName(), s.getCurrentRoom().getName()));
         this.imageLabel.add(this.playerLabel10);
-        this.addPlayerListener(this.playerLabel10, this.features);
+        this.addPlayerListener(this.playerLabel10, this.features, 9);
       }
       playerIteration++;
     });
-    this.playerLabel1.addMouseListener(this);
     this.imageLabel.add(this.targetLabel);
 
     this.gamePanel.add(this.imageLabel);
-   // this.gamePanel.setMinimumSize(getMinimumSize())
     JScrollPane imagePane = new JScrollPane(this.gamePanel);
     this.add(imagePane, BorderLayout.CENTER);
 
     this.infoPanel = new JPanel();
     this.infoPanel.setLayout(new BoxLayout(this.infoPanel, BoxLayout.Y_AXIS));
     this.infoPanel.setMaximumSize(new Dimension(500, 500));
-    
+    this.infoPanel.setEnabled(false);
+
     this.playersArea = new JTextArea();
     this.playersArea.setLineWrap(true);
     this.playersArea.setWrapStyleWord(true);
-    
+    this.playersArea.setEnabled(false);
+
+    this.playersArea.setText("PLAYERS INDEX:");
     this.playersArea.setText(this.setPlayerIndexText());
 
-    Font font = new Font("Segoe Script", Font.BOLD, 30);
+    Font font = new Font("Segoe Script", Font.BOLD, 20);
     this.playersArea.setFont(font);
     this.playersArea.setForeground(Color.WHITE);
     this.playersArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.playersArea.setBackground(new Color(37, 190, 175));
-//    this.playersArea.setMaximumSize(new Dimension(50, 50));
     this.playersArea.setMinimumSize(new Dimension(100, 100));
     this.playersArea.setPreferredSize(new Dimension(500, 500));
 
-//    this.game.gridx = 1;
-//    this.game.gridy = 0;
-//    this.game.weightx = 3.0;
-//    this.game.weighty = 3.0;
-//    this.game.anchor = GridBagConstraints.NORTHEAST;
-//    this.game.insets = new Insets(20, 5, 10, 10);
-    
     JScrollPane infoPane = new JScrollPane(this.playersArea);
-    this.infoPanel.add(infoPane);    
+    this.infoPanel.add(infoPane);
 
     this.turnInfoArea = new JTextArea();
     String playerInfo = this.turnMessage.split("Items:")[0];
@@ -195,34 +196,34 @@ public class GamePanel extends JPanel implements MouseListener {
     this.turnInfoArea.setFont(font);
     this.turnInfoArea.setLineWrap(true);
     this.turnInfoArea.setWrapStyleWord(true);
-    //this.turnInfoArea.setDisabledTextColor(Color.BLUE);
-    //this.turnInfoArea.setEnabled(false);
+    this.turnInfoArea.setEnabled(false);
     this.turnInfoArea.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
     this.turnInfoArea.setPreferredSize(new Dimension(500, 500));
-    
-    //this.turnInfoArea.setMaximumSize(new Dimension(50, 50));
+
     this.turnInfoArea.setMinimumSize(new Dimension(100, 100));
-    
+
     JScrollPane turnInfoPane = new JScrollPane(this.turnInfoArea);
     this.infoPanel.add(turnInfoPane);
 
     this.turnResultArea = new JTextArea();
-    this.turnResultArea.setText(String.format("PREVIOUS TURN RESULT:\n %s", this.outputMessage));
+    this.turnResultArea.setText(String.format("RESULT OF THE ACTION:\n %s", this.outputMessage));
     this.turnResultArea.setFont(font);
     this.turnResultArea.setLineWrap(true);
     this.turnResultArea.setWrapStyleWord(true);
+    this.turnResultArea.setEnabled(false);
     this.turnResultArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
     this.turnResultArea.setBackground(new Color(37, 190, 175));
+
     this.turnResultArea.setForeground(Color.WHITE);
-    
+
     this.turnResultArea.setPreferredSize(new Dimension(500, 500));
-    //this.turnResultArea.setMaximumSize(new Dimension(50, 50));
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
     JScrollPane turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
-
+    //this.infoPanel.revalidate();
     this.add(infoPanel, BorderLayout.EAST);
     this.repaint();
+   // this.revalidate();
   }
 
   public void setFeatures(Features f) {
@@ -231,73 +232,68 @@ public class GamePanel extends JPanel implements MouseListener {
     setFocusable(true);
   }
 
-  public JLabel getPlayerJLabel(PlayerImpl player, String iconUrl) {
+  private JLabel getPlayerJLabel(PlayerImpl player, String iconUrl, boolean ifAnotherPlayer) {
+    if (player == null || iconUrl == null) {
+      throw new IllegalArgumentException("IconUrl and player cannot be null");
+    }
     JLabel playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
         .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
-    playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
-        player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
-
+    if (ifAnotherPlayer) {
+      playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
+          player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
+    } else {
+      playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 30,
+          player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);
+    }
     return playerLabel;
   }
-  
-  public String setPlayerIndexText() {
-    
-   StringBuilder sb = new StringBuilder();
-   
-   sb.append("PLAYER INDEX: \n");
-   
-   for (int i = 0; i < this.readOnlyModel.getPlayerList().size(); i++) {
-     sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
-     sb.append(" -> ");
-     sb.append(this.colorList.get(i));
-     sb.append("\n");
-   }
-   
-   return sb.toString();
-    
+
+  private boolean ifAnotherPlayer(String playerName, String spaceName) {
+    if (spaceName == null || playerName == null) {
+      throw new IllegalArgumentException("Player name cannot be null");
+    }
+    List<PlayerImpl> sameRoomPlayers = readOnlyModel.getPlayerList().stream()
+        .filter(s -> s.getCurrentRoom().getName().equalsIgnoreCase(spaceName))
+        .collect(Collectors.toList());
+    if (sameRoomPlayers.size() == 1) {
+      return false;
+    } else {
+      if (playerName.equalsIgnoreCase(sameRoomPlayers.get(0).getName())) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
-  
-  public void addPlayerListener(JLabel label, Features f) {
-      label.addMouseListener((MouseListener) new MouseAdapter() {
+
+  public String setPlayerIndexText() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("PLAYER INDEX: \n");
+    sb.append("T -> ");
+    sb.append(readOnlyModel.getTargetCharacterImpl().getName());
+    sb.append(" (Target Character)");
+    sb.append("\n");
+    for (int i = 0; i < this.readOnlyModel.getPlayerList().size(); i++) {
+      sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
+      sb.append(" -> ");
+      sb.append(this.colorList.get(i));
+      sb.append("\n");
+    }
+
+    return sb.toString();
+  }
+
+  public void addPlayerListener(JLabel label, Features f, int index) {
+    label.addMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-      f.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());    
-    }});
+        f.handlePlayerMouseClickEvent(readOnlyModel.getPlayerList().get(index).getName());
+      }
+    });
   }
 
   public void resetFocus() {
     this.setFocusable(true);
     this.requestFocus();
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    Component c = e.getComponent();
-    System.out.println("mocuse clikc");
-
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    // TODO Auto-generated method stub
-    Component c = e.getComponent();
-    System.out.println("mocuse press");
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
-
   }
 }

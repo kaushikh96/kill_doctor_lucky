@@ -59,7 +59,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.setLayout(new BorderLayout());
     this.welcomePanel = new WelcomePanel(model, this);
     this.add(welcomePanel, BorderLayout.CENTER);
-    //this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
+    // this.addPlayerPanel = new AddPlayerPanel(this.readOnlyModel, this);
     this.worldSelectionPanel = new WorldSelectionPanel(model, this);
 
     this.menuBar = new JMenuBar();
@@ -90,8 +90,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.welcomePanel.addActionListener(actionListener);
     this.currentWorldItem.addActionListener(actionListener);
     this.newWorldItem.addActionListener(actionListener);
-    this.quit.addActionListener(new ButtonListener());
-   // this.addPlayerPanel.addActionListener(actionListener);
+    this.quit.addActionListener(actionListener);
+    // this.addPlayerPanel.addActionListener(actionListener);
     this.listener = actionListener;
   }
 
@@ -120,10 +120,24 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.remove(addPlayerPanel);
     this.currentWorldItem.setEnabled(false);
     this.newWorldItem.setEnabled(false);
-    if (this.ifTurnsExecuted) {
-      this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+    if (readOnlyModel.getTurns() == -1) {
+      this.ifTurnsExecuted = false;
+      this.outputMessage = "Turns Exhausted ! Target Character Escapes !!";
     }
-    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage, this.f);
+    if (this.ifTurnsExecuted) {
+      if (this.gamePanel != null) {
+        this.remove(this.gamePanel);
+      }
+      this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+      String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
+      if ("true".equalsIgnoreCase(turnmessage)) {
+        this.outputMessage = String.format("%s\n\n%s", this.outputMessage,
+            f.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
+        this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+      }
+    }
+    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage,
+        this.f);
     this.gamePanel.setFeatures(f);
     setFocusable(true);
     this.add(gamePanel, BorderLayout.CENTER);
@@ -132,14 +146,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void addPlayers() {
-
     this.f.addPlayer(this.addPlayerPanel.getPlayerName(), this.addPlayerPanel.getSpace(),
         this.addPlayerPanel.itemCapacity(), this.addPlayerPanel.getPlayerType());
 
     this.addPlayerPanel.addDataToTable();
     this.addPlayerPanel.resetFields();
-    
-   
   }
 
   @Override
@@ -181,6 +192,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Pick an Item",
         JOptionPane.DEFAULT_OPTION);
@@ -243,12 +255,16 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     List<ItemImpl> itemsOnPlayer = this.readOnlyModel.getPlayerList().stream()
         .filter(p -> p.getName().trim().equals(this.readOnlyModel.getCurrentPlayerTurn().trim()))
         .collect(Collectors.toList()).get(0).getItems();
-    itemsOnPlayer.add(new ItemImpl(1, "Poke"));
+    if (itemsOnPlayer.stream().filter(s -> "Poke".equals(s.getName())).collect(Collectors.toList())
+        .isEmpty()) {
+      itemsOnPlayer.add(new ItemImpl(1, "Poke"));
+    }
     String[] itemList = itemsOnPlayer.stream().map(ItemImpl::getName).collect(Collectors.toList())
         .toArray(new String[0]);
 
     JComboBox items = new JComboBox(itemList);
     items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(-1);
 
     int result = JOptionPane.showConfirmDialog(null, items, "Choose an Item to Attack",
         JOptionPane.DEFAULT_OPTION);
