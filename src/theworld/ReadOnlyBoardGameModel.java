@@ -1,7 +1,6 @@
 package theworld;
 
 import java.util.List;
-
 import driver.RandomClass;
 
 /**
@@ -69,36 +68,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public String getNextTargetCharacterRoom() throws IllegalStateException;
 
   /**
-   * Method to determine whether playerA can see playerB.
-   * 
-   * @param playerA name of the first player
-   * @param playerB name of the second whose visibility is to be determined
-   * 
-   * @return the boolean value if playerA can be playerB
-   */
-  public boolean ifPlayerSeen(String playerA, String playerB);
-
-  /**
-   * Method to decrease the target character's health.
-   * 
-   * @param playercurrent data of the current player
-   * @param itemname      name of the item
-   * 
-   * @return the health data of the target character
-   */
-  public String decreaseTargetHealth(PlayerImpl playercurrent, String itemname);
-
-  /**
-   * Method to play computerplayer attack target.
-   * 
-   * @param playername name of the player
-   * @param itemname   name of the item
-   * 
-   * @return the health data of the target character
-   */
-  public String playComputerPlayerAttackTarget(String playername, String itemname);
-
-  /**
    * Method to move pet using Depth First Traversal logic.
    * 
    * @param petcurrentroom name of the player
@@ -110,8 +79,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public RandomClass getRandomClassRef();
 
   public String getCurrentPlayerTurn();
-
-  public BoardGameImpl updateWorld(String inputdata);
 
   public int getTurns();
 

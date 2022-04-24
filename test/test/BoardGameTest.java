@@ -90,6 +90,9 @@ public class BoardGameTest {
     boardgame.addPlayer("Remo", space5.getName(), 3, playeritem, false);
     boardgame.addPlayer("Jizo", space6.getName(), 3, playeritem, false);
     boardgame.addPlayer("Alzo", space7.getName(), 3, playeritem, false);
+    boardgame3.addPlayer("Sanjana", space4.getName(), 2, playeritem1, true);
+    boardgame3.addPlayer("comp2", space.getName(), 2, playeritem1, true);
+    boardgame4.addPlayer("comp3", space.getName(), 2, playeritem1, true);
 
   }
 
@@ -253,7 +256,7 @@ public class BoardGameTest {
     assertEquals("Valid Arguments",
         "RoomInfo (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
             + " Players: John, David, comp1;\n"
-            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "\n" + "",
+            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "",
         boardgame.getRoomInfo(space.getName()));
   }
 
@@ -301,8 +304,8 @@ public class BoardGameTest {
     coordinates1.add(11);
     coordinates1.add(10);
 
-    boardgame.movePlayer(2, 11);
-    assertEquals("Garden", boardgame.getNextTargetCharacterRoom());
+    // System.out.println(boardgame.movePlayer(2, 11));
+    assertEquals("Garden", boardgame.movePlayer(2, 11));
   }
 
   @Test(expected = IllegalStateException.class)
@@ -410,23 +413,21 @@ public class BoardGameTest {
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
     RandomClass rclass = new RandomClass(0);
-    assertEquals("Valid Arguments", "LookAround (Name: Dining Room;\n"
-        + " Items: Glass cutter, Trowel;\n" + " Players: John, David, comp1;\n"
-        + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
-        + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
-        + "(Name: Pantry; Items: No items available; Players: No players available)\n"
-        + "Target Character Current Room: Music Room\n" + "",
+    assertEquals("Valid Arguments",
+        "Turn of comp1\n" + "LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
+            + " Players: John, David, comp1;\n"
+            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
+            + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
+            + "(Name: Pantry; Items: No items available; Players: No players available)\n" + "",
         boardgame.playTurnComputerPlayer("comp1"));
   }
 
   @Test
   public void testComputerPlayerMovePlayer() {
     RandomClass rclass = new RandomClass(1);
-    assertEquals(
-        "Executed Move: comp1 has moved to Kitchen\n"
-            + "Target Character Current Room: Music Room\n" + "",
-        boardgame.playTurnComputerPlayer("comp1"));
+    assertEquals("Turn of comp2\n" + "Executed Move:\n" + "Player has moved to Kitchen\n" + "",
+        boardgame3.playTurnComputerPlayer("comp2"));
   }
 
   @Test
@@ -476,9 +477,9 @@ public class BoardGameTest {
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
     RandomClass rclass = new RandomClass(2);
     assertEquals("Valid Arguments",
-        "Executed Move Pet: Pet has been moved to Garden\n"
-            + "Target Character Current Room: Music Room\n" + "",
-        boardgame.playTurnComputerPlayer("comp1"));
+        "Turn of Sanjana\n" + "Target Character hit successfully.\n"
+            + "Health got decreased by 2.\n" + "Current Health: 68\n" + "\n" + "",
+        boardgame3.playTurnComputerPlayer("Sanjana"));
   }
 
   @Test
@@ -531,13 +532,14 @@ public class BoardGameTest {
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
 
-    assertEquals("LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
-        + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
-        + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
-        + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
-        + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n"
-        + "Target Character Current Room: Music Room\n" + "", boardgame.lookAround("Rohith"));
+    assertEquals(
+        "LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
+            + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
+            + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
+            + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
+            + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n" + "",
+        boardgame.lookAround("Rohith"));
   }
 
   @Test
@@ -560,13 +562,14 @@ public class BoardGameTest {
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
     TargetCharacterImpl target = new TargetCharacterImpl("John", 30, space);
-    assertEquals("LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
-        + " Players: John, David, comp1;\n"
-        + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
-        + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
-        + "(Name: Pantry; Items: No items available; Players: No players available)\n"
-        + "Target Character Current Room: Music Room\n" + "", boardgame.lookAround("John"));
+    assertEquals(
+        "LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
+            + " Players: John, David, comp1;\n"
+            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
+            + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
+            + "(Name: Pantry; Items: No items available; Players: No players available)\n" + "",
+        boardgame.lookAround("John"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -617,14 +620,15 @@ public class BoardGameTest {
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     boardgame.addPlayer("Bob", "Music Room", 2, playeritem, false);
     boardgame.addPlayer("Alan", "Music Room", 2, playeritem, false);
-    assertEquals("LookAround (Name: Music Room;\n" + " Items: Pesticide;\n"
-        + " Players: Rohith, Bob, Alan;\n"
-        + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
-        + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
-        + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
-        + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n"
-        + "Target Character Current Room: Music Room\n" + "", boardgame.lookAround("Bob"));
+    assertEquals(
+        "LookAround (Name: Music Room;\n" + " Items: Pesticide;\n"
+            + " Players: Rohith, Bob, Alan;\n"
+            + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
+            + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
+            + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
+            + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n" + "",
+        boardgame.lookAround("Bob"));
   }
 
   @Test
@@ -676,13 +680,14 @@ public class BoardGameTest {
 
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
-    assertEquals("Valid Arguments", "LookAround (Name: Dining Room;\n"
-        + " Items: Glass cutter, Trowel;\n" + " Players: John, David, comp1;\n"
-        + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
-        + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
-        + "(Name: Pantry; Items: No items available; Players: No players available)\n"
-        + "Target Character Current Room: Music Room\n" + "", boardgame.lookAround("John"));
+    assertEquals("Valid Arguments",
+        "LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
+            + " Players: John, David, comp1;\n"
+            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
+            + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
+            + "(Name: Pantry; Items: No items available; Players: No players available)\n" + "",
+        boardgame.lookAround("John"));
   }
 
   @Test
@@ -798,13 +803,14 @@ public class BoardGameTest {
 
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
-    assertEquals("Valid Arguments", "LookAround (Name: Dining Room;\n"
-        + " Items: Glass cutter, Trowel;\n" + " Players: John, David, comp1;\n"
-        + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
-        + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
-        + "(Name: Pantry; Items: No items available; Players: No players available)\n"
-        + "Target Character Current Room: Music Room\n" + "", boardgame.lookAround("John"));
+    assertEquals("Valid Arguments",
+        "LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
+            + " Players: John, David, comp1;\n"
+            + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
+            + "(Name: Garden; Items: Big Red Hammer; Players: No players available)\n"
+            + "(Name: Pantry; Items: No items available; Players: No players available)\n" + "",
+        boardgame.lookAround("John"));
   }
 
   @Test(expected = IllegalStateException.class)
@@ -877,10 +883,8 @@ public class BoardGameTest {
 
     SpaceImpl space = new SpaceImpl(1, coordinates, "Garden", items);
     boardgame.movePet("Music room");
-    assertEquals(
-        "Target Character hit successfully.\n" + "Health got decreased by 2.\n"
-            + "Current Health: 68\n" + "\n" + "Target Character Current Room: Garden\n" + "",
-        boardgame.attackTarget("Rohith", "Crepe Pan"));
+    assertEquals("Target Character hit successfully.\n" + "Health got decreased by 2.\n"
+        + "Current Health: 68\n" + "\n" + "", boardgame.attackTarget("Rohith", "Crepe Pan"));
   }
 
   @Test
@@ -924,9 +928,8 @@ public class BoardGameTest {
     playeritem.add(itemobj);
     playeritem.add(itemobj2);
     boardgame.movePet("Dining Room");
-    assertEquals(
-        "Target Character attack stopped as the attack is being seen by other players.\n"
-            + "Target Character Current Room: Garden\n" + "",
+    assertEquals("Target Character attack stopped as the \n"
+        + "attack is being seen by other players.\n" + "",
         boardgame.attackTarget("Rohith", "Pesticide"));
   }
 
@@ -1006,8 +1009,7 @@ public class BoardGameTest {
 
   @Test
   public void testMovePet() {
-    assertEquals("Move pet testing",
-        "Pet has been moved to Attic\n" + "Target Character Current Room: Music Room\n" + "",
+    assertEquals("Move pet testing", "Executed Move Pet:\n" + "Pet has been moved to Attic\n" + "",
         boardgame.movePet("Attic"));
   }
 
@@ -1031,12 +1033,13 @@ public class BoardGameTest {
 
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     boardgame.movePet("Living Room");
-    assertEquals("LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
-        + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
-        + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
-        + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n"
-        + "Target Character Current Room: Garden\n" + "", boardgame.lookAround("Rohith"));
+    assertEquals(
+        "LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
+            + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
+            + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
+            + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n" + "",
+        boardgame.lookAround("Rohith"));
   }
 
   @Test
@@ -1179,13 +1182,14 @@ public class BoardGameTest {
 
     SpaceImpl space = new SpaceImpl(1, coordinates, "Music Room", items);
     boardgame.movePet("Library");
-    assertEquals("LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
-        + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "\n" + "Neighbours: \n"
-        + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
-        + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
-        + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
-        + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n"
-        + "Target Character Current Room: Garden\n" + "", boardgame.lookAround("Rohith"));
+    assertEquals(
+        "LookAround (Name: Music Room;\n" + " Items: Pesticide;\n" + " Players: Rohith;\n"
+            + " Neighbours: Living Room, Attic, Washroom, Playzone)\n" + "\n" + "Neighbours: \n"
+            + "(Name: Living Room; Items: Sofa Edge; Players: Anir)\n"
+            + "(Name: Attic; Items: Sharp Knife; Players: No players available)\n"
+            + "(Name: Washroom; Items: Piece of Rope; Players: No players available)\n"
+            + "(Name: Playzone; Items: Monkey Hand; Players: Anon)\n" + "",
+        boardgame.lookAround("Rohith"));
   }
 
   @Test
@@ -1225,7 +1229,7 @@ public class BoardGameTest {
     assertEquals("Valid Arguments",
         "Executed Move Pet: Pet has been moved to Garden\n"
             + "Target Character Current Room: Music Room\n" + "",
-        boardgame.playTurnComputerPlayer("comp1"));
+        boardgame3.playTurnComputerPlayer("comp3"));
   }
 
   @Test
@@ -1253,7 +1257,7 @@ public class BoardGameTest {
 
   @Test
   public void testDisplaytargetLocationforEachturn() {
-    assertEquals("Valid Arguments", "Music Room", boardgame.movePlayer(5, 9));
+    assertEquals("Valid Arguments", "Dining Room", boardgame.movePlayer(1, 7));
 
     assertEquals("Valid Arguments", "Garden", boardgame.pickItem("David", "Big Red Hammer"));
 
@@ -1367,9 +1371,8 @@ public class BoardGameTest {
   @Test
   public void testTargetHealthReductionforPoke() {
     boardgame.movePet("Music Room");
-    assertEquals("Valid Arguments",
-        "Target Character hit successfully.\n" + "Health got decreased by 1.\n"
-            + "Current Health: 69\n" + "\n" + "Target Character Current Room: Garden\n" + "",
+    assertEquals("Valid Arguments", "Target Character hit successfully.\n"
+        + "Health got decreased by 1.\n" + "Current Health: 69\n" + "\n" + "",
         boardgame.attackTarget("Rohith", "poke"));
   }
 

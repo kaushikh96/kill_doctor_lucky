@@ -347,7 +347,7 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.add(tablePanel, BorderLayout.CENTER);
 
   }
-  
+
   /**
    * This method gives the space selected by the user from the JComboBox.
    */
@@ -437,18 +437,18 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   }
 
   /**
-   * This method implements the functionalities for different events so that
-   * the listener responds accordingly.
+   * This method implements the functionalities for different events so that the
+   * listener responds accordingly.
    *
    * @param features the callbacks sent as a feature object.
    */
 
   public void setFeatures(Features features) {
-    
+
     if (features == null) {
       throw new IllegalArgumentException("Features object cannot be null\n");
     }
-    
+
     this.features = features;
 
     this.addButton.addActionListener(l -> {
@@ -462,8 +462,6 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
           features.addPlayer(nameText.getText(), spaceName.getSelectedItem().toString(),
               Integer.parseInt(itemLimitText.getText()),
               "Human".equalsIgnoreCase(groupType.getSelection().getActionCommand()) ? false : true);
-          addDataToTable();
-          resetFields();
         }
       } catch (NumberFormatException nfe) {
         this.showErrorPopUp("Invalid Item Capacity");

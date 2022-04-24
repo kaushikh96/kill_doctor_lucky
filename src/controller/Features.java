@@ -8,7 +8,7 @@ public interface Features {
 
   public void handleKeyPressEvent(String action, String playername, String roomOrItemName);
 
-  public String handleMouseClickEvent(int x, int y);
+  public void handleMouseClickEvent(int x, int y);
 
   public String playComputerPlayer(String playerName);
 
@@ -17,4 +17,6 @@ public interface Features {
   public void moveToAddPlayerScreen();
 
   public void moveToGameScreen();
+
+  public void updateWorld(String inputFileData);
 }

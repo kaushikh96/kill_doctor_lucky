@@ -193,12 +193,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
     keyPresses.put(KeyEvent.VK_P, () -> {
       String itemName = this.showPickDialog();
-      features.handleKeyPressEvent("pickItem", readOnlyModel.getCurrentPlayerTurn(), itemName);
+      features.handleKeyPressEvent("PickItem", readOnlyModel.getCurrentPlayerTurn(), itemName);
       this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_L, () -> {
-      features.handleKeyPressEvent("lookAround", readOnlyModel.getCurrentPlayerTurn(), "");
+      features.handleKeyPressEvent("LookAround", readOnlyModel.getCurrentPlayerTurn(), "");
       this.displayGameScreen();
     });
 
@@ -277,6 +277,11 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   }
 
+  public void ifPlayerAdded() {
+    this.addPlayerPanel.addDataToTable();
+    this.addPlayerPanel.resetFields();
+  }
+
   @Override
   public String showFileUploadDialog() {
     try {
@@ -294,7 +299,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
       while ((data = fr1.read()) != -1) {
         inputdata.append((char) data);
       }
-      this.readOnlyModel = readOnlyModel.updateWorld(inputdata.toString());
+      features.updateWorld(inputdata.toString());
       return String.format("File Successfully Uploaded");
     } catch (FileNotFoundException fnf) {
       throw new IllegalStateException("File not Found");

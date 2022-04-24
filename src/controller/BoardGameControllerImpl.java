@@ -1,11 +1,18 @@
 package controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 import theworld.BoardGameModel;
+import theworld.PlayerImpl;
 import theworldview.BoardGameView;
 
 public class BoardGameControllerImpl implements BoardGameController, Features {
   private final BoardGameView view;
   private final BoardGameModel model;
+  private Map<String, BiConsumer<String, String>> actionMap;
 
   /**
    * Constructor for the controller.
@@ -19,6 +26,27 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     }
     this.view = view;
     this.model = model;
+    this.actionMap = new HashMap<String, BiConsumer<String, String>>();
+    this.actionMap.put(Action.ATTACK.toString(), (playerName, itemName) -> {
+      GameController cmd = new AttackTarget(playerName, itemName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+    });
+    this.actionMap.put(Action.LOOK_AORUND.toString(), (playerName, itemName) -> {
+      GameController cmd = new LookAround(playerName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+    });
+    this.actionMap.put(Action.PICK_ITEM.toString(), (playerName, itemName) -> {
+      GameController cmd = new PickUpItem(playerName, itemName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+    });
+    this.actionMap.put(Action.MOVE_PET.toString(), (playerName, itemName) -> {
+      GameController cmd = new MovePet(playerName, itemName);
+      cmd.execute(model);
+      this.view.setOutputMessage(cmd.getOutput());
+    });
   }
 
   /**
@@ -35,11 +63,9 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   @Override
   public void addPlayer(String playerName, String spaceName, int itemCapacity,
       boolean isComputerPlayer) {
-    try {
-      GameController cmd = new AddPlayer(playerName, spaceName, itemCapacity, isComputerPlayer);
-      cmd.execute(model);
-    } catch (IllegalStateException ise) {
-    }
+    GameController cmd = new AddPlayer(playerName, spaceName, itemCapacity, isComputerPlayer);
+    cmd.execute(model);
+    this.view.ifPlayerAdded();
   }
 
   @Override
@@ -54,32 +80,18 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     try {
       GameController cmd = new GetPlayerTurn(playerName);
       cmd.execute(model);
+      this.view.setIfTurnExecuted(true);
       return cmd.getOutput();
     } catch (IllegalStateException ise) {
-      return null;
+      this.view.setIfTurnExecuted(false);
+      return String.format(ise.getMessage());
     }
   }
 
   @Override
   public void handleKeyPressEvent(String action, String playerName, String roomOrItemName) {
     try {
-      if ("Attack".equalsIgnoreCase(action)) {
-        GameController cmd = new AttackTarget(playerName, roomOrItemName);
-        cmd.execute(model);
-        this.view.setOutputMessage(cmd.getOutput());
-      } else if ("pickItem".equalsIgnoreCase(action)) {
-        GameController cmd = new PickUpItem(playerName, roomOrItemName);
-        cmd.execute(model);
-        this.view.setOutputMessage(cmd.getOutput());
-      } else if ("lookAround".equalsIgnoreCase(action)) {
-        GameController cmd = new LookAround(playerName);
-        cmd.execute(model);
-        this.view.setOutputMessage(cmd.getOutput());
-      } else {
-        GameController cmd = new MovePet(playerName, roomOrItemName);
-        cmd.execute(model);
-        this.view.setOutputMessage(cmd.getOutput());
-      }
+      this.actionMap.get(action).accept(playerName, roomOrItemName);
       this.view.setIfTurnExecuted(true);
     } catch (IllegalStateException ise) {
       this.view.setOutputMessage(ise.getMessage());
@@ -88,10 +100,18 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String handleMouseClickEvent(int x, int y) throws IllegalStateException {
-    GameController cmd = new MovePlayer(x, y);
-    cmd.execute(model);
-    return cmd.getOutput();
+  public void handleMouseClickEvent(int x, int y) {
+    try {
+      GameController cmd = new MovePlayer(x, y);
+      cmd.execute(model);
+      view.setOutputMessage(cmd.getOutput());
+      view.setIfTurnExecuted(true);
+      view.displayGameScreen();
+    } catch (IllegalStateException ise) {
+      view.setOutputMessage(ise.getMessage());
+      view.setIfTurnExecuted(false);
+      view.displayGameScreen();
+    }
   }
 
   @Override
@@ -109,5 +129,13 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   @Override
   public void moveToGameScreen() {
     this.view.displayGameScreen();
+  }
+
+  @Override
+  public void updateWorld(String inputFileData) {
+    GameController cmd = new UpdateWorld(inputFileData);
+    cmd.execute(model);
+    this.view.setPlayerInfoDialog(cmd.getOutput());
+    this.view.displayAddPlayerScreen();
   }
 }
