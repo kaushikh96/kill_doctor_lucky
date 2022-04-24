@@ -6,7 +6,7 @@ public interface Features {
 
   public String getTurns(String playerName);
 
-  public String handleKeyPressEvent(String action, String playername, String roomOrItemName);
+  public void handleKeyPressEvent(String action, String playername, String roomOrItemName);
 
   public String handleMouseClickEvent(int x, int y);
 

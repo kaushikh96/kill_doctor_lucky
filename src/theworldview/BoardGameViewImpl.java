@@ -23,11 +23,12 @@ import javax.swing.JOptionPane;
 import theworld.ItemImpl;
 import theworld.PlayerImpl;
 import theworld.ReadOnlyBoardGameModel;
+import theworld.SpaceImpl;
 
 /**
- * This class is the view implementation which gives the user a visual representation of the board
- * and listens to events and performs callbacks using features interface.
- *
+ * This class is the view implementation which gives the user a visual
+ * representation of the board and listens to events and performs callbacks
+ * using features interface.
  */
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private ReadOnlyBoardGameModel readOnlyModel;
@@ -47,12 +48,12 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private boolean ifTurnsExecuted;
 
   /**
-   * Constructor that initializes the readOnlyBoardGameModel to get the functionality
-   * to handle an event.
+   * Constructor that initializes the readOnlyBoardGameModel to get the
+   * functionality to handle an event.
    *
    * @param caption the caption for the view
-   * @param model the ReadOnlyBoardGameModel to perform a callabck 
-   functionality when an event is triggered.
+   * @param model   the ReadOnlyBoardGameModel to perform a callabck functionality
+   *                when an event is triggered.
    */
   public BoardGameViewImpl(String caption, ReadOnlyBoardGameModel model) {
     super(caption);
@@ -144,9 +145,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public String getTurnsofPlayers(String playerName) {
-    
-    if (playerName == null
-        || "".equals(playerName)) {
+
+    if (playerName == null || "".equals(playerName)) {
       throw new IllegalArgumentException("Current Player Name is null\n");
     }
     return features.getTurns(playerName);
@@ -169,7 +169,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setFeatures(Features features) {
-    
+
     if (features == null) {
       throw new IllegalArgumentException("Features object cannot be null\n");
     }
@@ -192,44 +192,26 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     Map<Integer, Runnable> keyReleases = new HashMap<>();
 
     keyPresses.put(KeyEvent.VK_P, () -> {
-      try {
-        String itemName = this.showPickDialog();
-        this.outputMessage = features.handleKeyPressEvent("pickItem",
-            readOnlyModel.getCurrentPlayerTurn(), itemName);
-        this.displayGameScreen();
-        this.ifTurnsExecuted = true;
-      } catch (IllegalStateException ise) {
-        this.outputMessage = ise.getMessage();
-        this.ifTurnsExecuted = false;
-        this.displayGameScreen();
-      }
+      String itemName = this.showPickDialog();
+      features.handleKeyPressEvent("pickItem", readOnlyModel.getCurrentPlayerTurn(), itemName);
+      this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_L, () -> {
-      try {
-        this.outputMessage = features.handleKeyPressEvent("lookAround",
-            readOnlyModel.getCurrentPlayerTurn(), "");
-        this.ifTurnsExecuted = true;
-        this.displayGameScreen();
-      } catch (IllegalStateException ise) {
-        this.outputMessage = ise.getMessage();
-        this.ifTurnsExecuted = false;
-        this.displayGameScreen();
-      }
+      features.handleKeyPressEvent("lookAround", readOnlyModel.getCurrentPlayerTurn(), "");
+      this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_A, () -> {
-      try {
-        String itemname = this.showAttackDialog();
-        this.outputMessage = features.handleKeyPressEvent("Attack",
-            readOnlyModel.getCurrentPlayerTurn(), itemname);
-        this.ifTurnsExecuted = true;
-        this.displayGameScreen();
-      } catch (IllegalStateException ise) {
-        this.outputMessage = ise.getMessage();
-        this.ifTurnsExecuted = false;
-        this.displayGameScreen();
-      }
+      String itemname = this.showAttackDialog();
+      features.handleKeyPressEvent("Attack", readOnlyModel.getCurrentPlayerTurn(), itemname);
+      this.displayGameScreen();
+    });
+
+    keyPresses.put(KeyEvent.VK_M, () -> {
+      String roomName = this.showSpaceDialog();
+      features.handleKeyPressEvent("MovePet", readOnlyModel.getCurrentPlayerTurn(), roomName);
+      this.displayGameScreen();
     });
 
     KeyboardListener kbd = new KeyboardListener();
@@ -267,6 +249,31 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     }
 
     return itemName;
+
+  }
+
+  private String showSpaceDialog() {
+    String spaceName = null;
+
+    String[] spaceList = this.readOnlyModel.getSpaceList().stream().map(SpaceImpl::getName)
+        .collect(Collectors.toList()).toArray(new String[0]);
+
+    if (spaceList == null || spaceList.length == 0) {
+      this.outputMessage = String.format("No spaces in the world", spaceList);
+    }
+    JComboBox items = new JComboBox(spaceList);
+    items.setPreferredSize(new Dimension(200, 30));
+    items.setSelectedIndex(0);
+
+    int result = JOptionPane.showConfirmDialog(null, items, "Move Pet", JOptionPane.DEFAULT_OPTION);
+    if (items.getSelectedItem() == null) {
+      this.showPickDialog();
+    }
+    if (result == JOptionPane.OK_OPTION) {
+      spaceName = (String) items.getSelectedItem();
+    }
+
+    return spaceName;
 
   }
 
@@ -358,8 +365,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setPlayerInfoDialog(String output) {
-    if (output == null
-        || "".equals(output)) {
+    if (output == null || "".equals(output)) {
       throw new IllegalArgumentException("Output Message is null\n");
     }
     JOptionPane.showMessageDialog(null, output);

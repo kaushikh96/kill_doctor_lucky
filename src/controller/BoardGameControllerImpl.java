@@ -30,9 +30,6 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   public void start() throws IllegalStateException {
     view.setFeatures(this);
     view.makeVisible();
-    // configureButtonListener();
-    // configureKeyBoardListener();
-
   }
 
   @Override
@@ -64,20 +61,29 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String handleKeyPressEvent(String action, String playerName, String roomOrItemName)
-      throws IllegalStateException {
-    if ("Attack".equalsIgnoreCase(action)) {
-      GameController cmd = new AttackTarget(playerName, roomOrItemName);
-      cmd.execute(model);
-      return cmd.getOutput();
-    } else if ("pickItem".equalsIgnoreCase(action)) {
-      GameController cmd = new PickUpItem(playerName, roomOrItemName);
-      cmd.execute(model);
-      return cmd.getOutput();
-    } else {
-      GameController cmd = new LookAround(playerName);
-      cmd.execute(model);
-      return cmd.getOutput();
+  public void handleKeyPressEvent(String action, String playerName, String roomOrItemName) {
+    try {
+      if ("Attack".equalsIgnoreCase(action)) {
+        GameController cmd = new AttackTarget(playerName, roomOrItemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else if ("pickItem".equalsIgnoreCase(action)) {
+        GameController cmd = new PickUpItem(playerName, roomOrItemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else if ("lookAround".equalsIgnoreCase(action)) {
+        GameController cmd = new LookAround(playerName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      } else {
+        GameController cmd = new MovePet(playerName, roomOrItemName);
+        cmd.execute(model);
+        this.view.setOutputMessage(cmd.getOutput());
+      }
+      this.view.setIfTurnExecuted(true);
+    } catch (IllegalStateException ise) {
+      this.view.setOutputMessage(ise.getMessage());
+      this.view.setIfTurnExecuted(false);
     }
   }
 

@@ -55,6 +55,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param worldcoordinates world coordinates
    * @param targetpet        details of the target character pet
    * @param randomref        the variable of the type Random
+   * @param turns            the maximum number of turns
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
       List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
@@ -534,9 +535,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           List<ItemImpl> itemlist = player.getCurrentRoom().getItems();
           if (itemlist != null && itemlist.size() > 0
               && player.getItemCapacity() != player.getItems().size()) {
-            r = randomref.next(3);
+            r = randomref.next(4);
           } else {
-            r = randomref.next(2);
+            r = randomref.next(3);
           }
           List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
           compplayerneighbours.stream().filter(d -> d.equals(this.targetpet.getCurrentRoom()))
@@ -552,14 +553,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             this.getNextTargetCharacterRoom();
             this.compdisplaymessage = String.format(
                 "Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", playername, selectedroom);
-//          } else if (r == 2) {
-//            List<SpaceImpl> copyspacelist = this.getSpaceList();
-//            copyspacelist.remove(this.targetpet.getCurrentRoom());
-//            int chooseroom = randomref.next(copyspacelist.size());
-//            this.targetpet.movepet(this.getSpaceList().get(chooseroom));
-//            this.compdisplaymessage = String.format(
-//                "Executed Move Pet: Pet has been moved to %s\nTarget Character Current Room: %s\n",
-//                this.getSpaceList().get(chooseroom).getName(), this.getNextTargetCharacterRoom());
+          } else if (r == 2) {
+            List<SpaceImpl> copyspacelist = this.getSpaceList();
+            copyspacelist.remove(this.targetpet.getCurrentRoom());
+            int chooseroom = randomref.next(copyspacelist.size());
+            this.targetpet.movepet(this.getSpaceList().get(chooseroom));
+            this.getNextTargetCharacterRoom();
+            this.compdisplaymessage = String.format("Executed Move Pet: Pet has been moved to %s\n",
+                this.getSpaceList().get(chooseroom).getName());
           } else {
             int chosenitem = randomref.next(itemlist.size());
             String selecteditem = itemlist.get(chosenitem).getName();
@@ -604,8 +605,8 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         } else {
           this.listvisitednodes = new ArrayList<>();
           this.roomstack = new Stack<SpaceImpl>();
-          return String.format("%s\nTarget Character Current Room: %s\n",
-              this.targetpet.movepet(petspace.get(0)), this.getNextTargetCharacterRoom());
+          this.getNextTargetCharacterRoom();
+          return String.format("Executed Move Pet:%s\n", this.targetpet.movepet(petspace.get(0)));
         }
       } else {
         throw new IllegalStateException("Space doesn't exist\n");
@@ -909,9 +910,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         if (spaceOverlap(roomlist)) {
           throw new IllegalStateException("Invalid Space dimensions as arguments");
         }
-//        BoardGameImpl world;
-//        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
-//            targetpet, randomref);
         this.targetcharacter = new TargetCharacterImpl(worldattributes2[1],
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
         this.name = worldattributes1[2];
