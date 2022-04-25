@@ -75,15 +75,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public String petMovementDfs(String petcurrentroom);
 
   /**
-   * This method gets the reference of the random class for computer player
-   * functionality.
-   *
-   * @return the onject of the Random Class
-   */
-
-  public RandomClass getRandomClassRef();
-
-  /**
    * This method gets the current turn of the player.
    *
    * @return the name of current player.

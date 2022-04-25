@@ -27,7 +27,7 @@ public interface BoardGameModel {
    * @param xcoordinate the xcoordinate of the space the player needs to be move to.
    * @param ycoordinate the ycoordinate of the space the player needs to be move to.
    * 
-   * @return the room that the target character has moved to
+   * @return the information about the action performed.
    */
   public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException;
 
@@ -37,7 +37,7 @@ public interface BoardGameModel {
    * @param playername name of the player
    * @param itemname   name of the item on the player
    * 
-   * @return the room that the target character has moved to
+   * @return the information about the action performed.
    */
   public String pickItem(String playername, String itemname) throws IllegalStateException;
 
@@ -46,7 +46,7 @@ public interface BoardGameModel {
    *
    * @param playername name of the player
    * 
-   * @return get current room of the player and its neighbours
+   * @return information about current room of the player and its neighbours
    */
   public String lookAround(String playername) throws IllegalStateException;
 
@@ -86,7 +86,7 @@ public interface BoardGameModel {
    *
    * @param spacename the name of the space
    * 
-   * @return room that the target character has moved to
+   * @return the result of the action performed.
    */
   public String movePet(String spacename);
 
@@ -109,5 +109,11 @@ public interface BoardGameModel {
    */
   public String getPlayerNextTurn(String currentplayername);
 
+  /**
+   * This method creates a new world based on the uploaded text file.
+   *
+   * @param inputdata the input world data needed for creating the world.
+   * @return the string if the new wolrd has been created.
+   */
   public String updateWorld(String inputdata);
 }

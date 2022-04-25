@@ -93,6 +93,14 @@ public class GamePanel extends JPanel {
       throw new IllegalArgumentException("View cannot be null.\n");
     }
 
+    if (outputMessage == null) {
+      throw new IllegalArgumentException("Output message cannot be null");
+    }
+    
+    if (turnMessage == null) {
+      throw new IllegalArgumentException("Turn Message cannot be null");
+    }
+    
     this.readOnlyModel = readOnlyModel;
     this.view = view;
     this.turnMessage = turnMessage;
@@ -308,10 +316,12 @@ public class GamePanel extends JPanel {
   /**
    * This method sets the icon of the player added and positions the player in the
    * space.
-   *
+   * 
+   * @param playerLabel     the label of the player which needs to be associated to
+   *                        an icon and needs to be positioned.
    * @param player          the playerImpl object to the room coordinates the
    *                        player is currently at for positioning.
-   * @param iconUrl         the url that consits of the icon image that represnts
+   * @param iconUrl         the url that consists of the icon image that represents
    *                        the player.
    * @param ifAnotherPlayer this checks if another player is there in the current
    *                        space to adjust the player's positioning without
@@ -390,7 +400,7 @@ public class GamePanel extends JPanel {
   }
 
   /**
-   * This method handles the Mosue CLick events for moving the player and
+   * This method handles the Mouse CLick events for moving the player and
    * displaying player information when clicked on the player graphical
    * representation using a set of call backs from features interface.
    *

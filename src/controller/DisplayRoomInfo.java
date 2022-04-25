@@ -12,7 +12,6 @@ public class DisplayRoomInfo implements GameController {
   /**
    * Construct a DisplayRoomInfo object that has the spacename 
    * for displaying space information.
-   * 
    *
    * @param spacename the name of the space to display its information.
    */

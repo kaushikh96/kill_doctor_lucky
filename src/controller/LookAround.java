@@ -4,16 +4,18 @@ import theworld.BoardGameModel;
 
 /**
  * This class is a part of command design pattern to execute of the turn looking
- * around.
+ * around a particular space.
  */
 public class LookAround implements GameController {
   private final String playername;
   private String outputmessage;
 
   /**
-   * Construct a LookAround object that has the name of the player.
+   * Construct a LookAround object that has the name of the player which 
+   * gives information about the current player space and the 
+   * neighboring spaces.
    *
-   * @param playername name of the player
+   * @param playername the name of the player
    */
   public LookAround(String playername) throws IllegalArgumentException {
     if (playername == null || "".equals(playername.trim())) {

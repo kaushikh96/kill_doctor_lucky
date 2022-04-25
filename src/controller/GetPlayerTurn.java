@@ -11,7 +11,7 @@ public class GetPlayerTurn implements GameController {
   private String outputMessage;
 
   /**
-   * Construct a GetPlayerTurn object that has the currentplayername.
+   * Construct a GetPlayerTurn object that has the current player name.
    * 
    *
    * @param currentplayername name of the player whose current turn

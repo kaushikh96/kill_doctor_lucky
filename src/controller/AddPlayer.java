@@ -22,10 +22,10 @@ public class AddPlayer implements GameController {
    * Construct a AddHumanPlayer object that has the provided name , currentRoom,
    * itemcapacity, isComputerPlayer.
    *
-   * @param name             target character name
-   * @param currentRoom      name of the world
-   * @param itemcapacity     list of spaces
-   * @param isComputerPlayer world coordinates
+   * @param name             name of the player
+   * @param currentRoom      name of the space the player needs to be added.
+   * @param itemcapacity     number of items the player can carry
+   * @param isComputerPlayer the boolean value true if computer player else false for human player.
    */
   public AddPlayer(String name, String currentRoom, int itemcapacity, boolean isComputerPlayer) {
     if (name == null || "".equals(name.trim())) {

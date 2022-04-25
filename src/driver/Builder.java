@@ -20,6 +20,7 @@ public class Builder {
    * object.
    *
    * @param inputdata data read from the text file for the world.
+   * @param turns the maximum number of turns of the game play.
    * @return the BoardgameImpl entity
    */
   public static BoardGameImpl readfile(String inputdata, int turns) {

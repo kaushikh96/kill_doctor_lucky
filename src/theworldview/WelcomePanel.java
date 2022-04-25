@@ -48,7 +48,7 @@ public class WelcomePanel extends JPanel {
   private StringBuilder sb2;
 
   /**
-   * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel to get
+   * Constructor for welcome panel class that initializes the ReadOnlyBoardModel to get
    * the functionality.
    *
    * @param readonlymodel the ReadOnlyBoardModel type for getting the functionality.

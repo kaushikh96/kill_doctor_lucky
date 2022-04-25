@@ -23,12 +23,16 @@ public class RandomClass {
    * @param arr array of values
    */
   public RandomClass(int... arr) {
+    
+    if (arr == null) {
+      throw new IllegalArgumentException("Array of int's is null");
+    }
     this.arr = arr;
   }
 
   /**
    * Method to return random values.
-   * 
+   *
    * @param max maximum - 1 value needed from Java
    * @return random value generated
    */

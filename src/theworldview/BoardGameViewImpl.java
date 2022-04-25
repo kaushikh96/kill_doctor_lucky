@@ -190,6 +190,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     Map<Character, Runnable> keyTypes = new HashMap<>();
     Map<Integer, Runnable> keyPresses = new HashMap<>();
     Map<Integer, Runnable> keyReleases = new HashMap<>();
+    
+    KeyboardListener kbd = new KeyboardListener();
+    kbd.setKeyTypedMap(keyTypes);
+    kbd.setKeyReleasedMap(keyReleases);
 
     keyPresses.put(KeyEvent.VK_P, () -> {
       String itemName = this.showPickDialog();
@@ -213,11 +217,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
       features.handleKeyPressEvent("MovePet", readOnlyModel.getCurrentPlayerTurn(), roomName);
       this.displayGameScreen();
     });
-
-    KeyboardListener kbd = new KeyboardListener();
-    kbd.setKeyTypedMap(keyTypes);
+    
     kbd.setKeyPressedMap(keyPresses);
-    kbd.setKeyReleasedMap(keyReleases);
 
     this.addKeyListener(kbd);
   }
@@ -318,6 +319,10 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setOutputMessage(String outputMessage) {
+    
+    if (outputMessage == null) {
+      throw new IllegalArgumentException("Output Message is not null");
+    }
     this.outputMessage = outputMessage;
   }
 

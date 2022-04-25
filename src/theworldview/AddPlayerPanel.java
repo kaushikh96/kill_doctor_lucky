@@ -77,9 +77,9 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private JScrollPane pane;
 
   /**
-   * 
-   * @param readOnlyModel
-   * @param view
+   * Constructor that initializes the read only model.
+   *
+   * @param readOnlyModel the readOnlyModel 
    */
   public AddPlayerPanel(ReadOnlyBoardGameModel readOnlyModel) {
 
@@ -364,56 +364,6 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     }
   }
 
-//  /**
-//   * This method provides the name of the player as text entered in the textfield
-//   * while providing player details in the panel.
-//   *
-//   * @return the text enteres in the textfield that is equated to playerName.
-//   */
-//
-//  public String getPlayerName() {
-//    return this.nameText.getText();
-//  }
-//
-//  /**
-//   * This method gets the selected spaceName by the user in the ComboBox while
-//   * providing player details in the panel.
-//   *
-//   * @return the selected spaceName of the player.
-//   */
-//
-//  public String getSpace() {
-//    return this.space;
-//  }
-//
-//  /**
-//   * This method gives the maximum number of items that a player can carry as
-//   * entered in the item Capacity text field while providing player details in the
-//   * panel.
-//   *
-//   * @return the entered number indicating the number of items a player can carry.
-//   */
-//  public int itemCapacity() {
-//    return Integer.parseInt(itemLimitText.getText());
-//  }
-//
-//  /**
-//   * This method gives the provided player type i.e., either human or computer by
-//   * selecting the respective radio button while providing player details in the
-//   * panel.
-//   *
-//   * @return the boolean False if the selcted radio button is Human else returns
-//   *         True.
-//   */
-//
-//  public boolean getPlayerType() {
-//    if ("Human".equals(this.groupType.getSelection().getActionCommand())) {
-//      return false;
-//    } else {
-//      return true;
-//    }
-//  }
-
   /**
    * This method resets the fields that has player information entered.
    */
@@ -471,6 +421,11 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
     this.nextButton.addActionListener(l -> features.moveToGameScreen());
   }
 
+  /**
+   * This method shows the error in the form of a message dialog.
+   *
+   * @param message the error message to be displayed in the dialog box
+   */
   private void showErrorPopUp(String message) {
     JOptionPane.showMessageDialog(null, message);
   }

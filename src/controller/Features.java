@@ -82,9 +82,18 @@ public interface Features {
    * add player panel and adds the GamePanel to the frame.
    */
   public void moveToGameScreen();
+  
+  /**
+   * This method creates a new world based on the uploaded text file.
+   *
+   * @param inputFileData the input world data needed for creating the world.
+   */
 
   public void updateWorld(String inputFileData);
   
+  /**
+   * This method displays the add player screen on the current frame.
+   */
   public void moveToAddPlayerScreen();
 }
 

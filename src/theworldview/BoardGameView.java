@@ -20,7 +20,7 @@ public interface BoardGameView {
   public void makeVisible();
 
   /**
-   * Method displays the screen responsbile for taking the plsyer input from the
+   * Method displays the screen responsible for taking the player input from the
    * user.
    */
   public void displayAddPlayerScreen();
@@ -52,14 +52,6 @@ public interface BoardGameView {
   public void closeWindow();
 
   /**
-   * This is to force the view to have a method to set up actions for events and
-   * respond to them accordingly.
-   *
-   * @param actionListener is the listener to listen to the events in the view to
-   *                       perform actions.
-   */
-
-  /**
    * This method displays the screen which contains the game board and the
    * information of the game such as the game status, the player indexing and the
    * result of the action.
@@ -83,9 +75,11 @@ public interface BoardGameView {
   public String showAttackDialog();
 
   /**
-   * This method allows a used to choose a tect file containing world information
+   * This method allows a used to choose a text file containing world information
    * through a pop-up dialog box and this is triggered on choosing New World Menu
    * Item.
+   *
+   * @return the result of the file upload success or failure message.
    */
   public String showFileUploadDialog();
 
@@ -100,7 +94,7 @@ public interface BoardGameView {
   /**
    * This method sets the result of each action in the form of a string.
    *
-   * @param outputMessage the message which represnts the result of the action
+   * @param outputMessage the message which represents the result of the action
    *                      performed.
    */
   public void setOutputMessage(String outputMessage);
@@ -125,5 +119,9 @@ public interface BoardGameView {
    */
   public void setPlayerInfoDialog(String output);
 
+  /**
+   * This method adds the player data to the table on the panel and 
+   * then resets the fields again on the panel for other data to be entered.
+   */
   public void ifPlayerAdded();
 }
