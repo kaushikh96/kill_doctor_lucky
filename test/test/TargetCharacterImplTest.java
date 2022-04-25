@@ -50,7 +50,7 @@ public class TargetCharacterImplTest {
 
   /**
    * Reads file and parses it into world.
-   * 
+   *
    * @return world object
    */
   public static BoardGameImpl readfile() {
@@ -136,7 +136,7 @@ public class TargetCharacterImplTest {
 
   /**
    * Method to return a new object of TargetCharacterImpl type.
-   * 
+   *
    * @param name        name of the target character
    * @param health      health of the target character
    * @param currentRoom current room of the target character

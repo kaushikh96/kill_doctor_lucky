@@ -35,7 +35,6 @@ import theworld.ReadOnlyBoardGameModel;
 public class GamePanel extends JPanel {
 
   private final ReadOnlyBoardGameModel readOnlyModel;
-  private BoardGameView view;
   private JLabel imageLabel;
   private JLabel playerLabel1;
   private JLabel playerLabel2;
@@ -76,21 +75,15 @@ public class GamePanel extends JPanel {
    * current player and the action to display on the panel.
    *
    * @param readOnlyModel the readOnlyModel that has the functionality.
-   * @param view          the view that holds the panel and displays the panel to
-   *                      the user.
    * @param outputMessage the message of the action performed during the turn.
    * @param turnMessage   the message of the current turn including player
    *                      location and target location.
    */
-  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
+  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage,
       String turnMessage) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
-    }
-
-    if (view == null) {
-      throw new IllegalArgumentException("View cannot be null.\n");
     }
 
     if (outputMessage == null) {
@@ -102,7 +95,6 @@ public class GamePanel extends JPanel {
     }
     
     this.readOnlyModel = readOnlyModel;
-    this.view = view;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
     this.playerMap = new HashMap<Integer, Consumer<PlayerImpl>>();
@@ -316,7 +308,7 @@ public class GamePanel extends JPanel {
   /**
    * This method sets the icon of the player added and positions the player in the
    * space.
-   * 
+   *
    * @param playerLabel     the label of the player which needs to be associated to
    *                        an icon and needs to be positioned.
    * @param player          the playerImpl object to the room coordinates the

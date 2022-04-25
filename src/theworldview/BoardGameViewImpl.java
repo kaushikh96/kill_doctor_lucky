@@ -67,7 +67,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.worldSelectionPanel = new WorldSelectionPanel(model);
     this.addPlayerPanel = new AddPlayerPanel(model);
     this.outputMessage = "Game Starts !! Execute the first turn !";
-    this.gamePanel = new GamePanel(model, this, this.outputMessage, "");
+    this.gamePanel = new GamePanel(model, this.outputMessage, "");
 
     this.menuBar = new JMenuBar();
 
@@ -131,7 +131,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
         }
       }
     }
-    this.gamePanel = new GamePanel(this.readOnlyModel, this, this.outputMessage, this.turnMessage);
+    this.gamePanel = new GamePanel(this.readOnlyModel, this.outputMessage, this.turnMessage);
     this.gamePanel.setFeatures(features);
     this.setFocusable(true);
     this.requestFocus();
