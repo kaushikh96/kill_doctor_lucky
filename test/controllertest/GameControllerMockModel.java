@@ -1,8 +1,7 @@
 package controllertest;
 
-import java.util.List;
-
 import driver.RandomClass;
+import java.util.List;
 import theworld.BoardGameFacade;
 import theworld.BoardGameModel;
 import theworld.ItemImpl;
