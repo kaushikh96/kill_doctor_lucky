@@ -39,14 +39,6 @@ public interface BoardGameView {
   public void displayWorldSelectionScreen();
 
   /**
-   * This method returns the current turn of the world.
-   *
-   * @param playerName the current player name.
-   * @return the next player name in the game.
-   */
-  public String getTurnsofPlayers(String playerName);
-
-  /**
    * This method is used for quitting the game by closing the current window.
    */
   public void closeWindow();
@@ -126,4 +118,8 @@ public interface BoardGameView {
   public void setPlayerInfoDialog(String output);
 
   public void ifPlayerAdded();
+
+  public void setTurnMessage(String turnMessage);
+
+  public void setComputerPlayerMessage(String computerPlayerTurnMessage);
 }

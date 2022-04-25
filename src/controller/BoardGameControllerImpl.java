@@ -3,10 +3,7 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import theworld.BoardGameModel;
-import theworld.PlayerImpl;
 import theworldview.BoardGameView;
 
 /**
@@ -63,6 +60,8 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * inputs.
    */
   public void start() throws IllegalStateException {
+    GameController cmd = new GraphicalRepresentation();
+    cmd.execute(model);
     view.setFeatures(this);
     view.makeVisible();
   }
@@ -89,19 +88,18 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public String playComputerPlayer(String playerName) {
+  public void playComputerPlayer(String playerName) {
 
     if (playerName == null || "".equals(playerName.trim())) {
       throw new IllegalArgumentException("Invalid Player name");
     }
-
     GameController cmd = new ComputerPlayerTurn(playerName);
     cmd.execute(model);
-    return cmd.getOutput();
+    this.view.setComputerPlayerMessage(cmd.getOutput());
   }
 
   @Override
-  public String getTurns(String playerName) {
+  public void getTurns(String playerName) {
 
     if (playerName == null || "".equals(playerName.trim())) {
       throw new IllegalArgumentException("Invalid Player name");
@@ -110,10 +108,10 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
       GameController cmd = new GetPlayerTurn(playerName);
       cmd.execute(model);
       this.view.setIfTurnExecuted(true);
-      return cmd.getOutput();
+      this.view.setTurnMessage(cmd.getOutput());
     } catch (IllegalStateException ise) {
       this.view.setIfTurnExecuted(false);
-      return String.format(ise.getMessage());
+      this.view.setTurnMessage(ise.getMessage());
     }
   }
 
@@ -152,7 +150,7 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
-  public void handlePlayerMouseClickEvent(String playerName) {
+  public void handleGetPlayerInfo(String playerName) {
 
     if (playerName == null || "".equals(playerName)) {
       throw new IllegalArgumentException("playerName cannot be null");

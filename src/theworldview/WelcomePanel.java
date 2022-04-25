@@ -24,8 +24,8 @@ import javax.swing.border.LineBorder;
 import theworld.ReadOnlyBoardGameModel;
 
 /**
- * The Panel that is the welcome screen for the game which provides us with 
- * the button to start the game.
+ * The Panel that is the welcome screen for the game which provides us with the
+ * button to start the game.
  *
  */
 public class WelcomePanel extends JPanel {
@@ -39,7 +39,7 @@ public class WelcomePanel extends JPanel {
   private Features features;
   private String labelText1;
   private JLabel coloredLabel1;
-  private  Border border;
+  private Border border;
   private String labelText;
   private JLabel coloredLabel;
   private String kaushikText;
@@ -48,10 +48,11 @@ public class WelcomePanel extends JPanel {
   private StringBuilder sb2;
 
   /**
-   * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel to get
-   * the functionality.
+   * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel
+   * to get the functionality.
    *
-   * @param readonlymodel the ReadOnlyBoardModel type for getting the functionality.
+   * @param readonlymodel the ReadOnlyBoardModel type for getting the
+   *                      functionality.
    */
   public WelcomePanel(ReadOnlyBoardGameModel readonlymodel) {
     if (readonlymodel == null) {
@@ -84,9 +85,9 @@ public class WelcomePanel extends JPanel {
     this.welcome.insets = new Insets(80, 10, 10, 10);
     this.welcomePanel.add(coloredLabel1, welcome);
     this.add(welcomePanel, BorderLayout.NORTH);
-    
+
     this.sb1 = new StringBuilder();
-    
+
     this.sb1.append("<html><font color=blue size=15>LET'S START THE GAME PLAY !!!");
     this.sb1.append("</font><br></html>");
 
@@ -127,16 +128,15 @@ public class WelcomePanel extends JPanel {
 
     this.add(kaushikLabel, BorderLayout.SOUTH);
   }
-  
 
   /**
-   * This method implements the functionalities for different events so that
-   * the listener responds accordingly.
+   * This method implements the functionalities for different events so that the
+   * listener responds accordingly.
    *
    * @param features the callbacks sent as a feature object.
    */
   public void setFeatures(Features features) {
-    
+
     if (features == null) {
       throw new IllegalArgumentException("Features object cannot be null\n");
     }

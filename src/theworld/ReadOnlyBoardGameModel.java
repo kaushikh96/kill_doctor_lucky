@@ -45,14 +45,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public List<Integer> getWorldCoordinates();
 
   /**
-   * Gets the neighbours of the room in the space.
-   * 
-   * @param space the space object
-   * @return list of spaces in the world
-   */
-  public List<SpaceImpl> getAllVisibleSpaces(SpaceImpl space);
-
-  /**
    * Gets the players of the room in the space.
    * 
    * @return list of players in the world
@@ -74,15 +66,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * @return the next room of the pet movement in DFS.
    */
   public String petMovementDfs(String petcurrentroom);
-
-  /**
-   * This method gets the reference of the random class for computer player
-   * functionality.
-   *
-   * @return the onject of the Random Class
-   */
-
-  public RandomClass getRandomClassRef();
 
   /**
    * This method gets the current turn of the player.

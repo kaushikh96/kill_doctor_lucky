@@ -82,19 +82,13 @@ public class GamePanel extends JPanel {
    * @param turnMessage   the message of the current turn including player
    *                      location and target location.
    */
-  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, BoardGameView view, String outputMessage,
-      String turnMessage) {
+  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage, String turnMessage) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
 
-    if (view == null) {
-      throw new IllegalArgumentException("View cannot be null.\n");
-    }
-
     this.readOnlyModel = readOnlyModel;
-    this.view = view;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
     this.playerMap = new HashMap<Integer, Consumer<PlayerImpl>>();
@@ -373,7 +367,7 @@ public class GamePanel extends JPanel {
    *         text area in the panel
    */
 
-  public String setPlayerIndexText() {
+  private String setPlayerIndexText() {
     StringBuilder sb = new StringBuilder();
     sb.append("PLAYER INDEX: \n");
     sb.append("T -> ");
@@ -390,7 +384,7 @@ public class GamePanel extends JPanel {
   }
 
   /**
-   * This method handles the Mosue CLick events for moving the player and
+   * This method handles the Mouse CLick events for moving the player and
    * displaying player information when clicked on the player graphical
    * representation using a set of call backs from features interface.
    *
@@ -406,12 +400,12 @@ public class GamePanel extends JPanel {
 
     label.removeMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handleGetPlayerInfo(readOnlyModel.getCurrentPlayerTurn());
       }
     });
     label.addMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handleGetPlayerInfo(readOnlyModel.getCurrentPlayerTurn());
       }
     });
   }
