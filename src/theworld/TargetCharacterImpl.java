@@ -21,7 +21,7 @@ public class TargetCharacterImpl implements TargetCharacterInterface {
    * @param currentRoom current space of the target character
    */
   public TargetCharacterImpl(String name, int health, SpaceImpl currentRoom) {
-    if (Math.round((float) health) < 0) {
+    if (health < 0) {
       throw new IllegalArgumentException("Health cannot be negative");
     }
     if (currentRoom == null) {

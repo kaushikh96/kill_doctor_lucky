@@ -25,7 +25,7 @@ public class SpaceImpl implements SpaceInterface {
    */
   public SpaceImpl(int roomid, List<Integer> location, String name, List<ItemImpl> items) {
 
-    if (Math.round((float) roomid) < 0) {
+    if (roomid < 0) {
       throw new IllegalArgumentException("Room id cannot be negative");
     }
     if (location.size() == 0 || location == null) {
@@ -33,6 +33,9 @@ public class SpaceImpl implements SpaceInterface {
     }
     if (name == null || name.trim().equals("")) {
       throw new IllegalArgumentException("Name cannot be empty or null");
+    }
+    if (items == null) {
+      throw new IllegalArgumentException("Items cannot be null");
     }
     this.roomid = roomid;
     this.location = new ArrayList<>(location);

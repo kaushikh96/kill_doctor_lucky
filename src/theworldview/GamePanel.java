@@ -77,8 +77,7 @@ public class GamePanel extends JPanel {
    * @param turnMessage   the message of the current turn including player
    *                      location and target location.
    */
-  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage,
-      String turnMessage) {
+  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage, String turnMessage) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
@@ -87,11 +86,11 @@ public class GamePanel extends JPanel {
     if (outputMessage == null) {
       throw new IllegalArgumentException("Output message cannot be null");
     }
-    
+
     if (turnMessage == null) {
       throw new IllegalArgumentException("Turn Message cannot be null");
     }
-    
+
     this.readOnlyModel = readOnlyModel;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
@@ -307,12 +306,12 @@ public class GamePanel extends JPanel {
    * This method sets the icon of the player added and positions the player in the
    * space.
    *
-   * @param playerLabel     the label of the player which needs to be associated to
-   *                        an icon and needs to be positioned.
+   * @param playerLabel     the label of the player which needs to be associated
+   *                        to an icon and needs to be positioned.
    * @param player          the playerImpl object to the room coordinates the
    *                        player is currently at for positioning.
-   * @param iconUrl         the url that consists of the icon image that represents
-   *                        the player.
+   * @param iconUrl         the url that consists of the icon image that
+   *                        represents the player.
    * @param ifAnotherPlayer this checks if another player is there in the current
    *                        space to adjust the player's positioning without
    *                        overlap.
@@ -322,7 +321,7 @@ public class GamePanel extends JPanel {
   private JLabel getPlayerJlabel(JLabel playerLabel, PlayerImpl player, String iconUrl,
       boolean ifAnotherPlayer) {
 
-    if (player == null || iconUrl == null) {
+    if (player == null || iconUrl == null || playerLabel == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }
     playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
