@@ -34,9 +34,9 @@ public class SpaceImpl implements SpaceInterface {
       throw new IllegalArgumentException("Name cannot be empty or null");
     }
     this.roomid = roomid;
-    this.location = location;
+    this.location = new ArrayList<>(location);
     this.name = name;
-    this.items = items;
+    this.items = new ArrayList<>(items);
   }
 
   @Override
@@ -57,7 +57,8 @@ public class SpaceImpl implements SpaceInterface {
 
   @Override
   public List<ItemImpl> getItems() {
-    return this.items;
+    List<ItemImpl> itemCopy = new ArrayList<>(this.items);
+    return itemCopy;
   }
 
   @Override

@@ -86,7 +86,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.targetpet = targetpet;
     this.name = name;
     this.spacelist = new ArrayList<>(spacelist);
-    this.worldcoordinates = worldcoordinates;
+    this.worldcoordinates = new ArrayList<>(worldcoordinates);
     this.playerlist = new ArrayList<>();
     this.randomref = randomref;
     this.listvisitednodes = new ArrayList<>();

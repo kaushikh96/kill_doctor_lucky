@@ -46,7 +46,7 @@ public class PlayerImpl implements PlayerInterface {
     this.name = name;
     this.currentRoom = currentRoom;
     this.itemCapacity = itemCapacity;
-    this.items = items;
+    this.items = new ArrayList<>(items);
     this.isComputerPlayer = isComputerPlayer;
   }
 
