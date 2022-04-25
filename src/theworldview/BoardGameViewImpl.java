@@ -146,15 +146,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     }
   }
 
-//  @Override
-//  public String getTurnsofPlayers(String playerName) {
-//
-//    if (playerName == null || "".equals(playerName)) {
-//      throw new IllegalArgumentException("Current Player Name is null\n");
-//    }
-//    features.getTurns(playerName);
-//  }
-
   @Override
   public void refresh() {
     repaint();

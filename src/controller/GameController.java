@@ -13,12 +13,12 @@ public interface GameController {
    *
    * @param b a non null BoardGameFacade Model
    */
-  void execute(BoardGameModel b);
+  public void execute(BoardGameModel b);
 
   /**
    * Gets the message we get after the respective command gets executed.
    *
    * @return the message after execution of the command
    */
-  String getOutput();
+  public String getOutput();
 }

@@ -383,10 +383,17 @@ public class GamePanel extends JPanel {
     sb.append(" (Target Character)");
     sb.append("\n");
     for (int i = 0; i < this.readOnlyModel.getPlayerList().size(); i++) {
-      sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
-      sb.append(" -> ");
-      sb.append(this.colorList.get(i));
-      sb.append("\n");
+      if (this.readOnlyModel.getPlayerList().get(i).isComputerPlayer()) {
+        sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
+        sb.append(" - (COMPUTER) -> ");
+        sb.append(this.colorList.get(i));
+        sb.append("\n");
+      } else {
+        sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
+        sb.append(" -> ");
+        sb.append(this.colorList.get(i));
+        sb.append("\n");
+      }
     }
     return sb.toString();
   }

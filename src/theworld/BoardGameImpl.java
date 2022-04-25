@@ -1,5 +1,6 @@
 package theworld;
 
+import driver.RandomClass;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -12,11 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-import driver.RandomClass;
 
 /**
  * This class represents a BoardGameImplementation.
@@ -48,7 +47,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
 
   /**
    * Construct a BoardGameImpl object that has the provided targetcharacter, name,
-   * spacelist, worldcoordinates, randomref.
+   * spacelist, worldcoordinates, randomref and the number of turns in the game.
    * 
    *
    * @param target           target character name
@@ -94,8 +93,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.roomstack = new Stack<SpaceImpl>();
     this.isBackTrack = false;
     this.computerActionMap = new HashMap<Integer, Function<String, String>>();
-//    this.computerActionMap.put(Integer.valueOf(1), (playername) -> {
-//    });
     this.turns = turns;
     this.neighboursstring = "";
     this.itemsstring = "";
@@ -138,6 +135,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     return this.turns;
   }
 
+  
   private List<SpaceImpl> getAllVisibleSpaces(SpaceInterface space) {
     if (space == null) {
       throw new IllegalArgumentException("Space cannot be null");
@@ -374,6 +372,13 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
+  /**
+   * This method gets the space name based on the coordinates provided.
+   *
+   * @param xcoordinate the x-coordinated of the grid.
+   * @param ycoordinate the y-coordinate of the grid.
+   * @return the name of the space returned from the coordinates.
+   */
   private String getSpaceFromCoordinates(int xcoordinate, int ycoordinate) {
     if (xcoordinate < 0 || ycoordinate < 0) {
       throw new IllegalStateException("Invalid coordinates");
@@ -574,6 +579,13 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
+  /**
+   * This method checks if a computer player can attack the target.
+   *
+   * @param playername the name of the computer player
+   * @param itemname the name of item that is used to attack the target
+   * @return the result of the action performed
+   */
   private String playComputerPlayerAttackTarget(String playername, String itemname) {
     if (playername == null || itemname == null || "".equals(itemname) || "".equals(playername)) {
       throw new IllegalArgumentException("Invalid player name or item name");
@@ -730,6 +742,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       }
     }
   }
+  
+  /**
+   * This method checks if a playerB is visible to PlayerA.
+   *
+   * @param playerA the playerA who checks for other player visibility.
+   * @param playerB the playerB whose visibility is checked.
+   * @return the boolean true if the playerB is visible to A else false.
+   */
 
   private boolean ifPlayerSeen(String playerA, String playerB) {
     if (playerA == null || playerB == null) {
@@ -745,7 +765,15 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           this.getAllVisibleSpaces(playerAdata.getCurrentRoom()), this.targetpet.getCurrentRoom());
     }
   }
-
+  
+  /**
+   * This method decreases the target character health when attacked by the item value.
+   *
+   * @param playercurrent the current playeImpl object.
+   * @param itemname the name of item used to attack the target.
+   * @return the result of the action performed.
+   * @throws IllegalStateException if there is no item on the player.
+   */
   private String decreaseTargetHealth(PlayerImpl playercurrent, String itemname)
       throws IllegalStateException {
     if (playercurrent == null || itemname == null || "".equals(itemname.trim())) {
@@ -921,6 +949,12 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     }
   }
 
+  /**
+   * Checks if the spaces in the world overlap with each other.
+   *
+   * @param spaceList the list of SpaceImpl object to check for overlap.
+   * @return true if the spaces overlap else false.
+   */
   private boolean spaceOverlap(List<SpaceImpl> spaceList) {
 
     if (spaceList == null) {
@@ -988,4 +1022,5 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     List<PlayerImpl> copy = new ArrayList<>(this.playerlist);
     return copy;
   }
+
 }

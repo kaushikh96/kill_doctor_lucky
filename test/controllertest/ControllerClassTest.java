@@ -21,21 +21,27 @@ import theworldview.BoardGameView;
  */
 public class ControllerClassTest {
 
-  private BoardGameModel model;
-  private BoardGameView view;
+  private BoardGameModel mockModel;
+  private BoardGameView mockView;
   private Features game;
   private StringBuilder viewLog;
   private StringBuilder modelLog;
+  private BoardGameModel mockModelException;
+  private BoardGameView mockViewException;
 
+  /**
+   * Set's up the mock model and mock view class and passes
+   * it to the controller class for testing.
+   */
   @Before
   public void setUp() {
 
     viewLog = new StringBuilder();
     modelLog = new StringBuilder();
 
-    model = new GameControllerMockModel(modelLog, 1234);
-    view = new BoardGameMockView(viewLog, 6789);
-    game = new BoardGameControllerImpl(model, view);
+    mockModel = new GameControllerMockModel(modelLog, 1234);
+    mockView = new BoardGameMockView(viewLog, 6789);
+    game = new BoardGameControllerImpl(mockModel, mockView);
 
   }
 
@@ -49,13 +55,43 @@ public class ControllerClassTest {
         + "ifPlayerAdded method called: 6789", modelLog.toString());
 
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddPlayerWithMockExceptions() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+
+    game1.addPlayer("", "Parlor", 2, false);
+    
+    modelLog.append(viewLog);
+    assertEquals("add Player method with Exception called:  Parlor 2 [] false 1234"
+        + "ifPlayerAdded method for exception called: 6789", modelLog.toString());
+
+  }
 
   @Test
   public void testGetTurnsWithMocks() {
     game.getTurns("Sanjana");
     modelLog.append(viewLog);
     assertEquals("getPlayerNextTurn method called: Sanjana"
-        + "setIfTurnExecuted method called: true 6789", modelLog.toString());
+        + "setIfTurnExecuted method called: true 6789"
+        + "setTurnMessage method called: 1234 6789", modelLog.toString());
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetTurnsWithMocksException() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.getTurns("");
+    modelLog.append(viewLog);
+    assertEquals("getPlayerNextTurn method foe Exception called: Sanjana"
+        + "setIfTurnExecuted method for exception called: true 6789"
+        + "setTurnMessage method for exception called: 1234 6789", modelLog.toString());
   }
 
   @Test
@@ -67,6 +103,21 @@ public class ControllerClassTest {
         + "setOutputMessage method called: 1234 6789"
         + "setIfTurnExecuted method called: true 6789", modelLog.toString());
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testhandleKeyPressEventforAttackWithException() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleKeyPressEvent("Attack", "", "Knife");
+    
+    modelLog.append(viewLog);
+    assertEquals("attackTarget method for Exception called: Sanjana Knife"
+        + "setOutputMessage method for exception called: 1234 6789"
+        + "setIfTurnExecuted method for exception called: true 6789", modelLog.toString());
+  }
 
   @Test
   public void testhandleKeyPressEventforPickItem() {
@@ -75,6 +126,22 @@ public class ControllerClassTest {
     modelLog.append(viewLog);
     assertEquals("pickItem method called: Sanjana Billiard Cue 1234setOutputMessage method called: "
         + "1234 6789setIfTurnExecuted method called: true 6789", modelLog.toString());
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testhandleKeyPressEventforPickWithException() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleKeyPressEvent("PickItem", "", "Knife");
+    
+    modelLog.append(viewLog);
+    assertEquals("pickItem method for Exception called: Sanjana Billiard Cue 1234"
+        + "setOutputMessage method for exception called: \n"
+        + "1234 6789"
+        + "setIfTurnExecuted method for exception called: true 6789", modelLog.toString());
   }
 
   @Test
@@ -87,6 +154,20 @@ public class ControllerClassTest {
         + "setIfTurnExecuted method called: true 6789", modelLog.toString());
   }
 
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testhandleKeyPressEventforLookAroundWithException() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleKeyPressEvent("LookAround", "", "Knife");
+    assertEquals("lookAround method for Exception called: Sanjana"
+        + "setOutputMessage method for exception called: 1234 6789"
+        + "setIfTurnExecuted method for exception called: true 6789", modelLog.toString());
+  }
+  
   @Test
   public void testhandleKeyPressEventforMovePet() {
     game.handleKeyPressEvent("MovePet", "Sanjana", "Parlor");
@@ -96,6 +177,21 @@ public class ControllerClassTest {
         + "setOutputMessage method called: 1234 6789"
         + "setIfTurnExecuted method called: true 6789", modelLog.toString());
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testhandleKeyPressEventforMovePetWithException() {
+
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleKeyPressEvent("MovePet", "", "Knife");
+    modelLog.append(viewLog);
+    assertEquals("movePet method for Exception called: Parlor"
+        + "setOutputMessage method for exception called: 1234 6789"
+        + "setIfTurnExecuted method for exception called: true 6789", modelLog.toString());
+  }
+
 
   @Test
   public void testhandleMouseClick() {
@@ -108,15 +204,47 @@ public class ControllerClassTest {
         + "6789setIfTurnExecuted method called: true 6789displayGameScreen method called: 6789",
         modelLog.toString());
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testhandleMouseClickWithException() {
+
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleMouseClickEvent(-20, 10);
+
+    modelLog.append(viewLog);
+    assertEquals(
+        "movePlayer method for Exception called: 20 10 1234"
+        + "setOutputMessage for exception method called: 1234 6789"
+        + "setIfTurnExecuted for exception method called: true 6789"
+        + "displayGameScreen for exception method called: 6789",
+        modelLog.toString());
+  }
 
   @Test
   public void testHandPlayerMouseClickEvent() {
 
-    game.handlePlayerMouseClickEvent("Sanjana");
+    game.handleGetPlayerInfo("Sanjana");
 
     modelLog.append(viewLog);
     assertEquals("getPlayerInfo method called: Sanjana"
         + "setPlayerInfoDialog method called: 1234 6789", modelLog.toString());
+  }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testHandPlayerMouseClickEventWithException() {
+
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.handleGetPlayerInfo("");
+
+    modelLog.append(viewLog);
+    assertEquals("getPlayerInfo method for Exception called: Sanjana"
+        + "setPlayerInfoDialog method for exception called: 1234 6789", modelLog.toString());
   }
 
   @Test
@@ -127,6 +255,20 @@ public class ControllerClassTest {
     modelLog.append(viewLog);
     assertEquals("displayWorldSelectionScreen method called: 6789", modelLog.toString());
   }
+  
+  @Test
+  public void testMoveToWorldSelectionScreenWithException() {
+
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.moveToWorldSelectionScreen();
+
+    modelLog.append(viewLog);
+    assertEquals("displayWorldSelectionScreen method for exception called: 6789", 
+        modelLog.toString());
+  }
 
   @Test
   public void testMoveToGameScreen() {
@@ -135,6 +277,19 @@ public class ControllerClassTest {
     modelLog.append(viewLog);
     assertEquals("displayGameScreen method called: 6789", modelLog.toString());
   }
+  
+  @Test
+  public void testMoveToGameScreenWithException() {
+    
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.moveToGameScreen();
+    
+    modelLog.append(viewLog);
+    assertEquals("displayGameScreen method for exception called: 6789", modelLog.toString());
+  }
 
   @Test
   public void testMoveToAddPlayerScreen() {
@@ -142,6 +297,18 @@ public class ControllerClassTest {
 
     modelLog.append(viewLog);
     assertEquals("displayAddPlayerScreen method called: 6789", modelLog.toString());
+  }
+  
+  @Test
+  public void testMoveToAddPlayerScreenWithException() {
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.moveToAddPlayerScreen();
+
+    modelLog.append(viewLog);
+    assertEquals("displayAddPlayerScreen method for exception called: 6789", modelLog.toString());
   }
 
   @Test
@@ -154,6 +321,24 @@ public class ControllerClassTest {
         + "displayAddPlayerScreen method called: 6789", modelLog.toString());
 
   }
+  
+  @Test(expected = IllegalArgumentException.class)
+  public void testUpdateWorldWithException() {
+   
+    mockModelException = new MockModelException(modelLog, 1234);
+    mockViewException = new MockViewException(viewLog, 6789);
+    Features game1 = new BoardGameControllerImpl(mockModelException, mockViewException);
+    
+    game1.updateWorld("");
+    
+    modelLog.append(viewLog);
+    assertEquals("updateWorld method for Exception called: Sanjana 30 29"
+        + "setPlayerInfoDialog method for exception called: 1234 6789"
+        + "displayAddPlayerScreen method for exception called: 6789", modelLog.toString());
+
+  }
+ 
+  
   
   
 

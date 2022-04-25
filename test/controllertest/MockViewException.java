@@ -5,15 +5,14 @@ import controller.Features;
 import theworldview.BoardGameView;
 
 /**
- * This class mocks the view useful for
- * controller testing which checks if input is correct or not.
+ * This class mocks the view to test for controller exceptions.
  */
 public class MockViewException implements BoardGameView {
   private StringBuilder log;
   private final int uniquecode;
 
   /**
-   * Constructor of BoardGameMockVoew that initializes log
+   * Constructor of MockViewException that initializes log
    * and the uniquecode.
    *
    * @param log        to log the output
@@ -49,13 +48,6 @@ public class MockViewException implements BoardGameView {
   public void displayWorldSelectionScreen() {
     log.append(String.format("displayWorldSelectionScreen method for exception called: %d", 
         uniquecode));
-  }
-
-  @Override
-  public String getTurnsofPlayers(String playerName) {
-    log.append(String.format("getTurnsofPlayers method for exception called: %d %d", playerName, 
-        uniquecode));
-    return String.format("%s", uniquecode);
   }
 
   @Override
@@ -115,5 +107,17 @@ public class MockViewException implements BoardGameView {
   @Override
   public void ifPlayerAdded() {
     log.append(String.format("ifPlayerAdded method for exception called: %s", uniquecode));  
+  }
+
+  @Override
+  public void setTurnMessage(String turnMessage) {
+    log.append(String.format("setTurnMessage method for exception called: %s %d", 
+        turnMessage, uniquecode));  
+  }
+
+  @Override
+  public void setComputerPlayerMessage(String computerPlayerTurnMessage) {
+    log.append(String.format("setComputerPlayerMessage method for exception called: %s %d", 
+        computerPlayerTurnMessage, uniquecode));
   }
 }
