@@ -27,10 +27,9 @@ public interface Features {
    * the turn information from the model.
    *
    * @param playerName the name of the player.
-   * @return the next name of the player in the game.
    */
 
-  public String getTurns(String playerName);
+  public void getTurns(String playerName);
 
   /**
    * This method handles the keyPress events by creating objects for command
@@ -58,9 +57,8 @@ public interface Features {
    * that calls the functionality of the computer player present in the model.
    *
    * @param playerName the name of the computer player.
-   * @return the result of the action performed in the form of a string.
    */
-  public String playComputerPlayer(String playerName);
+  public void playComputerPlayer(String playerName);
 
   /**
    * This method handles the mouse click on the graphical representation of the
@@ -69,7 +67,7 @@ public interface Features {
    *
    * @param playerName the name of the player on which the click is performed.
    */
-  public void handlePlayerMouseClickEvent(String playerName);
+  public void handleGetPlayerInfo(String playerName);
 
   /**
    * This method calls the displayworldSelectionScreen in the view that removes

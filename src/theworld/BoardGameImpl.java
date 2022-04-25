@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import driver.RandomClass;
@@ -41,6 +43,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   private String neighbourinfo;
   private boolean isBackTrack;
   private String currentPlayerTurn;
+  private Map<Integer, Function<String, String>> computerActionMap;
   private int turns;
 
   /**
@@ -55,6 +58,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param targetpet        details of the target character pet
    * @param randomref        the variable of the type Random
    * @param turns            the maximum turns of the game
+ 
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
       List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
@@ -89,6 +93,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.listvisitednodes = new ArrayList<>();
     this.roomstack = new Stack<SpaceImpl>();
     this.isBackTrack = false;
+    this.computerActionMap = new HashMap<Integer, Function<String, String>>();
+//    this.computerActionMap.put(Integer.valueOf(1), (playername) -> {
+//    });
     this.turns = turns;
     this.neighboursstring = "";
     this.itemsstring = "";
@@ -131,8 +138,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     return this.turns;
   }
 
-  @Override
-  public List<SpaceImpl> getAllVisibleSpaces(SpaceImpl space) {
+  private List<SpaceImpl> getAllVisibleSpaces(SpaceInterface space) {
     if (space == null) {
       throw new IllegalArgumentException("Space cannot be null");
     } else {
@@ -323,7 +329,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   @Override
   public void createGraphicalRepresentation() {
     try {
-      
+
       this.bufferedimage = new BufferedImage(worldcoordinates.get(1) * 60,
           worldcoordinates.get(0) * 30, BufferedImage.TYPE_INT_RGB);
       this.graphics2d = (Graphics2D) this.bufferedimage.getGraphics();
@@ -531,8 +537,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             r = randomref.next(3);
           }
           List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
-          compplayerneighbours.stream().filter(d -> d.equals(this.targetpet.getCurrentRoom()))
-              .collect(Collectors.toList());
           if (r == 0) {
             this.compdisplaymessage = String.format("Turn of %s\n%s", playername,
                 this.lookAround(playername));
@@ -895,7 +899,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             roomlist.get(Integer.parseInt(itemattr[0])).getItems().add(demoitem);
           }
         }
-        
+
         if (spaceOverlap(roomlist)) {
           throw new IllegalStateException("Invalid Space dimensions as arguments");
         }
@@ -957,13 +961,14 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     BoardGameImpl that = (BoardGameImpl) o;
     return this.name.equals(that.name) && this.targetcharacter.equals(that.targetcharacter)
         && this.spacelist.equals(that.spacelist)
-        && this.worldcoordinates.equals(that.worldcoordinates);
+        && this.worldcoordinates.equals(that.worldcoordinates) && this.turns == that.turns
+        && this.targetpet.equals(that.targetpet);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.getName(), this.getTargetCharacterImpl(), this.worldcoordinates,
-        this.getTargetPetImpl(), this.getTurns());
+    return Objects.hash(this.name, this.targetcharacter, this.spacelist, this.worldcoordinates,
+        this.targetpet, this.turns);
   }
 
   @Override
@@ -983,5 +988,4 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     List<PlayerImpl> copy = new ArrayList<>(this.playerlist);
     return copy;
   }
-
 }

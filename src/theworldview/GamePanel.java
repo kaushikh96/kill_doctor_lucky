@@ -375,7 +375,7 @@ public class GamePanel extends JPanel {
    *         text area in the panel
    */
 
-  public String setPlayerIndexText() {
+  private String setPlayerIndexText() {
     StringBuilder sb = new StringBuilder();
     sb.append("PLAYER INDEX: \n");
     sb.append("T -> ");
@@ -408,12 +408,12 @@ public class GamePanel extends JPanel {
 
     label.removeMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handleGetPlayerInfo(readOnlyModel.getCurrentPlayerTurn());
       }
     });
     label.addMouseListener((MouseListener) new MouseAdapter() {
       public void mouseClicked(MouseEvent me) {
-        features.handlePlayerMouseClickEvent(readOnlyModel.getCurrentPlayerTurn());
+        features.handleGetPlayerInfo(readOnlyModel.getCurrentPlayerTurn());
       }
     });
   }

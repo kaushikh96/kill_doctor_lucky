@@ -1,8 +1,8 @@
 package theworld;
 
 /**
- * A Pet Interface represents the data of the pet and contains
- * the methods to related to the Pet operation.
+ * A Pet Interface represents the data of the pet and contains the methods to
+ * related to the Pet operation.
  */
 public interface PetInterface {
 

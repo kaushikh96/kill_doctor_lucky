@@ -26,8 +26,7 @@ public class Driver {
     
     if (args.length == 1) {
       throw new IllegalArgumentException("Maximum Number Of Game Turns must be specified");
-    }
-      
+    }     
     try {
       FileReader fr;
       StringBuilder inputdata = new StringBuilder();
@@ -42,12 +41,11 @@ public class Driver {
       }
       BoardGameImpl world = Builder.readfile(inputdata.toString(), turns);
       BoardGameView boardGameView = new BoardGameViewImpl("Board Game View", world);
-      world.createGraphicalRepresentation();
       new BoardGameControllerImpl(world, boardGameView).start();
     } catch (IOException e) {
-      System.err.println("File not found");
+      throw new IllegalArgumentException("File not found");
     } catch (IllegalArgumentException iae) {
-      System.err.println(iae.getMessage());
+      throw new IllegalArgumentException(iae.getMessage());
     }
   }
 }

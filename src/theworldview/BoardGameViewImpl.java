@@ -31,7 +31,7 @@ import theworld.SpaceImpl;
  * using features interface.
  */
 public class BoardGameViewImpl extends JFrame implements BoardGameView {
-  private ReadOnlyBoardGameModel readOnlyModel;
+  private final ReadOnlyBoardGameModel readOnlyModel;
   private WelcomePanel welcomePanel;
   private AddPlayerPanel addPlayerPanel;
   private GamePanel gamePanel;
@@ -46,6 +46,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   private String outputMessage;
   private String turnMessage;
   private boolean ifTurnsExecuted;
+  private String computerPlayerTurnMessage;
 
   /**
    * Constructor that initializes the readOnlyBoardGameModel to get the
@@ -67,6 +68,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.worldSelectionPanel = new WorldSelectionPanel(model);
     this.addPlayerPanel = new AddPlayerPanel(model);
     this.outputMessage = "Game Starts !! Execute the first turn !";
+    this.computerPlayerTurnMessage = "";
     this.gamePanel = new GamePanel(model, this.outputMessage, "");
 
     this.menuBar = new JMenuBar();
@@ -122,12 +124,13 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
         if (this.gamePanel != null) {
           this.remove(this.gamePanel);
         }
-        this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+        features.getTurns(readOnlyModel.getCurrentPlayerTurn());
         String turnmessage = this.turnMessage.split("PlayerType:")[1].trim().substring(0, 4);
         if ("true".equalsIgnoreCase(turnmessage)) {
+          features.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn());
           this.outputMessage = String.format("%s\n\n%s", this.outputMessage,
-              features.playComputerPlayer(readOnlyModel.getCurrentPlayerTurn()));
-          this.turnMessage = this.getTurnsofPlayers(readOnlyModel.getCurrentPlayerTurn());
+              this.computerPlayerTurnMessage);
+          features.getTurns(readOnlyModel.getCurrentPlayerTurn());
         }
       }
     }
@@ -143,14 +146,14 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     }
   }
 
-  @Override
-  public String getTurnsofPlayers(String playerName) {
-
-    if (playerName == null || "".equals(playerName)) {
-      throw new IllegalArgumentException("Current Player Name is null\n");
-    }
-    return features.getTurns(playerName);
-  }
+//  @Override
+//  public String getTurnsofPlayers(String playerName) {
+//
+//    if (playerName == null || "".equals(playerName)) {
+//      throw new IllegalArgumentException("Current Player Name is null\n");
+//    }
+//    features.getTurns(playerName);
+//  }
 
   @Override
   public void refresh() {
@@ -369,8 +372,24 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
   }
 
   @Override
+  public void setTurnMessage(String turnMessage) {
+    if (turnMessage == null) {
+      throw new IllegalArgumentException("Turn Message can't be null");
+    }
+    this.turnMessage = turnMessage;
+  }
+
+  @Override
   public void setIfTurnExecuted(boolean ifTurnExecuted) {
     this.ifTurnsExecuted = ifTurnExecuted;
+  }
+
+  @Override
+  public void setComputerPlayerMessage(String computerPlayerTurnMessage) {
+    if (this.computerPlayerTurnMessage == null) {
+      throw new IllegalArgumentException("computerPlayerTurnMessage can't be null");
+    }
+    this.computerPlayerTurnMessage = computerPlayerTurnMessage;
   }
 
   @Override

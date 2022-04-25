@@ -44,6 +44,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public List<Integer> getWorldCoordinates();
 
   /**
+<<<<<<< HEAD
    * Gets the neighbours of the room in the space.
    *
    * @param space the space object
@@ -80,14 +81,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * @return the name of current player.
    */
   public String getCurrentPlayerTurn();
-
-  /**
-   * This method creates a new world based on the uploaded text file.
-   *
-   * @param inputdata the input world data needed for creating the world.
-   * @return the string if the new wolrd has been created.
-   */
-  public String updateWorld(String inputdata);
 
   /**
    * This method returns the remaining turns in the game.

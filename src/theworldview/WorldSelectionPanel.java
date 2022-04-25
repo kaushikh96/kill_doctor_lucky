@@ -19,7 +19,6 @@ import theworld.ReadOnlyBoardGameModel;
 public class WorldSelectionPanel extends JPanel {
 
   private final ReadOnlyBoardGameModel readOnlyModel;
-  private BoardGameView view;
   private GridBagConstraints worldScreen;
   private JLabel imageLabel;
   private JLabel fileLabel;
