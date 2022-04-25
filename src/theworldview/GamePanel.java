@@ -51,7 +51,6 @@ public class GamePanel extends JPanel {
   private JPanel gamePanel;
   private JTextArea playersArea;
   private JTextArea turnInfoArea;
-  private GridBagConstraints game;
   private JTextArea turnResultArea;
   private String outputMessage;
   private String turnMessage;

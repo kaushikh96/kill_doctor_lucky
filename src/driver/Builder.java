@@ -2,7 +2,6 @@ package driver;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import theworld.BoardGameImpl;
 import theworld.ItemImpl;
 import theworld.PetImpl;
@@ -20,7 +19,7 @@ public class Builder {
    * object.
    *
    * @param inputdata data read from the text file for the world.
-   * @param turns the maximum number of turns of the game play.
+   * @param turns     the maximum number of turns of the game play.
    * @return the BoardgameImpl entity
    */
   public static BoardGameImpl readfile(String inputdata, int turns) {
@@ -106,10 +105,8 @@ public class Builder {
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
         PetImpl targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
         RandomClass randomref = new RandomClass();
-        BoardGameImpl world;
-        world = new BoardGameImpl(target, worldattributes1[2], roomlist, worldcoordinates,
-            targetpet, randomref, turns);
-
+        BoardGameImpl world = new BoardGameImpl(target, worldattributes1[2], roomlist,
+            worldcoordinates, targetpet, randomref, turns);
         return world;
       }
 

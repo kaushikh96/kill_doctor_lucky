@@ -21,9 +21,6 @@ public class WorldSelectionPanel extends JPanel {
   private final ReadOnlyBoardGameModel readOnlyModel;
   private GridBagConstraints worldScreen;
   private JLabel imageLabel;
-  private JLabel fileLabel;
-  private JButton currentWorld;
-  private JButton newWorld;
   private Features features;
   private JLabel textLabel;
 

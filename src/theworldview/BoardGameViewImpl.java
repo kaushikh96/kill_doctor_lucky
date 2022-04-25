@@ -146,15 +146,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     }
   }
 
-//  @Override
-//  public String getTurnsofPlayers(String playerName) {
-//
-//    if (playerName == null || "".equals(playerName)) {
-//      throw new IllegalArgumentException("Current Player Name is null\n");
-//    }
-//    features.getTurns(playerName);
-//  }
-
   @Override
   public void refresh() {
     repaint();
@@ -193,7 +184,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     Map<Character, Runnable> keyTypes = new HashMap<>();
     Map<Integer, Runnable> keyPresses = new HashMap<>();
     Map<Integer, Runnable> keyReleases = new HashMap<>();
-    
+
     KeyboardListener kbd = new KeyboardListener();
     kbd.setKeyTypedMap(keyTypes);
     kbd.setKeyReleasedMap(keyReleases);
@@ -201,26 +192,22 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     keyPresses.put(KeyEvent.VK_P, () -> {
       String itemName = this.showPickDialog();
       features.handleKeyPressEvent("PickItem", readOnlyModel.getCurrentPlayerTurn(), itemName);
-      this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_L, () -> {
       features.handleKeyPressEvent("LookAround", readOnlyModel.getCurrentPlayerTurn(), "");
-      this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_A, () -> {
       String itemname = this.showAttackDialog();
       features.handleKeyPressEvent("Attack", readOnlyModel.getCurrentPlayerTurn(), itemname);
-      this.displayGameScreen();
     });
 
     keyPresses.put(KeyEvent.VK_M, () -> {
       String roomName = this.showSpaceDialog();
       features.handleKeyPressEvent("MovePet", readOnlyModel.getCurrentPlayerTurn(), roomName);
-      this.displayGameScreen();
     });
-    
+
     kbd.setKeyPressedMap(keyPresses);
 
     this.addKeyListener(kbd);
@@ -322,7 +309,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
 
   @Override
   public void setOutputMessage(String outputMessage) {
-    
+
     if (outputMessage == null) {
       throw new IllegalArgumentException("Output Message is not null");
     }

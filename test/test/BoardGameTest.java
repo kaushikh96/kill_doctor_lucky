@@ -89,10 +89,12 @@ public class BoardGameTest {
     boardgame.addPlayer("comp2", space4.getName(), 3, playeritem, false);
     boardgame.addPlayer("Remo", space5.getName(), 3, playeritem, false);
     boardgame.addPlayer("Jizo", space6.getName(), 3, playeritem, false);
-    boardgame.addPlayer("Alzo", space7.getName(), 3, playeritem, false);
+    boardgame.addPlayer("Alzo", space7.getName(), 3, playeritem1, false);
     boardgame3.addPlayer("Sanjana", space4.getName(), 2, playeritem1, true);
     boardgame3.addPlayer("comp2", space.getName(), 2, playeritem1, true);
+    boardgame3.addPlayer("comp3", space.getName(), 2, playeritem1, true);
     boardgame4.addPlayer("comp3", space.getName(), 2, playeritem1, true);
+    boardgame4.addPlayer("comp5", space.getName(), 2, playeritem1, true);
 
   }
 
@@ -201,45 +203,6 @@ public class BoardGameTest {
   }
 
   @Test
-  public void testGetAllNeighbours() {
-
-    List<Integer> coordinates = new ArrayList<>();
-    coordinates.add(0);
-    coordinates.add(0);
-    coordinates.add(5);
-    coordinates.add(3);
-
-    List<ItemImpl> items4 = new ArrayList<>();
-    items4.add(new ItemImpl(6, "Sofa Edge"));
-
-    List<Integer> coordinates1 = new ArrayList<>();
-    coordinates1.add(0);
-    coordinates1.add(4);
-    coordinates1.add(7);
-    coordinates1.add(5);
-
-    List<ItemImpl> items1 = new ArrayList<>();
-    items1.add(new ItemImpl(7, "Divider"));
-
-    List<Integer> coordinates2 = new ArrayList<>();
-    coordinates2.add(6);
-    coordinates2.add(0);
-    coordinates2.add(11);
-    coordinates2.add(2);
-
-    List<ItemImpl> items2 = new ArrayList<>();
-    items2.add(new ItemImpl(6, "Pesticide"));
-    SpaceImpl space2 = new SpaceImpl(1, coordinates2, "Music Room", items2);
-    SpaceImpl space1 = new SpaceImpl(0, coordinates1, "Drawing Room", items1);
-    List<SpaceImpl> neighbourspaces = new ArrayList<>();
-    neighbourspaces.add(space2);
-    neighbourspaces.add(space1);
-    SpaceImpl space = new SpaceImpl(5, coordinates, "Living Room", items4);
-    assertEquals("Valid Arguments", neighbourspaces.toString(),
-        boardgame.getAllVisibleSpaces(space).toString());
-  }
-
-  @Test
   public void testGetRoomInfo() {
     List<ItemImpl> items = new ArrayList<>();
 
@@ -304,8 +267,8 @@ public class BoardGameTest {
     coordinates1.add(11);
     coordinates1.add(10);
 
-    // System.out.println(boardgame.movePlayer(2, 11));
-    assertEquals("Garden", boardgame.movePlayer(2, 11));
+    assertEquals("Executed Move: \n" + "Alzo has been moved to Keeping Room",
+        boardgame.movePlayer(16, 12));
   }
 
   @Test(expected = IllegalStateException.class)
@@ -451,9 +414,8 @@ public class BoardGameTest {
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
     RandomClass rclass = new RandomClass(2);
     assertEquals("Valid Arguments",
-        "Executed Move Pet: Pet has been moved to Garden\n"
-            + "Target Character Current Room: Music Room\n" + "",
-        boardgame.playTurnComputerPlayer("comp1"));
+        "Turn of comp2\n" + "Executed Move:\n" + "Player has moved to Kitchen\n" + "",
+        boardgame3.playTurnComputerPlayer("comp2"));
   }
 
   @Test
@@ -1227,8 +1189,7 @@ public class BoardGameTest {
     PlayerImpl player = new PlayerImpl("John", space, 2, playeritem, false);
     RandomClass rclass = new RandomClass(2);
     assertEquals("Valid Arguments",
-        "Executed Move Pet: Pet has been moved to Garden\n"
-            + "Target Character Current Room: Music Room\n" + "",
+        "Turn of comp3\n" + "Executed Move:\n" + "Player has moved to Kitchen\n" + "",
         boardgame3.playTurnComputerPlayer("comp3"));
   }
 
@@ -1257,29 +1218,10 @@ public class BoardGameTest {
 
   @Test
   public void testDisplaytargetLocationforEachturn() {
-    assertEquals("Valid Arguments", "Dining Room", boardgame.movePlayer(1, 7));
+    assertEquals("Valid Arguments", "Music Room", boardgame.getNextTargetCharacterRoom());
+    boardgame.pickItem("Alzo", "Axle");
+    assertEquals("Valid Arguments", "Laundry Room", boardgame.getNextTargetCharacterRoom());
 
-    assertEquals("Valid Arguments", "Garden", boardgame.pickItem("David", "Big Red Hammer"));
-
-    assertEquals("Valid Arguments",
-        "Pet has been moved to Library\nTarget Character Current Room: Laundry Room\n",
-        boardgame.movePet("Library"));
-
-    assertEquals("Valid Arguments",
-        "LookAround (Name: Dining Room;\n" + " Items: Glass cutter, Trowel;\n"
-            + " Players: John, comp1;\n" + " Neighbours: Drawing Room, Kitchen, Garden, Pantry)\n"
-            + "\n" + "\n" + "Neighbours: \n"
-            + "(Name: Drawing Room; Items: Divider; Players: comp2)\n"
-            + "(Name: Kitchen; Items: Bad Cream; Players: No players available)\n"
-            + "(Name: Garden; Items: No items available; Players: David)\n"
-            + "(Name: Pantry; Items: No items available; Players: No players available)\n"
-            + "Target Character Current Room: Sunroom\n" + "",
-        boardgame.lookAround("John"));
-
-    assertEquals("Valid Arguments",
-        "Target Character attack stopped as the attack is being seen by other players.\n"
-            + "Target Character Current Room: Living Room\n" + "",
-        boardgame.attackTarget("remo", "poke"));
   }
 
   @Test
@@ -1306,6 +1248,26 @@ public class BoardGameTest {
         "Turn of comp3\n" + "Target Character attack stopped as the \n"
             + "attack is being seen by other players.\n" + "",
         boardgame.playTurnComputerPlayer("comp3"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidUpdateWorld() {
+
+    String mansiondimensions = "25 16 Max's Villa\n" + "1 Dr.Max\n" + "Fortune the cat\n" + "20\n"
+        + "0 4 7 5 Drawing Room\n" + "6 0 11 2 Music Room\n" + "4 9 11 10 Garden\n"
+        + "12 9 19 10 Laundry Room\n" + "20 9 24 11 Sunroom\n" + "0 0 5 3 Living Room\n"
+        + "1 6 7 8 Dining Room\n" + "1 9 3 12 Pantry\n" + "12 1 16 2 Attic\n" + "0 13 3 15 Parlor\n"
+        + "17 0 22 3 Powder Room\n" + "4 11 10 15 Library\n" + "15 4 22 8 Gym\n"
+        + "8 6 14 8 Kitchen\n" + "11 11 19 13 Keeping Room\n" + "20 12 24 13 Root Cellar\n"
+        + "23 2 24 4 Wine Cellar\n" + "8 3 10 5 Washroom\n" + "11 3 14 5 Playzone\n"
+        + "11 14 24 15 Nursery\n" + "19\n" + "8 5 Sharp Knife\n" + "0 7 Divider\n"
+        + "1 6 Pesticide\n" + "15 3 Axle\n" + "3 8 Pointed table\n" + "4 2 Drying fan\n"
+        + "5 6 Sofa Edge\n" + "6 5 Glass cutter\n" + "14 4 Billiard Cue\n" + "12 2 Rat Poison\n"
+        + "6 2 Trowel\n" + "2 4 Big Red Hammer\n" + "16 2 Pinking Shears\n" + "10 3 Duck Decoy\n"
+        + "13 2 Bad Cream\n" + "18 2 Monkey Hand\n" + "11 2 Tight Hat\n" + "17 2 Piece of Rope\n"
+        + "9 3 Silken Cord";
+
+    boardgame.updateWorld(mansiondimensions);
   }
 
   @Test
@@ -1345,7 +1307,7 @@ public class BoardGameTest {
 
   @Test
   public void testMovePetDfsMoveSpace() {
-    boardgame.movePlayer(4, 3);
+    boardgame.movePlayer(16, 12);
     assertEquals("Valid Arguments", "Garden", boardgame.petMovementDfs("Library"));
   }
 
@@ -1395,7 +1357,7 @@ public class BoardGameTest {
     boardgame.movePet("Music Room");
     boardgame.attackTarget("Rohith", "Crepe Pan");
     assertEquals("Valid Arguments",
-        "Player Info (Name: Rohith; Current Room: Music Room; Items: Pesticide)\n" + "",
+        "Player Info (Name: Rohith; Current Room: Music Room; Items: Pesticide, Crepe Pan)\n" + "",
         boardgame.getPlayerInfo("Rohith"));
   }
 
@@ -1412,17 +1374,17 @@ public class BoardGameTest {
   @Test
   public void testEquals() {
     assertTrue(boardgame.equals(boardgame));
-    assertTrue(boardgame.equals(new BoardGameImpl(world.getTargetCharacterImpl(), world.getName(),
-        world.getSpaceList(), world.getWorldCoordinates(), world.getTargetPetImpl(),
-        world.getRandomClassRef(), world.getTurns())));
-    assertFalse(boardgame.equals(boardgame2));
+    assertTrue(boardgame.equals(
+        new BoardGameImpl(world.getTargetCharacterImpl(), world.getName(), world.getSpaceList(),
+            world.getWorldCoordinates(), world.getTargetPetImpl(), randomref, world.getTurns())));
+    assertFalse(boardgame.equals(boardgame4));
   }
 
   @Test
   public void testHashCode() {
     assertEquals(boardgame.hashCode(),
         new BoardGameImpl(world.getTargetCharacterImpl(), world.getName(), world.getSpaceList(),
-            world.getWorldCoordinates(), world.getTargetPetImpl(), world.getRandomClassRef(),
-            world.getTurns()).hashCode());
+            world.getWorldCoordinates(), world.getTargetPetImpl(), randomref, world.getTurns())
+                .hashCode());
   }
 }

@@ -1,5 +1,6 @@
 package theworld;
 
+import driver.RandomClass;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -12,11 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-import driver.RandomClass;
 
 /**
  * This class represents a BoardGameImplementation.
@@ -43,7 +42,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
   private String neighbourinfo;
   private boolean isBackTrack;
   private String currentPlayerTurn;
-  private Map<Integer, Function<String, String>> computerActionMap;
+  private Map<Integer, Function<PlayerImpl, String>> computerActionMap;
   private int turns;
 
   /**
@@ -58,7 +57,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param targetpet        details of the target character pet
    * @param randomref        the variable of the type Random
    * @param turns            the maximum turns of the game
- 
+   * 
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
       List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
@@ -93,9 +92,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.listvisitednodes = new ArrayList<>();
     this.roomstack = new Stack<SpaceImpl>();
     this.isBackTrack = false;
-    this.computerActionMap = new HashMap<Integer, Function<String, String>>();
-//    this.computerActionMap.put(Integer.valueOf(1), (playername) -> {
-//    });
     this.turns = turns;
     this.neighboursstring = "";
     this.itemsstring = "";
@@ -104,6 +100,38 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.compdisplaymessage = "";
     this.neighbourinfo = "";
     this.currentPlayerTurn = "";
+    this.computerActionMap = new HashMap<Integer, Function<PlayerImpl, String>>();
+    this.computerActionMap.put(Integer.valueOf(0), (player) -> {
+      return String.format("Turn of %s\n%s", player.getName(), this.lookAround(player.getName()));
+    });
+    this.computerActionMap.put(Integer.valueOf(1), (player) -> {
+      List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
+      int chooseroom = randomref.next(compplayerneighbours.size());
+      String selectedroom = compplayerneighbours.get(chooseroom).getName();
+      player.movePlayer(compplayerneighbours, selectedroom);
+      this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+      this.getNextTargetCharacterRoom();
+      return String.format("Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", player.getName(),
+          selectedroom);
+    });
+    this.computerActionMap.put(Integer.valueOf(2), (player) -> {
+      List<SpaceImpl> copyspacelist = this.getSpaceList();
+      copyspacelist.remove(this.targetpet.getCurrentRoom());
+      int chooseroom = randomref.next(copyspacelist.size());
+      this.targetpet.movepet(this.getSpaceList().get(chooseroom));
+      this.getNextTargetCharacterRoom();
+      return String.format("Executed Move Pet: Pet has been moved to %s\n",
+          this.getSpaceList().get(chooseroom).getName());
+    });
+    this.computerActionMap.put(Integer.valueOf(3), (player) -> {
+      int chosenitem = randomref.next(player.getItems().size());
+      String selecteditem = player.getItems().get(chosenitem).getName();
+      player.pickItem(selecteditem);
+      this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+      this.getNextTargetCharacterRoom();
+      return String.format("Turn of %s\nExecuted Pick Item:\nPlayer has picked up %s\n",
+          player.getName(), selecteditem);
+    });
   }
 
   @Override
@@ -214,7 +242,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         neighboursstring = neighboursstring + ", " + t.getName();
       });
       neighboursstring = neighboursstring.substring(2);
-      
+
       List<SpaceImpl> neighborsCopy = new ArrayList<SpaceImpl>(neighbours);
       return neighborsCopy;
     }
@@ -536,36 +564,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
           } else {
             r = randomref.next(3);
           }
-          List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
-          if (r == 0) {
-            this.compdisplaymessage = String.format("Turn of %s\n%s", playername,
-                this.lookAround(playername));
-          } else if (r == 1) {
-            int chooseroom = randomref.next(compplayerneighbours.size());
-            String selectedroom = compplayerneighbours.get(chooseroom).getName();
-            player.movePlayer(compplayerneighbours, selectedroom);
-            this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-            this.getNextTargetCharacterRoom();
-            this.compdisplaymessage = String.format(
-                "Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", playername, selectedroom);
-          } else if (r == 2) {
-            List<SpaceImpl> copyspacelist = this.getSpaceList();
-            copyspacelist.remove(this.targetpet.getCurrentRoom());
-            int chooseroom = randomref.next(copyspacelist.size());
-            this.targetpet.movepet(this.getSpaceList().get(chooseroom));
-            this.getNextTargetCharacterRoom();
-            this.compdisplaymessage = String.format("Executed Move Pet: Pet has been moved to %s\n",
-                this.getSpaceList().get(chooseroom).getName());
-          } else {
-            int chosenitem = randomref.next(itemlist.size());
-            String selecteditem = itemlist.get(chosenitem).getName();
-            player.pickItem(selecteditem);
-            this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-            this.getNextTargetCharacterRoom();
-            this.compdisplaymessage = String.format(
-                "Turn of %s\nExecuted Pick Item:\nPlayer has picked up %s\n", playername,
-                selecteditem);
-          }
+          this.compdisplaymessage = this.computerActionMap.get(r).apply(player);
         }
         return this.compdisplaymessage;
       } else {

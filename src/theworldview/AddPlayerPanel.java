@@ -60,7 +60,6 @@ public class AddPlayerPanel extends JPanel implements ItemListener {
   private JRadioButton computerType;
   private ButtonGroup groupType;
   private JTable playerTable;
-  private List<PlayerImpl> playerinfo;
   private String[] spaceNames;
   private String space;
   private List<PlayerImpl> playerlist;

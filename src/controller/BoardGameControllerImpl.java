@@ -130,9 +130,11 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
     try {
       this.actionMap.get(action).accept(playerName, itemName);
       this.view.setIfTurnExecuted(true);
+      this.view.displayGameScreen();
     } catch (IllegalStateException ise) {
       this.view.setOutputMessage(ise.getMessage());
       this.view.setIfTurnExecuted(false);
+      this.view.displayGameScreen();
     }
   }
 
