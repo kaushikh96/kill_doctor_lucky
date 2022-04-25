@@ -104,18 +104,17 @@ player’s turn through the controller.
 4. As the target character movement is being tracked in each turn, it is not included in the DisplayRoomInfo.
 5. During DFS after all the rooms are traversed it automatically starts mvoing from the first place it has started.
 6. Once a player executes the move pet turn, it automatically starts DFS from the current space for the subsequent turns.
-7. 
-
+7. Once the current world is choosen and then there is no option to choose a new world.
+8. If the attack on the target is either successful and successful it is still considered a turn.
+9. The players are labeled based on the colors of the icon.
 
 ### Limitations
 1. We would only know the location of a pet when Display Room Info command is executed.
 2. Players cannot be added to the game after the turn of a player has started.
 
-
 ### Citations
 
 Took references from stackoverflow for design related implementations. Also, GeeksforGeeks was a great source of information.
-https://www.geeksforgeeks.org/
 https://stackoverflow.com/
 https://docs.oracle.com/
 https://www.geeksforgeeks.org/creating-frames-using-swings-java/
