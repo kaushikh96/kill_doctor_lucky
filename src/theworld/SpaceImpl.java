@@ -24,7 +24,8 @@ public class SpaceImpl implements SpaceInterface {
    * @param items    Items in the room
    */
   public SpaceImpl(int roomid, List<Integer> location, String name, List<ItemImpl> items) {
-    if (roomid < 0) {
+
+    if (Math.round((float) roomid) < 0) {
       throw new IllegalArgumentException("Room id cannot be negative");
     }
     if (location.size() == 0 || location == null) {

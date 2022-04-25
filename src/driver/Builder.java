@@ -83,7 +83,6 @@ public class Builder {
           String[] itemattr = worldattributes[j].trim().split("\\s+");
 
           if (itemattr.length > 3) {
-
             for (int k = 3; k < itemattr.length; k++) {
               StringBuilder sb = new StringBuilder();
               sb.append(itemattr[2]);

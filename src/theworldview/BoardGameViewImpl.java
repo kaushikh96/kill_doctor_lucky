@@ -267,7 +267,8 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     return spaceName;
 
   }
-
+  
+  @Override
   public void ifPlayerAdded() {
     this.addPlayerPanel.addDataToTable();
     this.addPlayerPanel.resetFields();

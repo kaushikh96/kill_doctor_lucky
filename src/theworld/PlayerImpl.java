@@ -63,7 +63,7 @@ public class PlayerImpl implements PlayerInterface {
   @Override
   public List<ItemImpl> getItems() {
     List<ItemImpl> itemCopy = new ArrayList<>(this.items);
-    return itemCopy;
+    return this.items;
   }
 
   @Override

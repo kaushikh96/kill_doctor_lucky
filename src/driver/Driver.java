@@ -30,8 +30,8 @@ public class Driver {
     try {
       FileReader fr;
       StringBuilder inputdata = new StringBuilder();
-      String filepath = args[0];
-      int turns = Integer.parseInt(args[1]);
+      String filepath = "C:\\Users\\Kaushik\\eclipse-workspace\\cs5010-final-project-kaushik_sanjana_team\\res\\myworld.txt";//args[0];
+      int turns = 10;//Integer.parseInt(args[1]);
       fr = new FileReader(filepath);
       int data;
       while ((data = fr.read()) != -1) {
