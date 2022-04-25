@@ -1,5 +1,6 @@
 package theworld;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class PlayerImpl implements PlayerInterface {
   private final boolean isComputerPlayer;
 
   /**
-   * Constructor for PlayerImpl.
+   * Constructor for PlayerImpl that initializes the details of the player.
    *
    * @param name             name of the player
    * @param currentRoom      current space of the player
@@ -61,7 +62,8 @@ public class PlayerImpl implements PlayerInterface {
 
   @Override
   public List<ItemImpl> getItems() {
-    return this.items;
+    List<ItemImpl> itemCopy = new ArrayList<>(this.items);
+    return itemCopy;
   }
 
   @Override

@@ -20,18 +20,20 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * Constructor for the controller that initializes the BoardGameView object and
    * the BoardGameModel object.
    *
-   * @param view  the BoardGameView type object that is responsible for the visual
-   *              representation of the game and taking user inputs
    * @param model the BoardGameModel type object that is responsible for the
    *              actual functionality of the game.
+   * 
+   * @param view  the BoardGameView type object that is responsible for the visual
+   *              representation of the game and taking user inputs
    */
-  public BoardGameControllerImpl(BoardGameView view, BoardGameModel model) {
+  public BoardGameControllerImpl(BoardGameModel model, BoardGameView view) {
 
-    if (view == null || model == null) {
+    if (model == null || view == null) {
       throw new IllegalArgumentException("BoardGame model or BoardGameView can't be null");
     }
-    this.view = view;
+
     this.model = model;
+    this.view = view;
     this.actionMap = new HashMap<String, BiConsumer<String, String>>();
     this.actionMap.put(Action.ATTACK.toString(), (playerName, itemName) -> {
       GameController cmd = new AttackTarget(playerName, itemName);
@@ -60,10 +62,10 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
    * inputs.
    */
   public void start() throws IllegalStateException {
-    GameController cmd = new GraphicalRepresentation();
-    cmd.execute(model);
     view.setFeatures(this);
     view.makeVisible();
+    GameController cmd = new GraphicalRepresentation();
+    cmd.execute(model);
   }
 
   @Override
@@ -136,6 +138,10 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
 
   @Override
   public void handleMouseClickEvent(int x, int y) {
+
+    if (x < 0 || y < 0) {
+      throw new IllegalArgumentException("Co-ordinates can't be negative");
+    }
     try {
       GameController cmd = new MovePlayer(x, y);
       cmd.execute(model);
@@ -167,12 +173,21 @@ public class BoardGameControllerImpl implements BoardGameController, Features {
   }
 
   @Override
+  public void moveToAddPlayerScreen() {
+    this.view.displayAddPlayerScreen();
+  }
+
+  @Override
   public void moveToGameScreen() {
     this.view.displayGameScreen();
   }
 
   @Override
   public void updateWorld(String inputFileData) {
+
+    if (inputFileData == null || "".equals(inputFileData)) {
+      throw new IllegalArgumentException("Input File has no data in it");
+    }
     GameController cmd = new UpdateWorld(inputFileData);
     cmd.execute(model);
     this.view.setPlayerInfoDialog(cmd.getOutput());

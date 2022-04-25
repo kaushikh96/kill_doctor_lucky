@@ -56,10 +56,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
    * @param spacelist        list of spaces
    * @param worldcoordinates world coordinates
    * @param targetpet        details of the target character pet
-   * @param randomref        the variable of the type Random <<<<<<< HEAD
-   * @param turns            the maximum turns of the game =======
-   * @param turns            the maximum number of turns >>>>>>>
-   *                         8897d048e5da4533380c6f7e7177e443732955c7
+   * @param randomref        the variable of the type Random
+   * @param turns            the maximum turns of the game
+ 
    */
   public BoardGameImpl(TargetCharacterImpl target, String name, List<SpaceImpl> spacelist,
       List<Integer> worldcoordinates, PetImpl targetpet, RandomClass randomref, int turns) {
@@ -215,7 +214,9 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         neighboursstring = neighboursstring + ", " + t.getName();
       });
       neighboursstring = neighboursstring.substring(2);
-      return neighbours;
+      
+      List<SpaceImpl> neighborsCopy = new ArrayList<SpaceImpl>(neighbours);
+      return neighborsCopy;
     }
   }
 
@@ -987,5 +988,4 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     List<PlayerImpl> copy = new ArrayList<>(this.playerlist);
     return copy;
   }
-
 }

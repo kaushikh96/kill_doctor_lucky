@@ -12,7 +12,7 @@ public class DisplayPlayerInfo implements GameController {
 
   /**
    * Construct a DisplayPlayerInfo object that initializes the player name for which
-   * the player information needs to be displayes.
+   * the player information needs to be displays.
    *
    * @param playername the name of the player for displayer information.
    */

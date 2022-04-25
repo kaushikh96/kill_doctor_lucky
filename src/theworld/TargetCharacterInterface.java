@@ -30,7 +30,7 @@ public interface TargetCharacterInterface {
   public void decreaseHealth(int damage);
 
   /**
-   * Gets the targetcharacter current room.
+   * Gets the target character current room.
    *
    * @return the target current room
    */

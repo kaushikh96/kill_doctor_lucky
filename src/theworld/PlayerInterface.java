@@ -54,9 +54,9 @@ public interface PlayerInterface {
   public String getName();
 
   /**
-   * Gets the item capacity of the character.
+   * Gets the item capacity of the player.
    *
-   * @return get item capacity
+   * @return the item capacity of the player
    */
   public int getItemCapacity();
 

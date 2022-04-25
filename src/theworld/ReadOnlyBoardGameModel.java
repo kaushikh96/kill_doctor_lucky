@@ -10,56 +10,55 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
 
   /**
    * Gets the target character entity.
-   * 
+   *
    * @return the object of the target character
    */
   public TargetCharacterInterface getTargetCharacterImpl();
 
   /**
    * Gets the target pet entity.
-   * 
+   *
    * @return the object of the target pet
    */
   public PetInterface getTargetPetImpl();
 
   /**
    * Gets the world name.
-   * 
-   * 
+   *
    * @return the world name.
    */
   public String getName();
 
   /**
    * Gets the list of spaces in the world.
-   * 
+   *
    * @return the List of spaces
    */
   public List<SpaceImpl> getSpaceList();
 
   /**
    * Gets the world coordinates in the form of a list.
-   * 
+   *
    * @return the List of Integers
    */
   public List<Integer> getWorldCoordinates();
 
   /**
    * Gets the players of the room in the space.
-   * 
+   *
    * @return list of players in the world
    */
   public List<PlayerImpl> getPlayerList();
 
   /**
    * Gets the next location for the target character to move.
-   * 
+   *
    * @return string of the room the target character has moved to
    */
   public String getNextTargetCharacterRoom() throws IllegalStateException;
 
   /**
-   * Depth First Traversal logic.
+   * Method to move pet using Depth First Traversal logic.
    *
    * @param petcurrentroom name of the player
    * 
@@ -73,14 +72,6 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
    * @return the name of current player.
    */
   public String getCurrentPlayerTurn();
-
-  /**
-   * This method creates a new world based on the uploaded text file.
-   *
-   * @param inputdata the input world data needed for creating the world.
-   * @return the string if the new wolrd has been created.
-   */
-  public String updateWorld(String inputdata);
 
   /**
    * This method returns the remaining turns in the game.

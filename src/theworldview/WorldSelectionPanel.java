@@ -25,6 +25,7 @@ public class WorldSelectionPanel extends JPanel {
   private JButton currentWorld;
   private JButton newWorld;
   private Features features;
+  private JLabel textLabel;
 
   /**
    * The constructor for the class that initializes the ReadOnlyBoardGameModel for the 
@@ -56,15 +57,18 @@ public class WorldSelectionPanel extends JPanel {
     this.worldScreen.anchor = GridBagConstraints.NORTH;
     this.worldScreen.insets = new Insets(50, 60, 0, 10);
 
-    this.fileLabel = new JLabel();
+    this.add(imageLabel, worldScreen);
 
+    this.textLabel = new JLabel("Please click on the menu on the TOP-LEFT to choose the world");
+    
     this.worldScreen.gridx = 0;
     this.worldScreen.gridy = 1;
     this.worldScreen.weightx = 1.0;
     this.worldScreen.weighty = 1.0;
     this.worldScreen.anchor = GridBagConstraints.NORTH;
     this.worldScreen.insets = new Insets(50, 60, 0, 10);
-    this.add(imageLabel, worldScreen);
+
+    this.add(textLabel, worldScreen);
   }
 
   /**

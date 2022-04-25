@@ -35,7 +35,6 @@ import theworld.ReadOnlyBoardGameModel;
 public class GamePanel extends JPanel {
 
   private final ReadOnlyBoardGameModel readOnlyModel;
-  private BoardGameView view;
   private JLabel imageLabel;
   private JLabel playerLabel1;
   private JLabel playerLabel2;
@@ -76,8 +75,6 @@ public class GamePanel extends JPanel {
    * current player and the action to display on the panel.
    *
    * @param readOnlyModel the readOnlyModel that has the functionality.
-   * @param view          the view that holds the panel and displays the panel to
-   *                      the user.
    * @param outputMessage the message of the action performed during the turn.
    * @param turnMessage   the message of the current turn including player
    *                      location and target location.
@@ -88,6 +85,14 @@ public class GamePanel extends JPanel {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
 
+    if (outputMessage == null) {
+      throw new IllegalArgumentException("Output message cannot be null");
+    }
+    
+    if (turnMessage == null) {
+      throw new IllegalArgumentException("Turn Message cannot be null");
+    }
+    
     this.readOnlyModel = readOnlyModel;
     this.turnMessage = turnMessage;
     this.outputMessage = outputMessage;
@@ -302,10 +307,12 @@ public class GamePanel extends JPanel {
   /**
    * This method sets the icon of the player added and positions the player in the
    * space.
-   *
+   * 
+   * @param playerLabel     the label of the player which needs to be associated to
+   *                        an icon and needs to be positioned.
    * @param player          the playerImpl object to the room coordinates the
    *                        player is currently at for positioning.
-   * @param iconUrl         the url that consits of the icon image that represnts
+   * @param iconUrl         the url that consists of the icon image that represents
    *                        the player.
    * @param ifAnotherPlayer this checks if another player is there in the current
    *                        space to adjust the player's positioning without

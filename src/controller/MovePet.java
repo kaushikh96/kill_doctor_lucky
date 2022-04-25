@@ -12,7 +12,8 @@ public class MovePet implements GameController {
   private String outputMessage;
 
   /**
-   * Construct a MovePet object that has the playername, roomtobemovedto.
+   * Construct a MovePet object that has the name of the player and the space 
+   * to move the pet to.
    *
    * @param playername the name of the current player
    * @param roomtobemovedto name of the room to be moved to

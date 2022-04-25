@@ -13,7 +13,8 @@ public class MovePlayer implements GameController {
   private String outputMessage;
 
   /**
-   * Construct a MoveSpace object that has the name of the player, roomtobemovedto.
+   * Construct a MoveSpace object that has the name of the player, the space 
+   * for the player to move.
    *
    * @param x the xcoordinate of the space the player needs to be move to.
    * @param y the ycoordinate of the space the player needs to be move to.

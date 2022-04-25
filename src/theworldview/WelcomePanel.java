@@ -3,24 +3,19 @@ package theworldview;
 import controller.Features;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import theworld.ReadOnlyBoardGameModel;
 
 /**
@@ -31,9 +26,7 @@ import theworld.ReadOnlyBoardGameModel;
 public class WelcomePanel extends JPanel {
 
   private final ReadOnlyBoardGameModel readonlymodel;
-  private JLabel title;
   private JButton startButton;
-  private BoardGameView view;
   private GridBagConstraints welcome;
   private JPanel welcomePanel;
   private Features features;
@@ -48,8 +41,8 @@ public class WelcomePanel extends JPanel {
   private StringBuilder sb2;
 
   /**
-   * Constructor for welcome panel class that intiializes the ReadOnlyBoardModel
-   * to get the functionality.
+   * Constructor for welcome panel class that initializes the ReadOnlyBoardModel to get
+   * the functionality.
    *
    * @param readonlymodel the ReadOnlyBoardModel type for getting the
    *                      functionality.
@@ -59,7 +52,6 @@ public class WelcomePanel extends JPanel {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
     }
     this.readonlymodel = readonlymodel;
-    // this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
     this.setBackground(new Color(137, 207, 240));
 
     this.setLayout(new BorderLayout());
@@ -72,10 +64,8 @@ public class WelcomePanel extends JPanel {
     this.coloredLabel1 = new JLabel(labelText1, JLabel.CENTER);
     this.coloredLabel1.setPreferredSize(new Dimension(550, 80));
     this.coloredLabel1.setBackground(Color.YELLOW);
-    // create a line border with the specified color and width
     this.border = BorderFactory.createLineBorder(Color.YELLOW, 2);
 
-    // set the border of this component
     coloredLabel1.setBorder(border);
     this.welcome.gridx = 0;
     this.welcome.gridy = 0;

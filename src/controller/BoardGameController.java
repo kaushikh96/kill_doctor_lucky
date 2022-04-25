@@ -6,8 +6,8 @@ package controller;
  */
 public interface BoardGameController {
   /**
-   * Starts the game and sends and process requests for the actions the user
-   * inputs.
+   * Starts the game and sends the process requests for the actions the user
+   * provide.
    */
   public void start() throws IllegalStateException;
 }
