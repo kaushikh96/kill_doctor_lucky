@@ -44,7 +44,7 @@ public interface ReadOnlyBoardGameModel extends BoardGameModel {
   public List<Integer> getWorldCoordinates();
 
   /**
-   * Gets the players of the room in the space.
+   * Gets the players in the game.
    *
    * @return list of players in the world
    */

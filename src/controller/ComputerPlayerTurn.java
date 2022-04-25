@@ -11,7 +11,7 @@ public class ComputerPlayerTurn implements GameController {
   private String outputMessage;
 
   /**
-   * Construct a ComputerPlayerTurn object that has the playername.
+   * Construct a ComputerPlayerTurn object that has the name of the player.
    * 
    *
    * @param playername name of the player

@@ -32,8 +32,6 @@ public class Driver {
       StringBuilder inputdata = new StringBuilder();
       String filepath = args[0];
       int turns = Integer.parseInt(args[1]);
-      Readable input = new InputStreamReader(System.in);
-      Appendable output = System.out;
       fr = new FileReader(filepath);
       int data;
       while ((data = fr.read()) != -1) {

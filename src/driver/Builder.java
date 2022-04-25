@@ -15,7 +15,7 @@ import theworld.TargetCharacterImpl;
 public class Builder {
 
   /**
-   * The readfile method is used to read the file data and get it in a world
+   * The readfile method is used to read the file data and parse the data it in a world
    * object.
    *
    * @param inputdata data read from the text file for the world.

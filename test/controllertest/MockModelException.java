@@ -3,6 +3,8 @@ package controllertest;
 import java.util.List;
 import theworld.BoardGameModel;
 import theworld.ItemImpl;
+import theworld.SpaceImpl;
+import theworld.SpaceInterface;
 
 /**
  * This is the class that handles model exception for controller
@@ -43,7 +45,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String lookAround(String playername) {
-    log.append(String.format("lookAround method called: %s", playername));
+    log.append(String.format("lookAround method for Exception called: %s", playername));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for look around");
@@ -55,7 +57,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String getPlayerInfo(String playername) {
-    log.append(String.format("getPlayerInfo method called: %s", playername));
+    log.append(String.format("getPlayerInfo method for Exception called: %s", playername));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for getPlayerInfo");
@@ -67,7 +69,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String getRoomInfo(String spacename) {
-    log.append(String.format("getRoomInfo method called: %s", spacename));
+    log.append(String.format("getRoomInfo method for Exception called: %s", spacename));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for getRoomInfo");
@@ -79,7 +81,8 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public void createGraphicalRepresentation() {
-    log.append(String.format("createGraphicalRepresentation method called: %d", uniquecode));
+    log.append(String.format("createGraphicalRepresentation method for Exception called: %d", 
+        uniquecode));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -93,7 +96,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String playTurnComputerPlayer(String playername) {
-    log.append(String.format("playTurnComputerPlayer method called: %s", playername));
+    log.append(String.format("playTurnComputerPlayer method for Exception called: %s", playername));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -106,7 +109,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String movePet(String spacename) {
-    log.append(String.format("movePet method called: %s", spacename));
+    log.append(String.format("movePet method for Exception called: %s", spacename));
    
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -118,7 +121,8 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String attackTarget(String playername, String itemname) {
-    log.append(String.format("attackTarget method called: %s %s", playername, itemname));
+    log.append(String.format("attackTarget method for Exception called: %s %s", 
+        playername, itemname));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -130,7 +134,8 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String getPlayerNextTurn(String currentplayername) {
-    log.append(String.format("getPlayerNextTurn method called: %s", currentplayername));
+    log.append(String.format("getPlayerNextTurn method for Exception called: %s", 
+        currentplayername));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -144,7 +149,8 @@ public class MockModelException implements BoardGameModel {
   public void addPlayer(String name, String currentRoom, int itemcapacity,
       List<ItemImpl> playeritems, boolean isComputerPlayer) {
     
-    log.append(String.format("add Player method called: %s %s %d %s %b %d", name, currentRoom, 
+    log.append(String.format("add Player method for Exception called: %s %s %d %s %b %d", 
+        name, currentRoom, 
         itemcapacity, playeritems.toString(), isComputerPlayer, uniquecode));
     
     if ((uniquecode / 2) == 0) {
@@ -157,7 +163,7 @@ public class MockModelException implements BoardGameModel {
 
   @Override
   public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException {
-    log.append(String.format("movePlayer method called: %d %d %d", xcoordinate, 
+    log.append(String.format("movePlayer method for Exception called: %d %d %d", xcoordinate, 
         ycoordinate, uniquecode));
     
     if ((uniquecode / 2) == 0) {
@@ -171,7 +177,7 @@ public class MockModelException implements BoardGameModel {
   @Override
   public String updateWorld(String inputdata) {
     
-    log.append(String.format("updateWorld method called: %s", inputdata));
+    log.append(String.format("updateWorld method for Exception called: %s", inputdata));
     
     if ((uniquecode / 2) == 0) {
       throw new IllegalArgumentException("IllegalArgumentException called for"
@@ -180,4 +186,5 @@ public class MockModelException implements BoardGameModel {
       throw new IllegalStateException("IllegalStateException called for updateWorld");
     }
   }
+
 }

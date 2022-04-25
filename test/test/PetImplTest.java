@@ -42,7 +42,7 @@ public class PetImplTest {
 
   /**
    * Method to return a new object of PetImpl type.
-   * 
+   *
    * @param name        name of the pet
    * @param currentRoom current room of the pet
    * @return newly created object of PetImpl class

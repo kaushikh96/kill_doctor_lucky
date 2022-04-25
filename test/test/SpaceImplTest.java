@@ -39,7 +39,7 @@ public class SpaceImplTest {
 
   /**
    * Method to return a new object of SpaceImpl type.
-   * 
+   *
    * @param id       id of the space
    * @param location coordinates of the space
    * @param name     name of the space

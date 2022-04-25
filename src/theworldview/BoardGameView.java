@@ -116,8 +116,19 @@ public interface BoardGameView {
    * then resets the fields again on the panel for other data to be entered.
    */
   public void ifPlayerAdded();
+  
+  /**
+   * This method sets the current player turn message.
+   *
+   * @param turnMessage the turn message to be set.
+   */
 
   public void setTurnMessage(String turnMessage);
 
+  /**
+   * This method sets the computer Player action message.
+   *
+   * @param computerPlayerTurnMessage the message set for the computer player.
+   */
   public void setComputerPlayerMessage(String computerPlayerTurnMessage);
 }

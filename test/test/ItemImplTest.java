@@ -27,7 +27,7 @@ public class ItemImplTest {
 
   /**
    * Method to return a new object of ItemImpl type.
-   * 
+   *
    * @param damage damage of the item
    * @param name   name of the item
    * @return newly created object of ItemImpl class

@@ -78,7 +78,8 @@ public class GamePanel extends JPanel {
    * @param turnMessage   the message of the current turn including player
    *                      location and target location.
    */
-  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage, String turnMessage) {
+  public GamePanel(ReadOnlyBoardGameModel readOnlyModel, String outputMessage,
+      String turnMessage) {
 
     if (readOnlyModel == null) {
       throw new IllegalArgumentException("Read Only Model cannot be null.\n");
@@ -306,7 +307,7 @@ public class GamePanel extends JPanel {
   /**
    * This method sets the icon of the player added and positions the player in the
    * space.
-   * 
+   *
    * @param playerLabel     the label of the player which needs to be associated to
    *                        an icon and needs to be positioned.
    * @param player          the playerImpl object to the room coordinates the
@@ -381,10 +382,17 @@ public class GamePanel extends JPanel {
     sb.append(" (Target Character)");
     sb.append("\n");
     for (int i = 0; i < this.readOnlyModel.getPlayerList().size(); i++) {
-      sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
-      sb.append(" -> ");
-      sb.append(this.colorList.get(i));
-      sb.append("\n");
+      if (this.readOnlyModel.getPlayerList().get(i).isComputerPlayer()) {
+        sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
+        sb.append(" - (COMPUTER) -> ");
+        sb.append(this.colorList.get(i));
+        sb.append("\n");
+      } else {
+        sb.append(this.readOnlyModel.getPlayerList().get(i).getName());
+        sb.append(" -> ");
+        sb.append(this.colorList.get(i));
+        sb.append("\n");
+      }
     }
     return sb.toString();
   }

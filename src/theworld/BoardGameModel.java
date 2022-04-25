@@ -27,7 +27,7 @@ public interface BoardGameModel {
    * @param xcoordinate the xcoordinate of the space the player needs to be move to.
    * @param ycoordinate the ycoordinate of the space the player needs to be move to.
    * 
-   * @return the information about the action performed.
+   * @return the result of the action performed.
    */
   public String movePlayer(int xcoordinate, int ycoordinate) throws IllegalStateException;
 
@@ -116,4 +116,5 @@ public interface BoardGameModel {
    * @return the string if the new wolrd has been created.
    */
   public String updateWorld(String inputdata);
+  
 }
