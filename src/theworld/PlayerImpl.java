@@ -46,7 +46,7 @@ public class PlayerImpl implements PlayerInterface {
     this.name = name;
     this.currentRoom = currentRoom;
     this.itemCapacity = itemCapacity;
-    this.items = items;
+    this.items = new ArrayList<>(items);
     this.isComputerPlayer = isComputerPlayer;
   }
 
@@ -63,7 +63,7 @@ public class PlayerImpl implements PlayerInterface {
   @Override
   public List<ItemImpl> getItems() {
     List<ItemImpl> itemCopy = new ArrayList<>(this.items);
-    return this.items;
+    return itemCopy;
   }
 
   @Override

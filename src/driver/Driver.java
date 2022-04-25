@@ -19,19 +19,19 @@ public class Driver {
    * @param args command line arguments
    */
   public static void main(String[] args) {
-    
+
     if (args.length == 0) {
       throw new IllegalArgumentException("Pass the file to be parsed");
     }
-    
+
     if (args.length == 1) {
       throw new IllegalArgumentException("Maximum Number Of Game Turns must be specified");
-    }     
+    }
     try {
       FileReader fr;
       StringBuilder inputdata = new StringBuilder();
-      String filepath = "C:\\Users\\Kaushik\\eclipse-workspace\\cs5010-final-project-kaushik_sanjana_team\\res\\myworld.txt";//args[0];
-      int turns = 10;//Integer.parseInt(args[1]);
+      String filepath = args[0];
+      int turns = Integer.parseInt(args[1]);
       fr = new FileReader(filepath);
       int data;
       while ((data = fr.read()) != -1) {
