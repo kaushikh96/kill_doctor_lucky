@@ -1,6 +1,5 @@
 package theworld;
 
-import driver.RandomClass;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -12,10 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Stack;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
+
+import driver.RandomClass;
 
 /**
  * This class represents a BoardGameImplementation.
@@ -86,7 +88,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.targetpet = targetpet;
     this.name = name;
     this.spacelist = new ArrayList<>(spacelist);
-    this.worldcoordinates = new ArrayList<>(worldcoordinates);
+    this.worldcoordinates = worldcoordinates;
     this.playerlist = new ArrayList<>();
     this.randomref = randomref;
     this.listvisitednodes = new ArrayList<>();
@@ -100,38 +102,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
     this.compdisplaymessage = "";
     this.neighbourinfo = "";
     this.currentPlayerTurn = "";
-    this.computerActionMap = new HashMap<Integer, Function<PlayerImpl, String>>();
-    this.computerActionMap.put(Integer.valueOf(0), (player) -> {
-      return String.format("Turn of %s\n%s", player.getName(), this.lookAround(player.getName()));
-    });
-    this.computerActionMap.put(Integer.valueOf(1), (player) -> {
-      List<SpaceImpl> compplayerneighbours = this.getAllVisibleSpaces(player.getCurrentRoom());
-      int chooseroom = randomref.next(compplayerneighbours.size());
-      String selectedroom = compplayerneighbours.get(chooseroom).getName();
-      player.movePlayer(compplayerneighbours, selectedroom);
-      this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      this.getNextTargetCharacterRoom();
-      return String.format("Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", player.getName(),
-          selectedroom);
-    });
-    this.computerActionMap.put(Integer.valueOf(2), (player) -> {
-      List<SpaceImpl> copyspacelist = this.getSpaceList();
-      copyspacelist.remove(this.targetpet.getCurrentRoom());
-      int chooseroom = randomref.next(copyspacelist.size());
-      this.targetpet.movepet(this.getSpaceList().get(chooseroom));
-      this.getNextTargetCharacterRoom();
-      return String.format("Executed Move Pet: Pet has been moved to %s\n",
-          this.getSpaceList().get(chooseroom).getName());
-    });
-    this.computerActionMap.put(Integer.valueOf(3), (player) -> {
-      int chosenitem = randomref.next(player.getItems().size());
-      String selecteditem = player.getItems().get(chosenitem).getName();
-      player.pickItem(selecteditem);
-      this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
-      this.getNextTargetCharacterRoom();
-      return String.format("Turn of %s\nExecuted Pick Item:\nPlayer has picked up %s\n",
-          player.getName(), selecteditem);
-    });
   }
 
   @Override
@@ -371,7 +341,7 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
             (coord.get(3) - coord.get(1)) * 60 + 59, (coord.get(2) - coord.get(0)) * 30 + 29);
         this.graphics2d.drawString(s.getName(), coord.get(1) * 60 + 19, coord.get(0) * 30 + 29);
       });
-      File newfile = new File("res/rep.jpg");
+      File newfile = new File("rep.jpg");
       ImageIO.write(this.bufferedimage, "jpg", newfile);
     } catch (IOException io) {
       throw new IllegalArgumentException("Invalid buffer image");
@@ -541,7 +511,6 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
       List<PlayerImpl> playerlist = this.getPlayerList().stream()
           .filter(t -> t.getName().trim().equalsIgnoreCase(playername.trim()))
           .collect(Collectors.toList());
-
       if (!playerlist.isEmpty()) {
         PlayerImpl player = playerlist.get(0);
         String itemname = "poke";
@@ -557,21 +526,47 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         if ("poke".equalsIgnoreCase(itemname)) {
           this.compdisplaymessage = this.playComputerPlayerAttackTarget(playername, itemname);
         } else {
-          int chosenitem = randomref.next(player.getItems().size());
-          String selecteditem = player.getItems().get(chosenitem).getName();
-          this.compdisplaymessage = this.playComputerPlayerAttackTarget(player.getName(),
-              selecteditem);
+          if (player.getItems().size() > 0) {
+            this.compdisplaymessage = this.playComputerPlayerAttackTarget(player.getName(),
+                itemname);
+          } else {
+            this.compdisplaymessage = "False";
+          }
         }
         if ("False".equalsIgnoreCase(this.compdisplaymessage)) {
           int r;
           List<ItemImpl> itemlist = player.getCurrentRoom().getItems();
-          if (itemlist != null && itemlist.size() > 0
-              && player.getItemCapacity() != player.getItems().size()) {
-            r = randomref.next(4);
+          if (itemlist != null && itemlist.size() > 0) {
+            if (player.getItemCapacity() == player.getItems().size()) {
+              r = this.randomref.next(2);
+            } else {
+              r = this.randomref.next(3);
+            }
           } else {
-            r = randomref.next(3);
+            r = this.randomref.next(2);
           }
-          this.compdisplaymessage = this.computerActionMap.get(r).apply(player);
+          if (r == 0) {
+            this.compdisplaymessage = String.format("Turn of %s\n%s", player.getName(),
+                this.lookAround(player.getName()));
+          } else if (r == 1) {
+            List<SpaceImpl> compplayerneighbours = this
+                .getAllVisibleSpaces(player.getCurrentRoom());
+            String selectedroom = compplayerneighbours.get(0).getName();
+            player.movePlayer(compplayerneighbours, selectedroom);
+            this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+            this.getNextTargetCharacterRoom();
+            this.compdisplaymessage = String.format(
+                "Turn of %s\nExecuted Move:\nPlayer has moved to %s\n", player.getName(),
+                selectedroom);
+          } else {
+            String selecteditem = player.getCurrentRoom().getItems().get(0).getName();
+            player.pickItem(selecteditem);
+            this.petMovementDfs(this.targetpet.getCurrentRoom().getName());
+            this.getNextTargetCharacterRoom();
+            this.compdisplaymessage = String.format(
+                "Turn of %s\nExecuted Pick Item:\nPlayer has picked up %s\n", player.getName(),
+                selecteditem);
+          }
         }
         return this.compdisplaymessage;
       } else {
@@ -933,15 +928,15 @@ public class BoardGameImpl implements ReadOnlyBoardGameModel {
         if (spaceOverlap(roomlist)) {
           throw new IllegalStateException("Invalid Space dimensions as arguments");
         }
-        this.createGraphicalRepresentation();
+
         this.targetcharacter = new TargetCharacterImpl(worldattributes2[1],
             Integer.parseInt(worldattributes2[0]), roomlist.get(0));
         this.name = worldattributes1[2];
         this.spacelist = roomlist;
         this.worldcoordinates = worldcoordinates;
         this.targetpet = new PetImpl(worldattributes[2], roomlist.get(0));
-        this.randomref = new RandomClass();
         this.playerlist = new ArrayList<>();
+        this.createGraphicalRepresentation();
         return String.format("World successfully updated");
       }
     } catch (ArrayIndexOutOfBoundsException iob) {

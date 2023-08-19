@@ -64,7 +64,6 @@ public class GamePanel extends JPanel {
   private String targetInfo;
   private JScrollPane turnInfoPane;
   private JScrollPane turnResultPane;
-
   private Map<Integer, Consumer<PlayerImpl>> playerMap;
 
   /**
@@ -113,11 +112,11 @@ public class GamePanel extends JPanel {
     this.gamePanel = new JPanel();
     this.gamePanel.setBackground(new Color(137, 207, 240));
 
-    this.imageLabel = new JLabel(new ImageIcon("res/rep.jpg"));
+    this.imageLabel = new JLabel(new ImageIcon("rep.jpg"));
 
     this.imageLabel.setLayout(null);
 
-    this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("res/targetcharacter.jpg").getImage()
+    this.targetLabel = new JLabel(new ImageIcon(new ImageIcon("targetcharacter.jpg").getImage()
         .getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH)));
 
     this.targetLabel.setBounds(
@@ -273,7 +272,7 @@ public class GamePanel extends JPanel {
 
     this.turnResultArea.setForeground(Color.WHITE);
 
-    this.turnResultArea.setPreferredSize(new Dimension(500, 500));
+    this.turnResultArea.setPreferredSize(new Dimension(500, 900));
     this.turnResultArea.setMinimumSize(new Dimension(100, 100));
     this.turnResultPane = new JScrollPane(this.turnResultArea);
     this.infoPanel.add(turnResultPane);
@@ -282,6 +281,8 @@ public class GamePanel extends JPanel {
     this.resetFocus();
     this.gamePanel.setFocusable(true);
     this.gamePanel.requestFocus();
+    this.infoPanel.setFocusable(true);
+    this.infoPanel.requestFocus();
     this.revalidate();
   }
 
@@ -321,11 +322,11 @@ public class GamePanel extends JPanel {
   private JLabel getPlayerJlabel(JLabel playerLabel, PlayerImpl player, String iconUrl,
       boolean ifAnotherPlayer) {
 
-    if (player == null || iconUrl == null || playerLabel == null) {
+    if (player == null || iconUrl == null) {
       throw new IllegalArgumentException("IconUrl and player cannot be null");
     }
-    playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("res/%s", iconUrl))
-        .getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
+    playerLabel = new JLabel(new ImageIcon(new ImageIcon(String.format("%s", iconUrl)).getImage()
+        .getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
     if (ifAnotherPlayer) {
       playerLabel.setBounds(player.getCurrentRoom().getRoomLocation().get(3) * 60 + 5,
           player.getCurrentRoom().getRoomLocation().get(2) * 30 + 5, 22, 22);

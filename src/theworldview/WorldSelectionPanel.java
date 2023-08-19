@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import theworld.ReadOnlyBoardGameModel;
@@ -44,7 +43,7 @@ public class WorldSelectionPanel extends JPanel {
 
     this.imageLabel = new JLabel();
 
-    this.imageLabel.setIcon(new ImageIcon(new ImageIcon("res/KillDoctorLucky_image.jpg").getImage()
+    this.imageLabel.setIcon(new ImageIcon(new ImageIcon("KillDoctorLucky_image.jpg").getImage()
         .getScaledInstance(1200, 700, java.awt.Image.SCALE_SMOOTH)));
 
     this.worldScreen.gridx = 0;

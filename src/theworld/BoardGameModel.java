@@ -113,7 +113,7 @@ public interface BoardGameModel {
    * This method creates a new world based on the uploaded text file.
    *
    * @param inputdata the input world data needed for creating the world.
-   * @return the string if the new wolrd has been created.
+   * @return the string if the new world has been created.
    */
   public String updateWorld(String inputdata);
   

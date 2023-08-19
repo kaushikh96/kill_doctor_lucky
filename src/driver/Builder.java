@@ -2,6 +2,8 @@ package driver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import theworld.BoardGameImpl;
 import theworld.ItemImpl;
 import theworld.PetImpl;
@@ -15,8 +17,8 @@ import theworld.TargetCharacterImpl;
 public class Builder {
 
   /**
-   * The readfile method is used to read the file data and parse the data it in a world
-   * object.
+   * The readfile method is used to read the file data and parse the data it in a
+   * world object.
    *
    * @param inputdata data read from the text file for the world.
    * @param turns     the maximum number of turns of the game play.

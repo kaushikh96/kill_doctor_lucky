@@ -69,7 +69,6 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.addPlayerPanel = new AddPlayerPanel(model);
     this.outputMessage = "Game Starts !! Execute the first turn !";
     this.computerPlayerTurnMessage = "";
-    this.gamePanel = new GamePanel(model, this.outputMessage, "");
 
     this.menuBar = new JMenuBar();
 
@@ -171,7 +170,7 @@ public class BoardGameViewImpl extends JFrame implements BoardGameView {
     this.welcomePanel.setFeatures(features);
     this.worldSelectionPanel.setFeatures(features);
     this.addPlayerPanel.setFeatures(features);
-    this.gamePanel.setFeatures(features);
+    //this.gamePanel.setFeatures(features);
     this.currentWorldItem.addActionListener(l -> features.moveToAddPlayerScreen());
     this.newWorldItem.addActionListener(l -> {
       String fileMessage = showFileUploadDialog();

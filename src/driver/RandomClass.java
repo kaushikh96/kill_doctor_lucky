@@ -23,7 +23,7 @@ public class RandomClass {
    * @param arr array of values
    */
   public RandomClass(int... arr) {
-    
+
     if (arr == null) {
       throw new IllegalArgumentException("Array of int's is null");
     }
